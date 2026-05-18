@@ -75,7 +75,6 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
         id={`${id}-telefone`}
         placeholder=" "
         required
-        pattern="[0-9 ()+.-]{10,}"
         inputmode="tel"
         autocomplete="tel"
         aria-describedby={`${id}-telefone-error`}
