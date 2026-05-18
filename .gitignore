@@ -29,3 +29,10 @@ data_expert_skills/
 
 # Astro
 .astro/
+
+# Local deployment secrets
+hostgator/
+*.pem
+*_rsa
+id_rsa
+id_rsa.pub

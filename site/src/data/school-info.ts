@@ -17,30 +17,30 @@ export const schoolInfo = {
     'O Colégio Villa Prime oferece educação infantil de excelência para crianças de 0 a 6 anos, combinando uma proposta pedagógica sólida, ambientes seguros e uma comunicação transparente com as famílias. Nossa missão é desenvolver cada criança em sua plenitude — cognitiva, emocional e social — em um ambiente acolhedor que respeita o ritmo único da infância.',
 
   // --- Contact ---
-  phone: '(11) 0000-0000',
-  phoneRaw: '+551100000000',
-  whatsapp: '5511000000000',
-  whatsappDisplay: '(11) 00000-0000',
+  phone: '(11) 2781-6984',
+  phoneRaw: '+551127816984',
+  whatsapp: '5511932343947',
+  whatsappDisplay: '(11) 93234-3947',
   email: 'contato@colegiovillaprime.com.br',
 
   // --- Address ---
   address: {
-    street: 'Rua a Definir',
-    number: 'S/N',
-    neighborhood: 'Zona Leste',
+    street: 'Av. Dedo de Deus',
+    number: '239',
+    neighborhood: 'Vila Formosa',
     city: 'São Paulo',
     state: 'SP',
     stateCode: 'SP',
-    zip: '00000-000',
+    zip: '03363-100',
     country: 'Brasil',
     countryCode: 'BR',
-    fullStreet: 'Rua a Definir, S/N — Zona Leste, São Paulo/SP',
+    fullStreet: 'Av. Dedo de Deus, 239 — Vila Formosa, São Paulo/SP',
   },
 
-  // --- Geolocation (placeholder — replace with real coordinates) ---
+  // --- Geolocation ---
   geo: {
-    latitude: -23.5505,
-    longitude: -46.6333,
+    latitude: -23.5640050,
+    longitude: -46.5384566,
   },
 
   // --- Social Networks ---
