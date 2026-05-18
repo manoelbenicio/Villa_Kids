@@ -1,13 +1,7 @@
 ---
 /**
  * @file Footer.astro
- * @description Site footer in 4 columns: Logo+About | Quick Links | Contact |
- *              Social. Gradient background primary-900 → primary-950 with a
- *              subtle accent halo. Copyright year is computed at build time.
- *
- * @author GEMINI-UX
- * @phase 2
- * @created 2026-05-17T20:49:00Z
+ * @description DS v3 dark premium 4-column footer.
  */
 import { schoolInfo, whatsappLink } from '../data/school-info.ts';
 import { footerQuickLinks, footerLegalLinks } from '../data/navigation.ts';
@@ -15,122 +9,59 @@ import { footerQuickLinks, footerLegalLinks } from '../data/navigation.ts';
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
+<footer class="footer site-footer">
   <div class="footer-glow" aria-hidden="true"></div>
 
-  <div class="footer-inner container">
-    <!-- Column 1: brand + about -->
+  <div class="container footer-grid">
     <div class="footer-brand">
-      <a class="footer-logo" href="/" aria-label={`${schoolInfo.name} — voltar à página inicial`}>
-        <span class="footer-logo-mark" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-            <path d="M6 26 16 6l10 20H6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="rgba(212, 169, 16, 0.18)"/>
-            <circle cx="16" cy="20" r="2.4" fill="currentColor"/>
-          </svg>
-        </span>
-        <span class="footer-logo-text">
-          <span class="footer-logo-name">Villa Prime</span>
-          <span class="footer-logo-tag">Educação Infantil</span>
-        </span>
+      <a class="footer-logo nav-logo" href="/" aria-label={`${schoolInfo.name} - voltar à página inicial`}>
+        <span class="footer-logo-mark" aria-hidden="true">★</span>
+        <span>Villa Prime</span>
       </a>
-      <p class="footer-about">{schoolInfo.shortDescription}</p>
+      <p class="footer-desc">{schoolInfo.shortDescription}</p>
       <p class="footer-tagline">{schoolInfo.tagline}.</p>
     </div>
 
-    <!-- Column 2: quick links -->
-    <nav class="footer-nav" aria-label="Links rápidos">
-      <h2 class="footer-heading">Navegação</h2>
-      <ul>
+    <nav aria-label="Links rápidos">
+      <h2 class="footer-title">Navegação</h2>
+      <ul class="footer-links">
         {footerQuickLinks.map((link) => (
-          <li>
-            <a href={link.href} class="footer-link">{link.label}</a>
-          </li>
+          <li><a href={link.href}>{link.label}</a></li>
         ))}
       </ul>
     </nav>
 
-    <!-- Column 3: contact -->
-    <div class="footer-contact">
-      <h2 class="footer-heading">Contato</h2>
-      <ul>
-        <li>
-          <span class="footer-meta-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          </span>
-          <span>{schoolInfo.address.fullStreet}<br/>{schoolInfo.address.zip}</span>
-        </li>
-        <li>
-          <span class="footer-meta-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-          </span>
-          <a href={`tel:${schoolInfo.phoneRaw}`}>{schoolInfo.phone}</a>
-        </li>
-        <li>
-          <span class="footer-meta-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
-          </span>
-          <a href={`mailto:${schoolInfo.email}`}>{schoolInfo.email}</a>
-        </li>
-        <li>
-          <span class="footer-meta-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          </span>
-          <span>{schoolInfo.hours}</span>
-        </li>
+    <div>
+      <h2 class="footer-title">Contato</h2>
+      <ul class="footer-links footer-contact-links">
+        <li><span>📍 {schoolInfo.address.fullStreet}</span></li>
+        <li><a href={`tel:${schoolInfo.phoneRaw}`}>📞 {schoolInfo.phone}</a></li>
+        <li><a href={`mailto:${schoolInfo.email}`}>✉️ {schoolInfo.email}</a></li>
+        <li><span>🕐 {schoolInfo.hours}</span></li>
       </ul>
     </div>
 
-    <!-- Column 4: social + WhatsApp CTA -->
-    <div class="footer-social">
-      <h2 class="footer-heading">Acompanhe</h2>
-      <ul class="footer-socials">
+    <div>
+      <h2 class="footer-title">Acompanhe</h2>
+      <ul class="footer-links">
         {schoolInfo.social.instagram && (
-          <li>
-            <a
-              href={schoolInfo.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram do Colégio Villa Prime"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2" y="2" width="20" height="20" rx="5"/>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/>
-                <path d="M17.5 6.5h.01"/>
-              </svg>
-              <span>Instagram</span>
-            </a>
-          </li>
+          <li><a href={schoolInfo.social.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></li>
         )}
         {schoolInfo.social.facebook && (
-          <li>
-            <a
-              href={schoolInfo.social.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook do Colégio Villa Prime"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"/>
-              </svg>
-              <span>Facebook</span>
-            </a>
-          </li>
+          <li><a href={schoolInfo.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a></li>
         )}
       </ul>
-
       <a href={whatsappLink()} class="footer-whatsapp" target="_blank" rel="noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
         </svg>
-        <span>Conversar pelo WhatsApp</span>
+        <span>WhatsApp</span>
       </a>
     </div>
   </div>
 
   <div class="footer-bottom container">
-    <p class="footer-copyright">
-      © {currentYear} {schoolInfo.legalName}. Todos os direitos reservados.
-    </p>
+    <span>© {currentYear} {schoolInfo.legalName}. Todos os direitos reservados.</span>
     <ul class="footer-legal">
       {footerLegalLinks.map((link) => (
         <li><a href={link.href}>{link.label}</a></li>
@@ -140,250 +71,146 @@ const currentYear = new Date().getFullYear();
 </footer>
 
 <style>
-  .site-footer {
+  .footer {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    color: rgb(255 255 255 / 0.85);
-    background: linear-gradient(
-      180deg,
-      var(--color-primary-900) 0%,
-      var(--color-primary-950) 100%
-    );
-    padding-block: var(--space-20) var(--space-8);
+    color: #fff;
+    background: var(--vp-gray-900, #111827);
+    padding: var(--s-16, 4rem) 0 var(--s-8, 2rem);
     margin-top: auto;
   }
 
-  /* Subtle warm halo near the top-right corner */
   .footer-glow {
     position: absolute;
-    top: -20%;
-    right: -10%;
+    top: -30%;
+    right: -15%;
     width: 60%;
-    height: 80%;
-    background: radial-gradient(
-      ellipse at center,
-      rgb(212 169 16 / 0.16) 0%,
-      transparent 60%
-    );
+    height: 90%;
+    background: radial-gradient(ellipse at center, rgba(155, 89, 182, 0.28) 0%, transparent 62%);
     pointer-events: none;
     z-index: -1;
   }
 
-  /* --- Top grid (4 columns) --- */
-  .footer-inner {
+  .footer::before {
+    content: '';
+    position: absolute;
+    left: -12%;
+    bottom: -30%;
+    width: 44%;
+    height: 70%;
+    background: radial-gradient(ellipse at center, rgba(80, 227, 194, 0.14) 0%, transparent 64%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .footer-grid {
     display: grid;
-    grid-template-columns: 1.6fr 1fr 1.2fr 1fr;
-    gap: var(--space-10);
-    padding-bottom: var(--space-10);
-    border-bottom: 1px solid rgb(255 255 255 / 0.08);
-  }
-
-  @media (max-width: 1024px) {
-    .footer-inner {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .footer-inner {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
-  }
-
-  /* --- Column 1: brand --- */
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--s-12, 3rem);
+    margin-bottom: var(--s-12, 3rem);
   }
 
   .footer-logo {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--s-3, 0.75rem);
     color: #fff;
     text-decoration: none;
-    line-height: 1.1;
   }
 
   .footer-logo-mark {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    color: var(--color-accent-400);
-    background: rgb(212 169 16 / 0.12);
-    border: 1px solid rgb(212 169 16 / 0.32);
-    border-radius: var(--radius-md);
+    width: 42px;
+    height: 42px;
+    color: #fff;
+    background: var(--grad-magic, linear-gradient(135deg, #ff0080 0%, #9b59b6 50%, #50e3c2 100%));
+    border-radius: 50%;
+    box-shadow: 0 10px 28px rgba(155, 89, 182, 0.28);
   }
 
-  .footer-logo-mark svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .footer-logo-text {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .footer-logo-name {
+  .footer-logo span:last-child {
     font-family: var(--font-display);
-    font-size: var(--text-xl);
+    font-size: 22px;
     font-weight: 700;
     color: #fff;
   }
 
-  .footer-logo-tag {
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgb(255 255 255 / 0.55);
-  }
-
-  .footer-about {
-    margin: 0;
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    line-height: 1.65;
-    color: rgb(255 255 255 / 0.72);
-    max-width: 30rem;
+  .footer-desc {
+    max-width: 320px;
+    margin: var(--s-4, 1rem) 0 0;
+    color: var(--vp-gray-400, #9ca3af);
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 14px;
+    line-height: 1.7;
   }
 
   .footer-tagline {
-    margin: 0;
+    margin: var(--s-3, 0.75rem) 0 0;
+    color: var(--vp-cyan, #50e3c2);
     font-family: var(--font-display);
-    font-size: var(--text-base);
-    font-style: italic;
-    color: var(--color-accent-300);
+    font-size: 16px;
+    font-weight: 600;
   }
 
-  /* --- Headings + lists --- */
-  .footer-heading {
-    font-family: var(--font-sans);
-    font-size: var(--text-xs);
+  .footer-title {
+    margin: 0 0 var(--s-4, 1rem);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-accent-300);
-    margin: 0 0 var(--space-4);
   }
 
-  .footer-nav ul,
-  .footer-contact ul,
-  .footer-socials {
+  .footer-links,
+  .footer-legal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3, 0.75rem);
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
   }
 
-  .footer-link,
-  .footer-contact a,
-  .footer-socials a {
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    color: rgb(255 255 255 / 0.78);
-    text-decoration: none;
-    transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .footer-link:hover,
-  .footer-contact a:hover,
-  .footer-socials a:hover {
-    color: var(--color-accent-300);
-  }
-
-  .footer-link {
-    position: relative;
-    display: inline-block;
-  }
-
-  .footer-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 0;
-    height: 1px;
-    background-color: var(--color-accent-400);
-    transition: width 220ms cubic-bezier(0.32, 0.72, 0, 1);
-  }
-
-  .footer-link:hover::after {
-    width: 100%;
-  }
-
-  /* --- Contact list --- */
-  .footer-contact ul li {
-    display: flex;
-    gap: var(--space-3);
-    align-items: flex-start;
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    color: rgb(255 255 255 / 0.78);
+  .footer-links a,
+  .footer-links span {
+    color: var(--vp-gray-400, #9ca3af);
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 14px;
     line-height: 1.55;
+    text-decoration: none;
+    transition: color var(--t-fast, 200ms) ease;
   }
 
-  .footer-meta-icon {
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    color: var(--color-accent-300);
-    background: rgb(212 169 16 / 0.1);
-    border: 1px solid rgb(212 169 16 / 0.22);
-    border-radius: var(--radius-md);
-    margin-top: 2px;
+  .footer-links a:hover {
+    color: var(--vp-cyan, #50e3c2);
   }
 
-  .footer-meta-icon svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  /* --- Social --- */
-  .footer-socials a {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-  }
-
-  .footer-socials svg {
-    width: 18px;
-    height: 18px;
+  .footer-contact-links li {
+    max-width: 28ch;
   }
 
   .footer-whatsapp {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
-    margin-top: var(--space-4);
-    padding: 0.65rem 1rem;
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    font-weight: 600;
+    gap: var(--s-2, 0.5rem);
+    margin-top: var(--s-5, 1.25rem);
+    padding: 10px 18px;
     color: #fff;
-    background-color: #25d366;
-    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, #25d366 0%, var(--vp-green, #7ed321) 100%);
+    border-radius: var(--r-full, 9999px);
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 13px;
+    font-weight: 700;
     text-decoration: none;
-    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
-      background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 28px rgba(37, 211, 102, 0.22);
+    transition: transform var(--t-fast, 200ms) var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1));
   }
 
   .footer-whatsapp:hover {
-    transform: translateY(-1px);
-    background-color: #1ebe5a;
     color: #fff;
+    transform: translateY(-2px);
   }
 
   .footer-whatsapp svg {
@@ -391,48 +218,46 @@ const currentYear = new Date().getFullYear();
     height: 16px;
   }
 
-  /* --- Bottom row --- */
   .footer-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: var(--space-4);
-    padding-top: var(--space-6);
-    flex-wrap: wrap;
-  }
-
-  .footer-copyright {
-    margin: 0;
-    font-family: var(--font-sans);
-    font-size: var(--text-xs);
-    color: rgb(255 255 255 / 0.55);
+    gap: var(--s-4, 1rem);
+    padding-top: var(--s-8, 2rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--vp-gray-500, #6b7280);
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 13px;
   }
 
   .footer-legal {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: var(--space-4);
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--s-4, 1rem);
   }
 
   .footer-legal a {
-    font-family: var(--font-sans);
-    font-size: var(--text-xs);
-    color: rgb(255 255 255 / 0.55);
-    text-decoration: none;
-    transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--vp-gray-500, #6b7280);
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 13px;
   }
 
   .footer-legal a:hover {
-    color: var(--color-accent-300);
+    color: var(--vp-cyan, #50e3c2);
+  }
+
+  @media (max-width: 1024px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .footer-legal { justify-content: center; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .footer-link::after,
-    .footer-link,
-    .footer-contact a,
-    .footer-socials a,
+    .footer-links a,
     .footer-whatsapp,
     .footer-legal a { transition: none; }
     .footer-whatsapp:hover { transform: none; }

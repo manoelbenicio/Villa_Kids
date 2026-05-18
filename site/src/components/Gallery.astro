@@ -226,7 +226,7 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
   }
 
   .gallery-trigger:focus-visible {
-    outline: 2px solid var(--color-primary-500);
+    outline: 2px solid var(--vp-purple, #9b59b6);
     outline-offset: 4px;
     border-radius: var(--radius-xl);
   }
@@ -238,9 +238,9 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
     background: linear-gradient(
       135deg,
       rgb(255 255 255 / 0.6) 0%,
-      rgb(0 66 84 / 0.04) 100%
+      rgba(155, 89, 182, 0.04) 100%
     );
-    border: 1px solid var(--color-neutral-200);
+    border: 1px solid var(--vp-gray-200, #e5e7eb);
     border-radius: calc(var(--radius-xl) + 6px);
     box-shadow: var(--shadow-sm);
     transition:
@@ -252,7 +252,7 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
   .gallery-trigger:hover .gallery-shell {
     transform: translateY(-3px);
     box-shadow: var(--shadow-xl);
-    border-color: var(--color-primary-200);
+    border-color: var(--vp-purple-light, #d2b4de);
   }
 
   .gallery-trigger:active .gallery-shell {
@@ -267,7 +267,7 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
     width: 100%;
     overflow: hidden;
     border-radius: var(--radius-xl);
-    background-color: var(--color-neutral-100);
+    background-color: var(--vp-gray-100, #f3f4f6);
     box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.4);
   }
 
@@ -292,8 +292,8 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
     justify-content: center;
     background: linear-gradient(
       135deg,
-      rgb(0 66 84 / 0) 0%,
-      rgb(0 66 84 / 0.45) 100%
+      rgba(108, 52, 131, 0) 0%,
+      rgba(155, 89, 182, 0.45) 100%
     );
     opacity: 0;
     transition: opacity 300ms cubic-bezier(0.32, 0.72, 0, 1);
@@ -304,7 +304,7 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
     height: 44px;
     color: #fff;
     padding: 10px;
-    background-color: rgb(0 66 84 / 0.85);
+    background-color: rgba(108, 52, 131, 0.85);
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-lg);
     transform: scale(0.8);
@@ -322,7 +322,7 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
   .gallery-item figcaption {
     font-family: var(--font-sans);
     font-size: var(--text-sm);
-    color: var(--color-neutral-600);
+    color: var(--vp-gray-600, #4b5563);
     text-align: center;
     margin: 0;
   }
@@ -334,7 +334,7 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
     max-height: 92vh;
     margin: auto;
     padding: 0;
-    background: var(--color-primary-950);
+    background: var(--vp-gray-900, #111827);
     border: 0;
     border-radius: var(--radius-xl);
     box-shadow: 0 40px 80px -20px rgb(0 0 0 / 0.6);
@@ -343,7 +343,7 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
   }
 
   .lightbox::backdrop {
-    background: rgb(0 30 43 / 0.85);
+    background: rgba(17, 24, 39, 0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }

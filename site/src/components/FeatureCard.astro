@@ -1,16 +1,7 @@
 ---
 /**
  * @file FeatureCard.astro
- * @description Pillar/feature card with 64px accent icon, title (h3),
- *              description paragraph, and an optional inline link.
- *              Hover effect: lift + accent border + shadow upgrade.
- *
- *              `icon` is raw inline SVG (24x24 viewBox, currentColor).
- *              The wrapping figure sets the displayed size and color.
- *
- * @author GEMINI-UX
- * @phase 2
- * @created 2026-05-17T20:49:00Z
+ * @description DS v3 premium card using global `card` and `card-icon` classes.
  */
 
 export interface Props {
@@ -21,15 +12,21 @@ export interface Props {
   link?: string;
   /** Optional numeric stagger delay in ms (used for grid entrance). */
   delay?: number;
+  /** DS v3 icon color variant. */
+  tone?: 'purple' | 'green' | 'magenta' | 'orange' | 'cyan';
+  /** Glass treatment for cards rendered on dark or gradient sections. */
+  variant?: 'default' | 'glass';
 }
 
-const { title, description, icon, link, delay = 0 } = Astro.props;
+const { title, description, icon, link, delay = 0, tone, variant = 'default' } = Astro.props;
+const tones = ['purple', 'green', 'magenta', 'orange', 'cyan'] as const;
+const iconTone = tone ?? tones[Math.abs(Math.floor(delay / 60)) % tones.length];
 ---
 
-<article class="feature-card reveal" data-reveal-delay={delay} tabindex={link ? -1 : undefined}>
-  <figure class="feature-icon" set:html={icon} aria-hidden="true" />
-  <h3 class="feature-title">{title}</h3>
-  <p class="feature-description">{description}</p>
+<article class:list={['card', 'feature-card', variant === 'glass' ? 'glass-card' : '', 'reveal']} data-animate data-reveal-delay={delay} tabindex={link ? -1 : undefined}>
+  <figure class:list={['card-icon', iconTone]} set:html={icon} aria-hidden="true" />
+  <h3>{title}</h3>
+  <p>{description}</p>
   {link && (
     <a class="feature-link" href={link}>
       <span>Saiba mais</span>
@@ -50,134 +47,148 @@ const { title, description, icon, link, delay = 0 } = Astro.props;
 </article>
 
 <style>
-  .feature-card {
+  .card {
     position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    padding: var(--space-8);
-    background: var(--color-surface);
-    border: 1px solid var(--color-neutral-200);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-sm);
-    transition:
-      transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
-      border-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-    isolation: isolate;
+    gap: var(--s-3, 0.75rem);
+    padding: var(--s-8, var(--space-8));
+    background: #fff;
+    border: 1px solid var(--vp-gray-200, var(--color-neutral-200));
+    border-radius: var(--r-xl, 24px);
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.06));
+    transition: all var(--t-normal, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
   }
 
-  /* Subtle gradient halo on hover */
-  .feature-card::before {
+  .card::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      circle at top right,
-      rgb(246 201 31 / 0.08) 0%,
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--grad-magic, linear-gradient(135deg, #ff0080 0%, #9b59b6 50%, #50e3c2 100%));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--t-slow, 500ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
   }
 
-  .feature-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-xl);
-    border-color: var(--color-accent-200);
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl, 0 24px 48px rgba(0, 0, 0, 0.16));
   }
 
-  .feature-card:hover::before {
-    opacity: 1;
+  .card:hover::before {
+    transform: scaleX(1);
   }
 
-  /* --- Icon --- */
-  .feature-icon {
+  .card-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 64px;
-    height: 64px;
-    margin: 0 0 var(--space-2);
-    color: var(--color-accent-600);
-    background: linear-gradient(
-      135deg,
-      var(--color-accent-50) 0%,
-      var(--color-accent-100) 100%
-    );
-    border-radius: var(--radius-lg);
-    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    width: 56px;
+    height: 56px;
+    margin: 0 0 var(--s-2, 0.5rem);
+    border-radius: var(--r-lg, 16px);
+    color: var(--vp-purple, #9b59b6);
+    transition: transform var(--t-normal, 300ms) var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1));
   }
 
-  .feature-card:hover .feature-icon {
-    transform: scale(1.06) rotate(-3deg);
+  .card:hover .card-icon {
+    transform: scale(1.1) rotate(-3deg);
   }
 
-  .feature-icon :global(svg) {
-    width: 32px;
-    height: 32px;
+  .card-icon :global(svg) {
+    width: 30px;
+    height: 30px;
   }
 
-  /* --- Text --- */
-  .feature-title {
+  .card-icon.purple { color: var(--vp-purple, #9b59b6); background: rgba(155, 89, 182, 0.1); }
+  .card-icon.green { color: var(--vp-green-deep, #5ba018); background: rgba(126, 211, 33, 0.1); }
+  .card-icon.magenta { color: var(--vp-magenta, #ff0080); background: rgba(255, 0, 128, 0.08); }
+  .card-icon.orange { color: var(--vp-orange, #f5a623); background: rgba(245, 166, 35, 0.1); }
+  .card-icon.cyan { color: var(--vp-cyan-deep, #2db89b); background: rgba(80, 227, 194, 0.1); }
+
+  .glass-card,
+  :global(.section-dark) .feature-card,
+  :global(.section-purple) .feature-card {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+  }
+
+  .glass-card:hover,
+  :global(.section-dark) .feature-card:hover,
+  :global(.section-purple) .feature-card:hover {
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .glass-card h3,
+  .glass-card p,
+  :global(.section-dark) .feature-card h3,
+  :global(.section-purple) .feature-card h3 {
+    color: #fff;
+  }
+
+  :global(.section-dark) .feature-card p,
+  :global(.section-purple) .feature-card p,
+  .glass-card p {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .card h3 {
     font-family: var(--font-display);
-    font-size: var(--text-2xl);
-    color: var(--color-primary-800);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--vp-gray-900, var(--color-neutral-900));
     margin: 0;
-    line-height: 1.2;
   }
 
-  .feature-description {
-    font-family: var(--font-sans);
-    font-size: var(--text-base);
-    color: var(--color-neutral-600);
-    line-height: 1.65;
-    margin: 0;
+  .card p {
     flex: 1;
+    margin: 0;
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--vp-gray-500, var(--color-neutral-600));
   }
 
-  /* --- Inline link --- */
   .feature-link {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    margin-top: var(--space-2);
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-primary-600);
-    transition: gap 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: var(--s-2, 0.5rem);
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--vp-purple, #9b59b6);
+    transition: gap var(--t-fast, 200ms) var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1));
+  }
+
+  .feature-link:hover {
+    gap: 0.65rem;
+    color: var(--vp-purple-deep, #6c3483);
   }
 
   .feature-link svg {
     width: 1em;
     height: 1em;
-    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .feature-link:hover {
-    color: var(--color-primary-800);
-    gap: 0.65rem;
-  }
-
-  .feature-link:hover svg {
-    transform: translateX(2px);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .feature-card,
-    .feature-icon,
-    .feature-link,
-    .feature-link svg {
+    .card,
+    .card::before,
+    .card-icon,
+    .feature-link {
       transition: none;
     }
-    .feature-card:hover {
-      transform: none;
-    }
-    .feature-card:hover .feature-icon {
+    .card:hover,
+    .card:hover .card-icon {
       transform: none;
     }
   }

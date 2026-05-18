@@ -1,19 +1,8 @@
 ---
 /**
  * @file ContactForm.astro
- * @description Premium contact form with floating labels, accent focus glow,
- *              client-side validation, honeypot anti-spam, and submit
- *              loading state. Submission target is configurable via the
- *              `action` prop (defaults to a placeholder).
- *
- *              Accessibility:
- *              - All inputs labeled via <label> + aria-describedby for errors
- *              - aria-invalid toggled on validation failure
- *              - aria-live status region for submit feedback
- *
- * @author GEMINI-UX
- * @phase 2
- * @created 2026-05-17T20:49:00Z
+ * @description DS v3 contact form using `form-grid`, `form-label`,
+ *              `form-input`, `form-full`, and premium submit button classes.
  */
 import { schoolInfo } from '../data/school-info.ts';
 
@@ -29,70 +18,73 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
 
 <form
   id={id}
-  class="contact-form reveal"
+  class="contact-form glass-light reveal"
   method="POST"
   action={action}
   novalidate
+  data-animate="fade-scale"
   data-school-whatsapp={schoolInfo.whatsapp}
 >
   <fieldset class="form-grid">
     <legend class="sr-only">Dados de contato</legend>
-    <!-- Nome -->
+
     <div class="form-field">
+      <label class="form-label" for={`${id}-nome`}>Nome completo *</label>
       <input
+        class="form-input"
         type="text"
         name="nome"
         id={`${id}-nome`}
-        placeholder=" "
+        placeholder="Seu nome"
         required
         minlength="2"
         autocomplete="name"
         aria-describedby={`${id}-nome-error`}
       />
-      <label for={`${id}-nome`}>Nome completo</label>
       <span class="form-error" id={`${id}-nome-error`} aria-live="polite"></span>
     </div>
 
-    <!-- Email -->
     <div class="form-field">
+      <label class="form-label" for={`${id}-email`}>E-mail *</label>
       <input
+        class="form-input"
         type="email"
         name="email"
         id={`${id}-email`}
-        placeholder=" "
+        placeholder="seu@email.com"
         required
         autocomplete="email"
         aria-describedby={`${id}-email-error`}
       />
-      <label for={`${id}-email`}>E-mail</label>
       <span class="form-error" id={`${id}-email-error`} aria-live="polite"></span>
     </div>
 
-    <!-- Telefone -->
     <div class="form-field">
+      <label class="form-label" for={`${id}-telefone`}>Telefone / WhatsApp *</label>
       <input
+        class="form-input"
         type="tel"
         name="telefone"
         id={`${id}-telefone`}
-        placeholder=" "
+        placeholder="(00) 00000-0000"
         required
         inputmode="tel"
         autocomplete="tel"
         aria-describedby={`${id}-telefone-error`}
       />
-      <label for={`${id}-telefone`}>Telefone / WhatsApp</label>
       <span class="form-error" id={`${id}-telefone-error`} aria-live="polite"></span>
     </div>
 
-    <!-- Turma -->
     <div class="form-field">
+      <label class="form-label" for={`${id}-turma`}>Turma de interesse *</label>
       <select
+        class="form-input"
         name="turma"
         id={`${id}-turma`}
         required
         aria-describedby={`${id}-turma-error`}
       >
-        <option value="" disabled selected>Selecione a turma de interesse</option>
+        <option value="" disabled selected>Selecione...</option>
         <option value="bercario">Berçário (4 meses a 1 ano)</option>
         <option value="maternal-1">Maternal I (1 a 2 anos)</option>
         <option value="maternal-2">Maternal II (2 a 3 anos)</option>
@@ -100,33 +92,30 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
         <option value="infantil-2">Infantil II (5 anos)</option>
         <option value="indeciso">Ainda em dúvida</option>
       </select>
-      <label for={`${id}-turma`} class="form-label-static">Turma de interesse</label>
       <span class="form-error" id={`${id}-turma-error`} aria-live="polite"></span>
     </div>
 
-    <!-- Mensagem -->
-    <div class="form-field form-field-full">
+    <div class="form-field form-full">
+      <label class="form-label" for={`${id}-mensagem`}>Mensagem *</label>
       <textarea
+        class="form-input form-textarea"
         name="mensagem"
         id={`${id}-mensagem`}
         rows="4"
-        placeholder=" "
+        placeholder="Conte-nos sobre seu filho e o que você deseja conhecer..."
         required
         minlength="10"
         aria-describedby={`${id}-mensagem-error`}
       ></textarea>
-      <label for={`${id}-mensagem`}>Mensagem</label>
       <span class="form-error" id={`${id}-mensagem-error`} aria-live="polite"></span>
     </div>
   </fieldset>
 
-  <!-- Honeypot — invisible field bots fill in -->
   <div class="honeypot" aria-hidden="true">
     <label for={`${id}-website`}>Website (deixe em branco)</label>
     <input type="text" name="website" id={`${id}-website`} tabindex="-1" autocomplete="off" />
   </div>
 
-  <!-- LGPD consent -->
   <label class="form-consent">
     <input
       type="checkbox"
@@ -142,8 +131,7 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
   </label>
   <span class="form-error form-consent-error" id={`${id}-consent-error`} aria-live="polite"></span>
 
-  <!-- Submit -->
-  <button type="submit" class="form-submit">
+  <button type="submit" class="btn btn-magic btn-lg form-submit">
     <span class="form-submit-text">Enviar mensagem</span>
     <span class="form-submit-loading" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -156,7 +144,6 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
 </form>
 
 <script>
-  // Client-side enhancement (zero deps).
   const forms = document.querySelectorAll<HTMLFormElement>('.contact-form');
   forms.forEach((form) => {
     const status = form.querySelector<HTMLElement>('.form-status');
@@ -177,9 +164,6 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
       if (field.validity.valueMissing) return 'Campo obrigatório.';
       if (field.validity.typeMismatch && field instanceof HTMLInputElement && field.type === 'email') {
         return 'Informe um e-mail válido.';
-      }
-      if (field.validity.patternMismatch && field.name === 'telefone') {
-        return 'Informe um telefone válido com DDD.';
       }
       if (field.validity.tooShort) {
         return `Informe pelo menos ${field.getAttribute('minlength')} caracteres.`;
@@ -215,7 +199,6 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
     };
 
     form.addEventListener('submit', (e) => {
-      // Honeypot triggered → silently drop
       const honey = form.querySelector<HTMLInputElement>('input[name="website"]');
       if (honey?.value) {
         e.preventDefault();
@@ -240,9 +223,7 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
       field.addEventListener('blur', () => {
         if (!field.required) return;
         const error = messageFor(field);
-        if (error) {
-          setError(field, error);
-        }
+        if (error) setError(field, error);
       });
     });
   });
@@ -252,15 +233,20 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
   .contact-form {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--s-6, 1.5rem);
     width: 100%;
     max-width: 48rem;
     margin-inline: auto;
-    padding: var(--space-8);
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-neutral-200);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
+    padding: var(--s-8, 2rem);
+    box-shadow: var(--shadow-lg, 0 12px 32px rgba(0, 0, 0, 0.12));
+  }
+
+  .glass-light {
+    background: rgba(255, 255, 255, 0.74);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(155, 89, 182, 0.08);
+    border-radius: var(--r-xl, 24px);
   }
 
   .contact-form fieldset {
@@ -283,130 +269,65 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
 
   .form-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-5);
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-6, 1.5rem);
   }
 
-  @media (max-width: 640px) {
-    .form-grid { grid-template-columns: 1fr; }
-  }
-
-  .form-field-full {
+  .form-full {
     grid-column: 1 / -1;
   }
 
-  /* --- Floating label inputs --- */
-  .form-field {
-    position: relative;
+  .form-label {
+    display: block;
+    margin-bottom: var(--s-2, 0.5rem);
+    color: var(--vp-gray-700, var(--color-neutral-700));
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 13px;
+    font-weight: 700;
   }
 
-  .form-field input,
-  .form-field select,
-  .form-field textarea {
+  .form-input {
     width: 100%;
-    padding: 1.4rem 0.25rem 0.5rem;
-    font-family: var(--font-sans);
-    font-size: var(--text-base);
-    color: var(--color-neutral-800);
-    background-color: transparent;
-    border: 0;
-    border-bottom: 1.5px solid var(--color-neutral-300);
-    border-radius: 0;
+    padding: 14px 18px;
+    color: var(--vp-gray-800, var(--color-neutral-800));
+    background: var(--vp-gray-50, var(--color-neutral-50));
+    border: 1.5px solid var(--vp-gray-200, var(--color-neutral-200));
+    border-radius: var(--r-md, 12px);
     outline: none;
-    transition:
-      border-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    appearance: none;
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 15px;
+    transition: all var(--t-fast, 200ms) ease;
   }
 
-  .form-field textarea {
-    resize: vertical;
-    min-height: 6rem;
+  .form-input:focus {
+    border-color: var(--vp-purple, #9b59b6);
+    box-shadow: 0 0 0 4px rgba(155, 89, 182, 0.08);
+    background: #fff;
   }
 
-  .form-field select {
-    cursor: pointer;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23004254' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 0.25rem center;
-    padding-right: 1.75rem;
+  .form-input::placeholder { color: var(--vp-gray-400, var(--color-neutral-400)); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  .form-input[aria-invalid="true"],
+  .form-consent input[aria-invalid="true"] {
+    border-color: var(--vp-error, var(--color-error));
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08);
   }
 
-  .form-field input:focus,
-  .form-field select:focus,
-  .form-field textarea:focus {
-    border-color: var(--color-accent-500);
-    box-shadow: 0 1px 0 0 var(--color-accent-500),
-      0 6px 12px -8px rgb(212 169 16 / 0.4);
-  }
-
-  .form-field input:focus-visible,
-  .form-field select:focus-visible,
-  .form-field textarea:focus-visible {
-    outline: 2px solid var(--color-primary-500);
-    outline-offset: 4px;
-    border-radius: var(--radius-sm);
-  }
-
-  .form-field input[aria-invalid="true"],
-  .form-field select[aria-invalid="true"],
-  .form-field textarea[aria-invalid="true"] {
-    border-color: var(--color-error);
-    box-shadow: 0 1px 0 0 var(--color-error);
-  }
-
-  /* --- Floating labels --- */
-  .form-field label:not(.form-label-static) {
-    position: absolute;
-    left: 0.25rem;
-    top: 1.4rem;
-    font-family: var(--font-sans);
-    font-size: var(--text-base);
-    color: var(--color-neutral-500);
-    pointer-events: none;
-    transform-origin: left top;
-    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
-      color 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .form-field input:focus + label,
-  .form-field input:not(:placeholder-shown) + label,
-  .form-field textarea:focus + label,
-  .form-field textarea:not(:placeholder-shown) + label {
-    transform: translateY(-1.15rem) scale(0.78);
-    color: var(--color-primary-700);
-  }
-
-  /* Static label for <select> (since no placeholder-shown trick) */
-  .form-label-static {
-    position: absolute;
-    left: 0.25rem;
-    top: 0.25rem;
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--color-primary-700);
-    pointer-events: none;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  /* --- Errors --- */
   .form-error {
     display: block;
     min-height: 1.1rem;
     margin-top: 0.3rem;
-    font-family: var(--font-sans);
-    font-size: var(--text-xs);
-    color: var(--color-error);
+    color: var(--vp-error, var(--color-error));
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 12px;
     line-height: 1.2;
   }
 
   .form-consent-error {
-    margin-top: calc(var(--space-5) * -1);
+    margin-top: calc(var(--s-5, 1.25rem) * -1);
   }
 
-  /* --- Honeypot --- */
   .honeypot {
     position: absolute;
     width: 1px;
@@ -417,71 +338,62 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
     pointer-events: none;
   }
 
-  /* --- Consent --- */
   .form-consent {
     display: flex;
-    gap: var(--space-2);
+    gap: var(--s-2, 0.5rem);
     align-items: flex-start;
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    color: var(--color-neutral-600);
+    color: var(--vp-gray-600, var(--color-neutral-600));
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 14px;
     line-height: 1.5;
     cursor: pointer;
   }
 
   .form-consent input[type="checkbox"] {
     flex: 0 0 auto;
-    margin-top: 0.18rem;
     width: 1.05rem;
     height: 1.05rem;
-    accent-color: var(--color-primary-600);
+    margin-top: 0.18rem;
+    accent-color: var(--vp-purple, #9b59b6);
     cursor: pointer;
-  }
-
-  .form-consent input[type="checkbox"]:focus-visible {
-    outline: 2px solid var(--color-primary-500);
-    outline-offset: 3px;
   }
 
   .form-consent a {
-    color: var(--color-primary-600);
+    color: var(--vp-purple, #9b59b6);
     text-decoration: underline;
   }
 
-  /* --- Submit --- */
-  .form-submit {
+  .btn {
     position: relative;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
-    padding: 1rem 2rem;
-    font-family: var(--font-sans);
-    font-size: var(--text-base);
-    font-weight: 600;
+    gap: var(--s-2, 0.5rem);
+    align-self: center;
+    min-height: 56px;
+    padding: 18px 40px;
     color: #fff;
-    background: linear-gradient(
-      135deg,
-      var(--color-primary-700) 0%,
-      var(--color-primary-500) 100%
-    );
+    background: var(--grad-magic, linear-gradient(135deg, #ff0080 0%, #9b59b6 50%, #50e3c2 100%));
+    background-size: 200% 200%;
     border: 0;
-    border-radius: var(--radius-full);
+    border-radius: var(--r-full, var(--radius-full));
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
-    box-shadow: var(--shadow-md);
-    transition:
-      transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(255, 0, 128, 0.25);
+    animation: gradientShift 3s ease infinite;
+    transition: all var(--t-normal, 300ms) var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1));
   }
 
-  .form-submit:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-xl);
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow-magenta, 0 0 60px rgba(255, 0, 128, 0.2));
   }
 
   .form-submit:disabled {
-    opacity: 0.7;
+    opacity: 0.72;
     cursor: progress;
   }
 
@@ -491,34 +403,38 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
     height: 1.1rem;
     animation: spin 0.8s linear infinite;
   }
+
   .form-submit-loading svg {
     width: 100%;
     height: 100%;
   }
 
-  .form-submit.is-loading .form-submit-text {
-    opacity: 0.6;
-  }
-  .form-submit.is-loading .form-submit-loading {
-    display: inline-block;
-  }
+  .form-submit.is-loading .form-submit-text { opacity: 0.65; }
+  .form-submit.is-loading .form-submit-loading { display: inline-block; }
 
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  /* --- Status message --- */
   .form-status {
-    margin: 0;
     min-height: 1.2rem;
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    color: var(--color-neutral-600);
+    margin: 0;
+    color: var(--vp-gray-600, var(--color-neutral-600));
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 14px;
     text-align: center;
   }
 
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+  @media (max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .form-submit-loading { animation: none; }
-    .form-submit { transition: none; }
+    .btn,
+    .form-submit-loading,
+    .form-input {
+      animation: none;
+      transition: none;
+    }
+    .btn:hover:not(:disabled) { transform: none; }
   }
 </style>

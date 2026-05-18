@@ -1,15 +1,8 @@
 ---
 /**
  * @file TrustBadge.astro
- * @description Large numeric trust indicator with count-up animation
- *              triggered when the badge enters the viewport (handled by
- *              src/scripts/scroll-reveal.ts via [data-countup]).
- *
- *              Example: <TrustBadge value={500} suffix="+" label="Famílias atendidas" />
- *
- * @author GEMINI-UX
- * @phase 2
- * @created 2026-05-17T20:49:00Z
+ * @description DS v3 KPI/trust badge. Uses global `glass-light`, `kpi`, and
+ *              `badge-*` classes while preserving count-up data attributes.
  */
 
 export interface Props {
@@ -25,15 +18,38 @@ export interface Props {
   delay?: number;
   /** Animation duration in ms (default 1600). */
   duration?: number;
+  /** DS v3 badge color. */
+  variant?: 'purple' | 'green' | 'gold' | 'cyan' | 'magenta';
+  /** Optional inline badge caption shown above the KPI. */
+  badge?: string;
+  /** Optional emoji/icon rendered inline before the badge caption. */
+  icon?: string;
 }
 
-const { value, suffix = '', prefix = '', label, delay = 0, duration = 1600 } = Astro.props;
+const {
+  value,
+  suffix = '',
+  prefix = '',
+  label,
+  delay = 0,
+  duration = 1600,
+  variant,
+  badge,
+  icon,
+} = Astro.props;
+const variants = ['purple', 'green', 'gold', 'cyan', 'magenta'] as const;
+const badgeVariant = variant ?? variants[Math.abs(Math.floor(delay / 80)) % variants.length];
 ---
 
-<div class="trust-badge reveal" data-reveal-delay={delay}>
-  <span class="trust-prefix" aria-hidden="true">{prefix}</span>
+<div class="trust-badge glass-light kpi reveal" data-animate="fade-scale" data-reveal-delay={delay}>
+  {(badge || prefix || icon) && (
+    <span class:list={['badge', `badge-${badgeVariant}`]}>
+      {icon && <span class="badge-icon" aria-hidden="true">{icon}</span>}
+      {badge ?? prefix}
+    </span>
+  )}
   <span
-    class="trust-number"
+    class="kpi-val trust-number"
     data-countup={value}
     data-countup-suffix={suffix}
     data-countup-duration={duration}
@@ -41,52 +57,74 @@ const { value, suffix = '', prefix = '', label, delay = 0, duration = 1600 } = A
   >
     {prefix}0{suffix}
   </span>
-  <span class="trust-label">{label}</span>
+  <span class="kpi-lbl trust-label">{label}</span>
 </div>
 
 <style>
-  .trust-badge {
+  .glass-light {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(155, 89, 182, 0.08);
+    border-radius: var(--r-xl, 24px);
+    transition: all var(--t-normal, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+
+  .glass-light:hover {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-lg, 0 12px 32px rgba(0, 0, 0, 0.12));
+    transform: translateY(-3px);
+  }
+
+  .kpi {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-1);
+    gap: var(--s-2, 0.5rem);
     text-align: center;
+    padding: var(--s-6, 1.5rem);
   }
 
-  .trust-prefix {
-    display: none; /* visually merged into .trust-number */
-  }
-
-  .trust-number {
+  .kpi-val {
     font-family: var(--font-display);
-    font-size: var(--text-5xl);
+    font-size: clamp(32px, 5vw, 52px);
     font-weight: 700;
     line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--color-accent-500);
-    background: linear-gradient(
-      135deg,
-      var(--color-accent-500) 0%,
-      var(--color-accent-700) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 1px 0 rgb(0 66 84 / 0.04);
+    color: var(--vp-purple, #9b59b6);
   }
 
-  .trust-label {
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    color: var(--color-neutral-600);
+  .kpi-lbl {
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--vp-gray-500, var(--color-neutral-600));
     text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
 
-  @media (max-width: 640px) {
-    .trust-number {
-      font-size: var(--text-4xl);
-    }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: var(--r-full, var(--radius-full));
+    font-family: var(--font-body, var(--font-sans));
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .badge-icon {
+    line-height: 1;
+  }
+
+  .badge-purple { background: rgba(155, 89, 182, 0.1); color: var(--vp-purple, #9b59b6); }
+  .badge-green { background: rgba(126, 211, 33, 0.1); color: var(--vp-green-deep, #5ba018); }
+  .badge-gold { background: rgba(255, 215, 0, 0.15); color: var(--vp-gold-deep, #daa520); }
+  .badge-cyan { background: rgba(80, 227, 194, 0.1); color: var(--vp-cyan-deep, #2db89b); }
+  .badge-magenta { background: rgba(255, 0, 128, 0.08); color: var(--vp-magenta, #ff0080); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glass-light { transition: none; }
+    .glass-light:hover { transform: none; }
   }
 </style>
