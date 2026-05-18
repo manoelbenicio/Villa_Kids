@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Villa Prime — Design System v3.0 Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-logo"><span>VP Design System</span></div>
+  <div class="nav-menu">
+    <a href="#colors">Cores</a><a href="#type">Tipografia</a><a href="#buttons">Botões</a><a href="#cards">Cards</a><a href="#forms">Forms</a>
+  </div>
+  <span style="font-size:12px;color:var(--vp-gray-400);font-weight:600;letter-spacing:0.08em;">v3.0</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="min-height:55vh;">
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="hero-blob"></div><div class="hero-blob"></div>
+  <div class="hero-inner" style="padding-top:120px;">
+    <div class="hero-chip">⭐ Design System v3.0 Premium</div>
+    <h1>Villa Prime<br><span class="accent">Design System</span></h1>
+    <p class="hero-sub">Tokens, componentes e padrões visuais para experiências educacionais premium.</p>
+  </div>
+</section>
+
+<!-- COLORS -->
+<section class="section" id="colors">
+  <div class="container">
+    <div class="section-head" data-animate><p class="eyebrow">01 / Paleta</p><h2>Cores Villa Prime</h2><p>Vibrante, acolhedora e premium.</p></div>
+    <div class="grid grid-4 stagger" style="margin-bottom:48px;">
+      <div data-animate style="border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--vp-gray-200);"><div style="height:80px;background:var(--vp-purple);"></div><div style="padding:12px;"><strong style="font-size:13px;">Purple</strong><br><code style="font-size:11px;color:var(--vp-gray-400);">#9B59B6</code></div></div>
+      <div data-animate style="border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--vp-gray-200);"><div style="height:80px;background:var(--vp-green);"></div><div style="padding:12px;"><strong style="font-size:13px;">Green</strong><br><code style="font-size:11px;color:var(--vp-gray-400);">#7ED321</code></div></div>
+      <div data-animate style="border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--vp-gray-200);"><div style="height:80px;background:var(--vp-magenta);"></div><div style="padding:12px;"><strong style="font-size:13px;">Magenta</strong><br><code style="font-size:11px;color:var(--vp-gray-400);">#FF0080</code></div></div>
+      <div data-animate style="border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--vp-gray-200);"><div style="height:80px;background:var(--vp-orange);"></div><div style="padding:12px;"><strong style="font-size:13px;">Orange</strong><br><code style="font-size:11px;color:var(--vp-gray-400);">#F5A623</code></div></div>
+      <div data-animate style="border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--vp-gray-200);"><div style="height:80px;background:var(--vp-yellow);"></div><div style="padding:12px;"><strong style="font-size:13px;">Yellow</strong><br><code style="font-size:11px;color:var(--vp-gray-400);">#F8E71C</code></div></div>
+      <div data-animate style="border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--vp-gray-200);"><div style="height:80px;background:var(--vp-cyan);"></div><div style="padding:12px;"><strong style="font-size:13px;">Cyan</strong><br><code style="font-size:11px;color:var(--vp-gray-400);">#50E3C2</code></div></div>
+      <div data-animate style="border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--vp-gray-200);"><div style="height:80px;background:var(--vp-gold);"></div><div style="padding:12px;"><strong style="font-size:13px;">Gold</strong><br><code style="font-size:11px;color:var(--vp-gray-400);">#FFD700</code></div></div>
+      <div data-animate style="border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--vp-gray-200);"><div style="height:80px;background:var(--vp-purple-deep);"></div><div style="padding:12px;"><strong style="font-size:13px;">Purple Deep</strong><br><code style="font-size:11px;color:var(--vp-gray-400);">#6C3483</code></div></div>
+    </div>
+    <h3 style="font-size:13px;font-weight:700;text-transform:uppercase;color:var(--vp-gray-500);margin-bottom:16px;" data-animate>Gradientes Premium</h3>
+    <div class="grid grid-4 stagger">
+      <div data-animate style="height:90px;border-radius:var(--r-xl);background:var(--grad-hero);display:flex;align-items:end;padding:12px;"><span style="font-size:11px;color:white;font-weight:600;">Hero</span></div>
+      <div data-animate style="height:90px;border-radius:var(--r-xl);background:var(--grad-magic);display:flex;align-items:end;padding:12px;"><span style="font-size:11px;color:white;font-weight:600;">Magic</span></div>
+      <div data-animate style="height:90px;border-radius:var(--r-xl);background:var(--grad-aurora);display:flex;align-items:end;padding:12px;"><span style="font-size:11px;color:white;font-weight:600;">Aurora</span></div>
+      <div data-animate style="height:90px;border-radius:var(--r-xl);background:var(--grad-sunset);display:flex;align-items:end;padding:12px;"><span style="font-size:11px;color:white;font-weight:600;">Sunset</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section class="section section-alt" id="type">
+  <div class="container">
+    <div class="section-head" data-animate><p class="eyebrow">02 / Tipografia</p><h2>Escala Tipográfica</h2><p>Fredoka (display) + Inter (corpo)</p></div>
+    <div data-animate style="display:flex;flex-direction:column;gap:24px;">
+      <div style="padding:20px 0;border-bottom:1px solid var(--vp-gray-200);"><span style="font-size:11px;font-weight:600;color:var(--vp-purple);text-transform:uppercase;letter-spacing:0.08em;">Display · Fredoka 700 · 64px</span><p style="font-family:var(--font-display);font-size:clamp(32px,5vw,64px);font-weight:700;line-height:1.1;margin-top:8px;">Educação que <span class="text-gradient">inspira</span></p></div>
+      <div style="padding:20px 0;border-bottom:1px solid var(--vp-gray-200);"><span style="font-size:11px;font-weight:600;color:var(--vp-purple);text-transform:uppercase;letter-spacing:0.08em;">H1 · Fredoka 700 · 48px</span><p style="font-family:var(--font-display);font-size:clamp(28px,4vw,48px);font-weight:700;line-height:1.2;margin-top:8px;">Cada criança é uma estrela</p></div>
+      <div style="padding:20px 0;border-bottom:1px solid var(--vp-gray-200);"><span style="font-size:11px;font-weight:600;color:var(--vp-purple);text-transform:uppercase;letter-spacing:0.08em;">H2 · Fredoka 600 · 36px</span><p style="font-family:var(--font-display);font-size:clamp(24px,3vw,36px);font-weight:600;line-height:1.3;margin-top:8px;">Desenvolvimento integral</p></div>
+      <div style="padding:20px 0;border-bottom:1px solid var(--vp-gray-200);"><span style="font-size:11px;font-weight:600;color:var(--vp-purple);text-transform:uppercase;letter-spacing:0.08em;">Body · Inter 400 · 16px</span><p style="font-size:16px;color:var(--vp-gray-600);line-height:1.7;margin-top:8px;">O Colégio Villa Prime oferece uma experiência educacional única, combinando metodologias internacionais com carinho e atenção.</p></div>
+      <div style="padding:20px 0;"><span style="font-size:11px;font-weight:600;color:var(--vp-purple);text-transform:uppercase;letter-spacing:0.08em;">Eyebrow · Inter 600 · 12px · Uppercase</span><p style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--vp-purple);margin-top:8px;">EDUCAÇÃO INFANTIL PREMIUM</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BUTTONS & BADGES -->
+<section class="section" id="buttons">
+  <div class="container">
+    <div class="section-head" data-animate><p class="eyebrow">03 / Botões & Badges</p><h2>Interações Premium</h2></div>
+    <div data-animate style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:48px;">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-magic">Magic ✨</button>
+      <button class="btn btn-white">White</button>
+      <button class="btn btn-outline" style="color:var(--vp-purple);border-color:var(--vp-purple);">Outline</button>
+      <button class="btn btn-primary btn-lg">Large</button>
+      <button class="btn btn-primary" disabled>Disabled</button>
+    </div>
+    <div data-animate style="display:flex;gap:12px;flex-wrap:wrap;">
+      <span class="badge badge-purple">⭐ Premium</span>
+      <span class="badge badge-green">● Vagas Abertas</span>
+      <span class="badge badge-magenta">♥ Favorito</span>
+      <span class="badge badge-gold">🏆 Destaque</span>
+      <span class="badge badge-cyan">✓ Confirmado</span>
+    </div>
+  </div>
+</section>
+
+<!-- CARDS -->
+<section class="section section-alt" id="cards">
+  <div class="container">
+    <div class="section-head" data-animate><p class="eyebrow">04 / Cards</p><h2>Componentes de Card</h2></div>
+    <div class="grid grid-3 stagger" style="margin-bottom:64px;">
+      <div class="card" data-animate><div class="card-icon purple">🎓</div><h3>Card Padrão</h3><p>Hover com elevação e barra gradient animada no topo.</p></div>
+      <div class="card" data-animate><div class="card-icon green">🌱</div><h3>Micro-Interactions</h3><p>Ícone com scale + rotate no hover para feedback visual.</p></div>
+      <div class="card" data-animate><div class="card-icon magenta">✨</div><h3>Premium Feel</h3><p>Sombras progressivas e border-radius generoso.</p></div>
+    </div>
+    <h3 style="font-size:13px;font-weight:700;text-transform:uppercase;color:var(--vp-gray-500);margin-bottom:24px;" data-animate>Glass Cards (Dark Context)</h3>
+    <div style="background:var(--grad-hero);border-radius:var(--r-2xl);padding:48px;" data-animate>
+      <div class="grid grid-3">
+        <div class="glass" style="text-align:center;"><div style="font-size:42px;font-family:var(--font-display);font-weight:700;color:white;">847</div><div style="font-size:12px;color:rgba(255,255,255,0.6);text-transform:uppercase;">Alunos Formados</div></div>
+        <div class="glass" style="text-align:center;"><div style="font-size:42px;font-family:var(--font-display);font-weight:700;color:white;">99%</div><div style="font-size:12px;color:rgba(255,255,255,0.6);text-transform:uppercase;">Satisfação</div></div>
+        <div class="glass" style="text-align:center;"><div style="font-size:42px;font-family:var(--font-display);font-weight:700;color:white;">5⭐</div><div style="font-size:12px;color:rgba(255,255,255,0.6);text-transform:uppercase;">Avaliação</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMS -->
+<section class="section" id="forms">
+  <div class="container" style="max-width:800px;">
+    <div class="section-head" data-animate><p class="eyebrow">05 / Formulários</p><h2>Inputs & Forms</h2></div>
+    <div class="form-grid" data-animate>
+      <div><label class="form-label">Input Padrão</label><input class="form-input" placeholder="Digite aqui..."></div>
+      <div><label class="form-label">Select</label><select class="form-input"><option>Selecione...</option></select></div>
+      <div><label class="form-label">Email</label><input class="form-input" type="email" placeholder="email@exemplo.com"></div>
+      <div><label class="form-label">Telefone</label><input class="form-input" type="tel" placeholder="(00) 00000-0000"></div>
+      <div class="form-full"><label class="form-label">Textarea</label><textarea class="form-input form-textarea" placeholder="Mensagem..."></textarea></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container"><div class="footer-bottom" style="border:none;padding:0;"><span>Villa Prime Design System v3.0 — Premium Education UI</span><span>Tokens · Components · Patterns</span></div></div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

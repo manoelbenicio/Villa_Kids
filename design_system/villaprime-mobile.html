@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Villa Prime — Mobile Experience</title>
+  <meta name="theme-color" content="#6C3483">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Mobile-specific overrides */
+    .m-hero { min-height:100svh; padding:env(safe-area-inset-top) 0 0; }
+    .m-hero h1 { font-size:38px; }
+    .m-nav { height:64px; padding:0 16px; }
+    .m-nav .nav-cta { padding:8px 16px; font-size:12px; }
+    .m-section { padding:64px 0; }
+    .m-card { padding:24px; border-radius:20px; }
+    .m-scroll { display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding:0 20px 16px; margin:0 -20px; }
+    .m-scroll::-webkit-scrollbar { display:none; }
+    .m-scroll > * { scroll-snap-align:start; min-width:280px; flex-shrink:0; }
+    .m-bottom-bar {
+      position:fixed; bottom:0; left:0; right:0; z-index:9999;
+      display:flex; justify-content:space-around; align-items:center;
+      height:64px; padding-bottom:env(safe-area-inset-bottom);
+      background:rgba(255,255,255,0.92); backdrop-filter:blur(20px);
+      border-top:1px solid rgba(155,89,182,0.08);
+    }
+    .m-bottom-bar a {
+      display:flex; flex-direction:column; align-items:center; gap:2px;
+      font-size:10px; font-weight:500; color:var(--vp-gray-400);
+      transition:color 0.2s ease; text-decoration:none;
+    }
+    .m-bottom-bar a.active { color:var(--vp-purple); }
+    .m-bottom-bar a span { font-size:20px; }
+    .m-fab {
+      position:fixed; bottom:80px; right:20px; z-index:9998;
+      width:56px; height:56px; border-radius:50%;
+      background:var(--grad-magic); color:white; border:none;
+      display:flex; align-items:center; justify-content:center;
+      font-size:24px; cursor:pointer; box-shadow:0 8px 25px rgba(255,0,128,0.3);
+      transition:all 0.3s var(--ease-spring);
+    }
+    .m-fab:hover { transform:scale(1.1); }
+    .m-stories {
+      display:flex; gap:12px; overflow-x:auto; padding:16px 20px;
+      -webkit-overflow-scrolling:touch;
+    }
+    .m-stories::-webkit-scrollbar { display:none; }
+    .m-story {
+      display:flex; flex-direction:column; align-items:center; gap:6px; flex-shrink:0;
+    }
+    .m-story-ring {
+      width:64px; height:64px; border-radius:50%; padding:3px;
+      background:var(--grad-magic);
+    }
+    .m-story-ring img, .m-story-ring div {
+      width:100%; height:100%; border-radius:50%; border:2px solid white;
+      background:var(--vp-gray-100); display:flex; align-items:center; justify-content:center; font-size:24px;
+    }
+    .m-story span { font-size:11px; font-weight:500; color:var(--vp-gray-600); }
+    .m-quick-actions { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:0 20px; }
+    .m-quick-action {
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      padding:16px 8px; border-radius:16px; background:var(--vp-gray-50);
+      border:1px solid var(--vp-gray-200); transition:all 0.2s ease; text-decoration:none;
+    }
+    .m-quick-action:hover { background:white; box-shadow:var(--shadow-md); transform:translateY(-2px); }
+    .m-quick-action span { font-size:28px; }
+    .m-quick-action small { font-size:11px; font-weight:500; color:var(--vp-gray-600); text-align:center; }
+    body { padding-bottom:80px; }
+    @media(min-width:769px) { .m-bottom-bar,.m-fab { display:none; } body { padding-bottom:0; } }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<nav class="nav m-nav" id="nav">
+  <div class="nav-logo">
+    <img src="../../Logo/logo.jpg" alt="VP" style="height:36px;border-radius:50%;">
+    <span style="font-size:16px;">Villa Prime</span>
+  </div>
+  <button class="nav-cta">Visita ✨</button>
+</nav>
+
+<!-- HERO MOBILE -->
+<section class="hero m-hero">
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="hero-blob"></div><div class="hero-blob"></div>
+  <div class="hero-inner" style="padding:100px 20px 40px;">
+    <div class="hero-chip" style="font-size:12px;">⭐ Educação Premium</div>
+    <h1 style="font-size:clamp(32px,9vw,44px);">Onde cada criança é uma <span class="accent">estrela</span></h1>
+    <p class="hero-sub" style="font-size:16px;">Berçário e Ed. Infantil de altíssimo padrão com metodologia exclusiva.</p>
+    <div class="hero-btns" style="flex-direction:column;align-items:stretch;">
+      <a href="#contato" class="btn btn-white btn-lg" style="justify-content:center;">Agende uma Visita</a>
+      <a href="tel:+5500000000000" class="btn btn-outline btn-lg" style="justify-content:center;">📞 Ligar Agora</a>
+    </div>
+  </div>
+</section>
+
+<!-- STORIES (Mobile Pattern) -->
+<div class="m-stories">
+  <div class="m-story"><div class="m-story-ring"><div>🎒</div></div><span>Berçário</span></div>
+  <div class="m-story"><div class="m-story-ring"><div>🎨</div></div><span>Maternal</span></div>
+  <div class="m-story"><div class="m-story-ring"><div>📚</div></div><span>Pré-Escola</span></div>
+  <div class="m-story"><div class="m-story-ring"><div>🌳</div></div><span>Estrutura</span></div>
+  <div class="m-story"><div class="m-story-ring"><div>🍎</div></div><span>Nutrição</span></div>
+  <div class="m-story"><div class="m-story-ring"><div>📱</div></div><span>App Pais</span></div>
+</div>
+
+<!-- QUICK ACTIONS -->
+<section class="m-section" style="padding-top:32px;">
+  <div style="padding:0 20px;margin-bottom:20px;"><h2 style="font-family:var(--font-display);font-size:22px;font-weight:700;">Acesso Rápido</h2></div>
+  <div class="m-quick-actions">
+    <a href="#" class="m-quick-action"><span>📅</span><small>Agendar</small></a>
+    <a href="#" class="m-quick-action"><span>📍</span><small>Como Chegar</small></a>
+    <a href="#" class="m-quick-action"><span>💬</span><small>WhatsApp</small></a>
+    <a href="#" class="m-quick-action"><span>📸</span><small>Galeria</small></a>
+  </div>
+</section>
+
+<!-- PROGRAMAS (Horizontal Scroll) -->
+<section class="m-section" style="padding-top:0;">
+  <div style="padding:0 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+    <h2 style="font-family:var(--font-display);font-size:22px;font-weight:700;">Programas</h2>
+    <a href="#" style="font-size:13px;font-weight:600;color:var(--vp-purple);">Ver todos →</a>
+  </div>
+  <div class="m-scroll">
+    <div class="glass-light m-card" style="background:linear-gradient(135deg,rgba(155,89,182,0.05),rgba(255,0,128,0.03));">
+      <div style="font-size:36px;margin-bottom:12px;">👶</div>
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:600;margin-bottom:6px;">Berçário</h3>
+      <p style="font-size:13px;color:var(--vp-gray-500);line-height:1.6;margin-bottom:12px;">4 meses a 1 ano. Estimulação sensorial e vínculo afetivo.</p>
+      <span class="badge badge-gold">⭐ Premium</span>
+    </div>
+    <div class="glass-light m-card" style="background:linear-gradient(135deg,rgba(126,211,33,0.05),rgba(80,227,194,0.03));">
+      <div style="font-size:36px;margin-bottom:12px;">🎨</div>
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:600;margin-bottom:6px;">Maternal</h3>
+      <p style="font-size:13px;color:var(--vp-gray-500);line-height:1.6;margin-bottom:12px;">1 a 3 anos. Exploração criativa e desenvolvimento motor.</p>
+      <span class="badge badge-cyan">🚀 Descobertas</span>
+    </div>
+    <div class="glass-light m-card" style="background:linear-gradient(135deg,rgba(245,166,35,0.05),rgba(248,231,28,0.03));">
+      <div style="font-size:36px;margin-bottom:12px;">📚</div>
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:600;margin-bottom:6px;">Pré-Escola</h3>
+      <p style="font-size:13px;color:var(--vp-gray-500);line-height:1.6;margin-bottom:12px;">3 a 5 anos. Alfabetização lúdica e pensamento lógico.</p>
+      <span class="badge badge-green">🌱 Crescimento</span>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS (Horizontal Scroll) -->
+<section class="m-section" style="padding-top:0;">
+  <div style="padding:0 20px;margin-bottom:16px;"><h2 style="font-family:var(--font-display);font-size:22px;font-weight:700;">Depoimentos</h2></div>
+  <div class="m-scroll">
+    <div class="testimonial m-card" style="min-width:300px;">
+      <p class="testimonial-text" style="font-size:14px;">A evolução da minha filha é impressionante. Equipe dedicada e carinhosa!</p>
+      <div class="testimonial-author"><div class="testimonial-avatar">AM</div><div><div class="testimonial-name">Ana Maria S.</div><div class="testimonial-role">Mãe da Sofia</div></div></div>
+    </div>
+    <div class="testimonial m-card" style="min-width:300px;">
+      <p class="testimonial-text" style="font-size:14px;">Infraestrutura de outro nível. Meu filho adora ir para a escola!</p>
+      <div class="testimonial-author"><div class="testimonial-avatar">RC</div><div><div class="testimonial-name">Ricardo C.</div><div class="testimonial-role">Pai do Pedro</div></div></div>
+    </div>
+    <div class="testimonial m-card" style="min-width:300px;">
+      <p class="testimonial-text" style="font-size:14px;">O app para pais é sensacional. Transparência total!</p>
+      <div class="testimonial-author"><div class="testimonial-avatar">JL</div><div><div class="testimonial-name">Juliana L.</div><div class="testimonial-role">Mãe do Lucas</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="m-section" style="padding:40px 20px;">
+  <div style="background:var(--grad-hero);border-radius:var(--r-2xl);padding:40px 24px;text-align:center;">
+    <h2 style="font-family:var(--font-display);font-size:24px;font-weight:700;color:white;margin-bottom:12px;">Venha nos conhecer! ✨</h2>
+    <p style="font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:24px;">Agende uma visita e descubra por que somos referência em educação infantil.</p>
+    <a href="#" class="btn btn-white" style="width:100%;justify-content:center;">Agendar Visita Gratuita</a>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="m-section" id="contato" style="padding-top:0;">
+  <div style="padding:0 20px;">
+    <h2 style="font-family:var(--font-display);font-size:22px;font-weight:700;margin-bottom:20px;">Fale Conosco</h2>
+    <form id="contactForm" style="display:flex;flex-direction:column;gap:16px;">
+      <div><label class="form-label">Nome *</label><input class="form-input" placeholder="Seu nome" required></div>
+      <div><label class="form-label">Telefone *</label><input class="form-input" type="tel" placeholder="(00) 00000-0000" required></div>
+      <div><label class="form-label">Programa</label><select class="form-input"><option>Selecione...</option><option>Berçário</option><option>Maternal</option><option>Pré-Escola</option></select></div>
+      <button type="submit" class="btn btn-magic btn-lg" style="width:100%;justify-content:center;">Enviar ✨</button>
+    </form>
+  </div>
+</section>
+
+<!-- FAB -->
+<button class="m-fab" onclick="window.open('https://wa.me/5500000000000')">💬</button>
+
+<!-- BOTTOM BAR -->
+<div class="m-bottom-bar">
+  <a href="#" class="active"><span>🏠</span>Início</a>
+  <a href="#programas"><span>📚</span>Programas</a>
+  <a href="#"><span>📸</span>Galeria</a>
+  <a href="#contato"><span>✉️</span>Contato</a>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
