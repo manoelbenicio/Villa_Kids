@@ -107,11 +107,11 @@ const facilityStats = [
   <!-- ============================================================
        Stats strip
        ============================================================ -->
-  <section class="stats-strip">
+  <section class="stats-strip" data-animate>
     <div class="container">
-      <ul class="stats-grid">
+      <ul class="stats-grid stagger" data-animate>
         {facilityStats.map((stat, i) => (
-          <li class="stat-item reveal" data-reveal-delay={i * 80}>
+          <li class="stat-item reveal" data-reveal-delay={i * 80} data-animate>
             <span class="stat-value">{stat.value}</span>
             <span class="stat-label">{stat.label}</span>
           </li>
@@ -123,16 +123,16 @@ const facilityStats = [
   <!-- ============================================================
        Ambientes detalhados
        ============================================================ -->
-  <section class="section container">
+  <section class="section container" data-animate>
     <SectionTitle
       tag="Ambientes"
       title="Conheça em detalhes cada espaço"
       subtitle="Da chegada à saída, cada ambiente foi planejado para apoiar o desenvolvimento integral das crianças."
     />
 
-    <div class="ambientes-detail-grid">
+    <div class="ambientes-detail-grid stagger" data-animate>
       {ambientes.map((amb, i) => (
-        <article class="ambiente-detail reveal" data-reveal-delay={i * 70}>
+        <article class="ambiente-detail reveal" data-reveal-delay={i * 70} data-animate>
           <div class="ambiente-detail-image" aria-hidden="true">
             <img src={amb.image} alt={`Ambiente ${amb.name}`} loading="lazy" decoding="async" width="600" height="400" />
           </div>
@@ -169,7 +169,7 @@ const facilityStats = [
   <!-- ============================================================
        Galeria de fotos
        ============================================================ -->
-  <section class="section section-muted">
+  <section class="section section-alt" data-animate>
     <div class="container">
       <SectionTitle
         tag="Galeria"
@@ -184,9 +184,9 @@ const facilityStats = [
   <!-- ============================================================
        CTA — Venha conhecer pessoalmente
        ============================================================ -->
-  <section class="cta-banner">
+  <section class="cta-banner section-dark" data-animate>
     <div class="cta-banner-glow" aria-hidden="true"></div>
-    <div class="container cta-banner-inner reveal">
+    <div class="container cta-banner-inner reveal" data-animate>
       <span class="cta-banner-eyebrow">
         <span class="cta-banner-eyebrow-dot" aria-hidden="true"></span>
         Visita Guiada
@@ -215,6 +215,10 @@ const facilityStats = [
 </BaseLayout>
 
 <style>
+  .section-alt {
+    background-color: var(--vp-gray-50, #F9FAFB);
+  }
+
   /* ============================================================
      Stats strip
      ============================================================ */
@@ -248,10 +252,9 @@ const facilityStats = [
   }
 
   .stat-value {
-    font-family: var(--font-display);
     font-size: clamp(1.75rem, 2vw + 1rem, 2.5rem);
     font-weight: 700;
-    color: var(--color-accent-600);
+    color: var(--vp-gold-deep, #DAA520);
     line-height: 1;
   }
 
@@ -299,7 +302,7 @@ const facilityStats = [
     aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: var(--radius-2xl);
-    background-color: var(--color-primary-100);
+    background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 14%, white);
     box-shadow: var(--shadow-xl);
     border: 1px solid var(--color-neutral-200);
   }
@@ -318,9 +321,8 @@ const facilityStats = [
   }
 
   .ambiente-detail-name {
-    font-family: var(--font-display);
     font-size: clamp(1.5rem, 1.5vw + 0.8rem, 2.25rem);
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     margin: 0;
     line-height: 1.15;
     letter-spacing: -0.015em;
@@ -364,7 +366,7 @@ const facilityStats = [
     width: 16px;
     height: 16px;
     margin-top: 0.2rem;
-    color: var(--color-accent-600);
+    color: var(--vp-gold-deep, #DAA520);
   }
 
   /* ============================================================
@@ -375,12 +377,7 @@ const facilityStats = [
     isolation: isolate;
     overflow: hidden;
     color: #fff;
-    background: linear-gradient(
-      135deg,
-      var(--color-primary-900) 0%,
-      var(--color-primary-700) 60%,
-      var(--color-accent-700) 100%
-    );
+    background: var(--grad-hero, linear-gradient(135deg, #6C3483 0%, #9B59B6 40%, #BB8FCE 100%));
     padding-block: clamp(4rem, 9vh, 6rem);
   }
 
@@ -390,7 +387,7 @@ const facilityStats = [
     right: -15%;
     width: 70%;
     height: 100%;
-    background: radial-gradient(ellipse at center, rgb(246 201 31 / 0.18) 0%, transparent 60%);
+    background: radial-gradient(ellipse at center, rgb(155 89 182 / 0.18) 0%, transparent 60%);
     pointer-events: none;
     z-index: -1;
   }
@@ -414,9 +411,9 @@ const facilityStats = [
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent-200);
+    color: var(--vp-purple-light, #D2B4DE);
     background: rgb(255 255 255 / 0.06);
-    border: 1px solid rgb(255 255 255 / 0.16);
+    border: 1px solid rgb(210 180 222 / 0.28);
     border-radius: var(--radius-full);
   }
 
@@ -424,11 +421,10 @@ const facilityStats = [
     width: 6px;
     height: 6px;
     border-radius: var(--radius-full);
-    background-color: var(--color-accent-400);
+    background-color: var(--vp-purple-light, #D2B4DE);
   }
 
   .cta-banner-title {
-    font-family: var(--font-display);
     font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
     line-height: 1.15;
     color: #fff;

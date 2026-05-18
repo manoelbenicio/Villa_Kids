@@ -105,7 +105,7 @@ const dailySchedule = [
   <!-- ============================================================
        1. METODOLOGIA
        ============================================================ -->
-  <section class="section container">
+  <section class="section container" data-animate>
     <SectionTitle
       tag="Metodologia"
       title="O brincar é a forma mais séria de aprender"
@@ -113,7 +113,7 @@ const dailySchedule = [
       alignment="center"
     />
 
-    <div class="metodologia-grid">
+    <div class="metodologia-grid stagger" data-animate>
       {methodologyHighlights.map((item, i) => (
         <FeatureCard
           title={item.title}
@@ -128,7 +128,7 @@ const dailySchedule = [
   <!-- ============================================================
        2. EIXOS DE DESENVOLVIMENTO
        ============================================================ -->
-  <section class="section section-muted">
+  <section class="section section-alt" data-animate>
     <div class="container">
       <SectionTitle
         tag="Eixos de Desenvolvimento"
@@ -136,7 +136,7 @@ const dailySchedule = [
         subtitle="Nosso currículo é organizado em torno de quatro eixos integrados, garantindo um desenvolvimento amplo e equilibrado."
       />
 
-      <div class="eixos-grid">
+      <div class="eixos-grid stagger" data-animate>
         {developmentAxes.map((axis, i) => (
           <FeatureCard
             title={axis.title}
@@ -152,7 +152,7 @@ const dailySchedule = [
   <!-- ============================================================
        3. ROTINA ESCOLAR — TIMELINE VISUAL
        ============================================================ -->
-  <section class="section container">
+  <section class="section container" data-animate>
     <SectionTitle
       tag="Rotina Diária"
       title="Um dia no Colégio Villa Prime"
@@ -161,7 +161,7 @@ const dailySchedule = [
 
     <ol class="timeline">
       {dailySchedule.map((entry, i) => (
-        <li class="timeline-item reveal" data-reveal-delay={i * 60}>
+        <li class="timeline-item reveal" data-reveal-delay={i * 60} data-animate>
           <span class="timeline-marker" aria-hidden="true">
             <span class="timeline-dot"></span>
           </span>
@@ -178,9 +178,9 @@ const dailySchedule = [
   <!-- ============================================================
        4. CTA — Agende uma visita
        ============================================================ -->
-  <section class="cta-banner">
+  <section class="cta-banner section-dark" data-animate>
     <div class="cta-banner-glow" aria-hidden="true"></div>
-    <div class="container cta-banner-inner reveal">
+    <div class="container cta-banner-inner reveal" data-animate>
       <span class="cta-banner-eyebrow">
         <span class="cta-banner-eyebrow-dot" aria-hidden="true"></span>
         Próximo Passo
@@ -209,6 +209,10 @@ const dailySchedule = [
 </BaseLayout>
 
 <style>
+  .section-alt {
+    background-color: var(--vp-gray-50, #F9FAFB);
+  }
+
   /* ============================================================
      Metodologia / Eixos grids (2x2)
      ============================================================ */
@@ -246,8 +250,8 @@ const dailySchedule = [
     width: 2px;
     background: linear-gradient(
       180deg,
-      var(--color-accent-300) 0%,
-      var(--color-primary-200) 100%
+      color-mix(in srgb, var(--vp-gold, #FFD700) 70%, white) 0%,
+      var(--vp-purple-light, #D2B4DE) 100%
     );
     border-radius: var(--radius-full);
   }
@@ -277,12 +281,12 @@ const dailySchedule = [
     height: 14px;
     background: linear-gradient(
       135deg,
-      var(--color-accent-400) 0%,
-      var(--color-accent-600) 100%
+      var(--vp-gold, #FFD700) 0%,
+      var(--vp-gold-deep, #DAA520) 100%
     );
     border: 3px solid var(--color-surface);
     border-radius: var(--radius-full);
-    box-shadow: 0 0 0 2px var(--color-accent-200), var(--shadow-sm);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--vp-gold, #FFD700) 45%, white), var(--shadow-sm);
     z-index: 1;
   }
 
@@ -300,16 +304,15 @@ const dailySchedule = [
     font-size: var(--text-xs);
     font-weight: 700;
     letter-spacing: 0.06em;
-    color: var(--color-primary-700);
-    background-color: var(--color-primary-50);
+    color: var(--vp-purple-deep, #6C3483);
+    background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 8%, white);
     border-radius: var(--radius-full);
   }
 
   .timeline-activity {
-    font-family: var(--font-display);
     font-size: var(--text-xl);
     font-weight: 700;
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     margin: 0;
     line-height: 1.25;
   }
@@ -330,12 +333,7 @@ const dailySchedule = [
     isolation: isolate;
     overflow: hidden;
     color: #fff;
-    background: linear-gradient(
-      135deg,
-      var(--color-primary-900) 0%,
-      var(--color-primary-700) 60%,
-      var(--color-accent-700) 100%
-    );
+    background: var(--grad-hero, linear-gradient(135deg, #6C3483 0%, #9B59B6 40%, #BB8FCE 100%));
     padding-block: clamp(4rem, 9vh, 6rem);
   }
 
@@ -345,7 +343,7 @@ const dailySchedule = [
     right: -15%;
     width: 70%;
     height: 100%;
-    background: radial-gradient(ellipse at center, rgb(246 201 31 / 0.18) 0%, transparent 60%);
+    background: radial-gradient(ellipse at center, rgb(155 89 182 / 0.18) 0%, transparent 60%);
     pointer-events: none;
     z-index: -1;
   }
@@ -369,9 +367,9 @@ const dailySchedule = [
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent-200);
+    color: var(--vp-purple-light, #D2B4DE);
     background: rgb(255 255 255 / 0.06);
-    border: 1px solid rgb(255 255 255 / 0.16);
+    border: 1px solid rgb(210 180 222 / 0.28);
     border-radius: var(--radius-full);
   }
 
@@ -379,11 +377,10 @@ const dailySchedule = [
     width: 6px;
     height: 6px;
     border-radius: var(--radius-full);
-    background-color: var(--color-accent-400);
+    background-color: var(--vp-purple-light, #D2B4DE);
   }
 
   .cta-banner-title {
-    font-family: var(--font-display);
     font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
     line-height: 1.15;
     color: #fff;

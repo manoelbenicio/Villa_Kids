@@ -116,13 +116,13 @@ const matriculasFaq = [
   <!-- ============================================================
        HERO — full-bleed with urgency
        ============================================================ -->
-  <section class="matriculas-hero">
+  <section class="matriculas-hero section-dark" data-animate>
     <div class="matriculas-hero-bg" aria-hidden="true"></div>
     <div class="matriculas-hero-overlay" aria-hidden="true"></div>
     <div class="matriculas-hero-noise" aria-hidden="true"></div>
 
     <div class="container matriculas-hero-content">
-      <nav class="breadcrumb reveal" aria-label="Trilha de navegação">
+      <nav class="breadcrumb reveal" aria-label="Trilha de navegação" data-animate>
         <ol>
           <li><a href="/">Início</a></li>
           <li>
@@ -132,21 +132,21 @@ const matriculasFaq = [
         </ol>
       </nav>
 
-      <span class="urgency-badge reveal" data-reveal-delay="80">
+      <span class="urgency-badge reveal" data-reveal-delay="80" data-animate>
         <span class="urgency-dot" aria-hidden="true"></span>
         <span class="urgency-text">Vagas limitadas para 2026</span>
       </span>
 
-      <h1 class="matriculas-title reveal" data-reveal-delay="160">
+      <h1 class="matriculas-title reveal" data-reveal-delay="160" data-animate>
         Matrículas Abertas <span class="title-accent">2026</span>
       </h1>
 
-      <p class="matriculas-subtitle reveal" data-reveal-delay="240">
+      <p class="matriculas-subtitle reveal" data-reveal-delay="240" data-animate>
         Garanta a vaga da sua criança em uma escola que acompanha cada passo
         com cuidado, intencionalidade pedagógica e segurança em cada detalhe.
       </p>
 
-      <div class="matriculas-actions reveal" data-reveal-delay="320">
+      <div class="matriculas-actions reveal" data-reveal-delay="320" data-animate>
         <CTAButton
           text="Agendar visita pelo WhatsApp"
           href={whatsappLink('Olá! Tenho interesse em fazer a matrícula no Villa Prime. Gostaria de agendar uma visita.')}
@@ -156,7 +156,7 @@ const matriculasFaq = [
         <CTAButton text="Ver formulário de interesse" href="#interesse" variant="outline" size="lg" />
       </div>
 
-      <ul class="matriculas-meta reveal" data-reveal-delay="400">
+      <ul class="matriculas-meta reveal" data-reveal-delay="400" data-animate>
         <li>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           <span>Resposta em até 1 hora útil</span>
@@ -178,16 +178,16 @@ const matriculasFaq = [
   <!-- ============================================================
        PROCESSO 3 STEPS
        ============================================================ -->
-  <section class="section container">
+  <section class="section container" data-animate>
     <SectionTitle
       tag="Como funciona"
       title="Três passos simples até a matrícula"
       subtitle="Um caminho claro, sem burocracia desnecessária — para que você decida com confiança."
     />
 
-    <ol class="steps">
+    <ol class="steps stagger" data-animate>
       {steps.map((step, i) => (
-        <li class="step reveal" data-reveal-delay={i * 100}>
+        <li class="step reveal" data-reveal-delay={i * 100} data-animate>
           <div class="step-shell" aria-hidden="true">
             <div class="step-core">
               <span class="step-num">{step.n}</span>
@@ -213,7 +213,7 @@ const matriculasFaq = [
   <!-- ============================================================
        SOCIAL PROOF — TrustBadges
        ============================================================ -->
-  <section class="section section-muted">
+  <section class="section section-alt" data-animate>
     <div class="container">
       <SectionTitle
         tag="Por que confiar"
@@ -221,7 +221,7 @@ const matriculasFaq = [
         subtitle="A experiência das famílias que vieram antes — em quatro indicadores que importam."
       />
 
-      <div class="trust-grid">
+      <div class="trust-grid stagger" data-animate>
         {trustNumbers.map((tn, i) => (
           <TrustBadge
             value={tn.value}
@@ -238,14 +238,14 @@ const matriculasFaq = [
   <!-- ============================================================
        SOCIAL PROOF — TESTIMONIALS
        ============================================================ -->
-  <section class="section container">
+  <section class="section container" data-animate>
     <SectionTitle
       tag="Famílias Villa Prime"
       title="O que dizem as famílias que já vivem a escola"
       subtitle="Histórias reais, em primeira pessoa, de quem confiou os primeiros anos das suas crianças à nossa equipe."
     />
 
-    <div class="testimonials-grid">
+    <div class="testimonials-grid stagger" data-animate>
       {testimonials.map((t, i) => (
         <TestimonialCard
           quote={t.quote}
@@ -262,7 +262,7 @@ const matriculasFaq = [
   <!-- ============================================================
        DOCUMENTOS NECESSÁRIOS
        ============================================================ -->
-  <section class="section section-muted">
+  <section class="section section-alt" data-animate>
     <div class="container docs-container">
       <SectionTitle
         tag="Documentação"
@@ -271,9 +271,9 @@ const matriculasFaq = [
         alignment="left"
       />
 
-      <ul class="docs-list">
+      <ul class="docs-list stagger" data-animate>
         {requiredDocs.map((doc, i) => (
-          <li class="doc-item reveal" data-reveal-delay={i * 50}>
+          <li class="doc-item reveal" data-reveal-delay={i * 50} data-animate>
             <span class="doc-marker" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             </span>
@@ -287,7 +287,7 @@ const matriculasFaq = [
   <!-- ============================================================
        FAQ
        ============================================================ -->
-  <section class="section container">
+  <section class="section container" data-animate>
     <SectionTitle
       tag="Perguntas Frequentes"
       title="Dúvidas mais comuns sobre a matrícula"
@@ -300,13 +300,13 @@ const matriculasFaq = [
   <!-- ============================================================
        CTA PRINCIPAL — WhatsApp grande + formulário de interesse
        ============================================================ -->
-  <section id="interesse" class="cta-final">
+  <section id="interesse" class="cta-final section-dark" data-animate>
     <div class="cta-final-glow" aria-hidden="true"></div>
     <div class="cta-final-noise" aria-hidden="true"></div>
 
-    <div class="container cta-final-grid">
+    <div class="container cta-final-grid stagger" data-animate>
       <!-- Side 1: big WhatsApp CTA + value props -->
-      <div class="cta-final-pitch reveal">
+      <div class="cta-final-pitch reveal" data-animate>
         <span class="cta-final-eyebrow">
           <span class="cta-final-eyebrow-dot" aria-hidden="true"></span>
           Próximo passo
@@ -351,8 +351,8 @@ const matriculasFaq = [
       </div>
 
       <!-- Side 2: form de interesse -->
-      <div class="cta-final-form reveal" data-reveal-delay="120">
-        <div class="cta-final-form-card">
+      <div class="cta-final-form reveal" data-reveal-delay="120" data-animate>
+        <div class="cta-final-form-card reveal" data-animate>
           <h3 class="cta-final-form-title">
             <span class="cta-final-form-eyebrow">Formulário de Interesse</span>
             <span>Conte um pouco sobre você</span>
@@ -365,6 +365,10 @@ const matriculasFaq = [
 </BaseLayout>
 
 <style>
+  .section-alt {
+    background-color: var(--vp-gray-50, #F9FAFB);
+  }
+
   /* ============================================================
      HERO — full-bleed with urgency
      ============================================================ */
@@ -374,7 +378,7 @@ const matriculasFaq = [
     overflow: hidden;
     color: #fff;
     padding-block: clamp(7rem, 16vh, 10rem) clamp(4rem, 9vh, 6rem);
-    background-color: var(--color-primary-950);
+    background-color: var(--vp-purple-deep, #6C3483);
     min-height: min(85vh, 720px);
     display: flex;
     align-items: center;
@@ -384,9 +388,9 @@ const matriculasFaq = [
     position: absolute;
     inset: 0;
     background-image:
-      radial-gradient(ellipse at 20% 10%, rgb(212 169 16 / 0.22) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 90%, rgb(0 109 132 / 0.35) 0%, transparent 55%),
-      linear-gradient(135deg, var(--color-primary-950) 0%, var(--color-primary-800) 100%);
+      radial-gradient(ellipse at 20% 10%, rgb(218 165 32 / 0.22) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgb(80 227 194 / 0.35) 0%, transparent 55%),
+      var(--grad-hero, linear-gradient(135deg, #6C3483 0%, #9B59B6 40%, #BB8FCE 100%));
     z-index: -2;
   }
 
@@ -394,7 +398,7 @@ const matriculasFaq = [
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgb(0 30 43 / 0.4) 0%, rgb(0 30 43 / 0.65) 100%);
+      linear-gradient(180deg, rgb(17 24 39 / 0.4) 0%, rgb(17 24 39 / 0.65) 100%);
     z-index: -1;
     pointer-events: none;
   }
@@ -442,8 +446,8 @@ const matriculasFaq = [
   }
 
   .breadcrumb a { color: inherit; text-decoration: none; transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1); }
-  .breadcrumb a:hover { color: var(--color-accent-300); }
-  .breadcrumb [aria-current="page"] { color: var(--color-accent-200); }
+  .breadcrumb a:hover { color: color-mix(in srgb, var(--vp-gold, #FFD700) 70%, white); }
+  .breadcrumb [aria-current="page"] { color: color-mix(in srgb, var(--vp-gold, #FFD700) 45%, white); }
   .breadcrumb-sep { width: 12px; height: 12px; color: rgb(255 255 255 / 0.4); }
 
   /* --- Urgency badge (pulsing, conversion-focused) --- */
@@ -456,10 +460,10 @@ const matriculasFaq = [
     font-size: var(--text-sm);
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: var(--color-primary-950);
-    background: linear-gradient(135deg, var(--color-accent-300) 0%, var(--color-accent-500) 100%);
+    color: var(--vp-purple-deep, #6C3483);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--vp-gold, #FFD700) 70%, white) 0%, var(--vp-gold-deep, #DAA520) 100%);
     border-radius: var(--radius-full);
-    box-shadow: 0 8px 24px -10px rgb(246 201 31 / 0.55);
+    box-shadow: 0 8px 24px -10px rgb(155 89 182 / 0.55);
   }
 
   .urgency-dot {
@@ -478,7 +482,6 @@ const matriculasFaq = [
   }
 
   .matriculas-title {
-    font-family: var(--font-display);
     font-size: clamp(2.5rem, 6vw + 1rem, 5rem);
     line-height: 1.05;
     color: #fff;
@@ -489,7 +492,7 @@ const matriculasFaq = [
   }
 
   .title-accent {
-    background: linear-gradient(135deg, var(--color-accent-300) 0%, var(--color-accent-500) 100%);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--vp-gold, #FFD700) 70%, white) 0%, var(--vp-gold-deep, #DAA520) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -533,7 +536,7 @@ const matriculasFaq = [
   .matriculas-meta svg {
     width: 18px;
     height: 18px;
-    color: var(--color-accent-300);
+    color: color-mix(in srgb, var(--vp-gold, #FFD700) 70%, white);
     flex: 0 0 auto;
   }
 
@@ -591,7 +594,7 @@ const matriculasFaq = [
   .step-shell {
     flex: 1;
     padding: 6px;
-    background: linear-gradient(135deg, rgb(0 66 84 / 0.06) 0%, rgb(212 169 16 / 0.10) 100%);
+    background: linear-gradient(135deg, rgb(155 89 182 / 0.06) 0%, rgb(218 165 32 / 0.10) 100%);
     border: 1px solid var(--color-neutral-200);
     border-radius: calc(var(--radius-xl) + 6px);
     box-shadow: var(--shadow-sm);
@@ -604,7 +607,7 @@ const matriculasFaq = [
   .step:hover .step-shell {
     transform: translateY(-4px);
     box-shadow: var(--shadow-xl);
-    border-color: var(--color-accent-300);
+    border-color: color-mix(in srgb, var(--vp-gold, #FFD700) 70%, white);
   }
 
   .step-core {
@@ -620,12 +623,11 @@ const matriculasFaq = [
   }
 
   .step-num {
-    font-family: var(--font-display);
     font-size: 3rem;
     font-weight: 800;
     line-height: 1;
-    color: var(--color-accent-100);
-    -webkit-text-stroke: 1.5px var(--color-accent-500);
+    color: color-mix(in srgb, var(--vp-gold, #FFD700) 25%, white);
+    -webkit-text-stroke: 1.5px var(--vp-gold-deep, #DAA520);
   }
 
   .step-icon {
@@ -634,8 +636,8 @@ const matriculasFaq = [
     justify-content: center;
     width: 48px;
     height: 48px;
-    color: var(--color-primary-700);
-    background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-primary-100) 100%);
+    color: var(--vp-purple-deep, #6C3483);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--vp-purple, #9B59B6) 8%, white) 0%, color-mix(in srgb, var(--vp-purple, #9B59B6) 14%, white) 100%);
     border-radius: var(--radius-md);
   }
 
@@ -645,9 +647,8 @@ const matriculasFaq = [
   }
 
   .step-title {
-    font-family: var(--font-display);
     font-size: var(--text-2xl);
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     margin: 0;
     line-height: 1.2;
   }
@@ -670,9 +671,9 @@ const matriculasFaq = [
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-accent-700);
-    background-color: var(--color-accent-50);
-    border: 1px solid var(--color-accent-200);
+    color: var(--vp-gold-deep, #DAA520);
+    background-color: color-mix(in srgb, var(--vp-gold, #FFD700) 12%, white);
+    border: 1px solid color-mix(in srgb, var(--vp-gold, #FFD700) 45%, white);
     border-radius: var(--radius-full);
     padding: 0.3rem 0.75rem;
   }
@@ -688,7 +689,7 @@ const matriculasFaq = [
     align-items: center;
     justify-content: center;
     padding: 0 var(--space-3);
-    color: var(--color-accent-500);
+    color: var(--vp-gold-deep, #DAA520);
   }
 
   .step-connector svg {
@@ -769,7 +770,7 @@ const matriculasFaq = [
 
   .doc-item:hover {
     transform: translateX(2px);
-    border-color: var(--color-primary-200);
+    border-color: var(--vp-purple-light, #D2B4DE);
   }
 
   .doc-marker {
@@ -779,8 +780,8 @@ const matriculasFaq = [
     justify-content: center;
     width: 32px;
     height: 32px;
-    color: var(--color-primary-700);
-    background-color: var(--color-primary-50);
+    color: var(--vp-purple-deep, #6C3483);
+    background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 8%, white);
     border-radius: var(--radius-md);
   }
 
@@ -794,12 +795,7 @@ const matriculasFaq = [
     isolation: isolate;
     overflow: hidden;
     color: #fff;
-    background: linear-gradient(
-      135deg,
-      var(--color-primary-950) 0%,
-      var(--color-primary-800) 50%,
-      var(--color-accent-700) 100%
-    );
+    background: var(--grad-hero, linear-gradient(135deg, #6C3483 0%, #9B59B6 40%, #BB8FCE 100%));
     padding-block: clamp(5rem, 11vh, 8rem);
   }
 
@@ -809,7 +805,7 @@ const matriculasFaq = [
     right: -15%;
     width: 70%;
     height: 100%;
-    background: radial-gradient(ellipse at center, rgb(246 201 31 / 0.22) 0%, transparent 60%);
+    background: radial-gradient(ellipse at center, rgb(155 89 182 / 0.22) 0%, transparent 60%);
     pointer-events: none;
     z-index: -1;
   }
@@ -850,9 +846,9 @@ const matriculasFaq = [
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent-200);
+    color: var(--vp-purple-light, #D2B4DE);
     background: rgb(255 255 255 / 0.06);
-    border: 1px solid rgb(255 255 255 / 0.16);
+    border: 1px solid rgb(210 180 222 / 0.28);
     border-radius: var(--radius-full);
     width: fit-content;
   }
@@ -861,11 +857,10 @@ const matriculasFaq = [
     width: 6px;
     height: 6px;
     border-radius: var(--radius-full);
-    background-color: var(--color-accent-400);
+    background-color: var(--vp-purple-light, #D2B4DE);
   }
 
   .cta-final-title {
-    font-family: var(--font-display);
     font-size: clamp(1.75rem, 3.2vw + 1rem, 3rem);
     line-height: 1.1;
     color: #fff;
@@ -917,7 +912,7 @@ const matriculasFaq = [
     width: 18px;
     height: 18px;
     margin-top: 0.15rem;
-    color: var(--color-accent-300);
+    color: color-mix(in srgb, var(--vp-gold, #FFD700) 70%, white);
   }
 
   /* --- Form card on the right --- */
@@ -934,9 +929,8 @@ const matriculasFaq = [
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-    font-family: var(--font-display);
     font-size: var(--text-2xl);
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     line-height: 1.2;
   }
 
@@ -946,7 +940,7 @@ const matriculasFaq = [
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent-700);
+    color: var(--vp-purple, #9B59B6);
   }
 
   /* ContactForm inside CTA: reset its padded card style */

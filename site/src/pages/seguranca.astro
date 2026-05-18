@@ -94,9 +94,9 @@ const safetyCommitments = [
   <!-- ============================================================
        1. Trust badges — números de segurança
        ============================================================ -->
-  <section class="trust-section">
+  <section class="trust-section" data-animate>
     <div class="container">
-      <div class="trust-grid">
+      <div class="trust-grid stagger" data-animate>
         {trustNumbers.map((tn, i) => (
           <TrustBadge
             value={tn.value}
@@ -112,14 +112,14 @@ const safetyCommitments = [
   <!-- ============================================================
        2. Protocolos de segurança
        ============================================================ -->
-  <section class="section container">
+  <section class="section container" data-animate>
     <SectionTitle
       tag="Protocolos"
       title="Camadas integradas de proteção"
       subtitle="Cada criança é cuidada por múltiplas linhas de proteção — humanas, físicas, digitais e processuais."
     />
 
-    <div class="protocols-grid">
+    <div class="protocols-grid stagger" data-animate>
       {securityProtocols.map((protocol, i) => (
         <FeatureCard
           title={protocol.title}
@@ -134,7 +134,7 @@ const safetyCommitments = [
   <!-- ============================================================
        3. Compromissos extras
        ============================================================ -->
-  <section class="section section-muted">
+  <section class="section section-alt" data-animate>
     <div class="container commitments-container">
       <SectionTitle
         tag="Compromissos"
@@ -143,9 +143,9 @@ const safetyCommitments = [
         alignment="left"
       />
 
-      <ul class="commitments-list">
+      <ul class="commitments-list stagger" data-animate>
         {safetyCommitments.map((c, i) => (
-          <li class="commitment reveal" data-reveal-delay={i * 70}>
+          <li class="commitment reveal" data-reveal-delay={i * 70} data-animate>
             <span class="commitment-marker" aria-hidden="true">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -169,9 +169,9 @@ const safetyCommitments = [
   <!-- ============================================================
        4. CTA — Segurança é prioridade
        ============================================================ -->
-  <section class="cta-banner">
+  <section class="cta-banner section-dark" data-animate>
     <div class="cta-banner-glow" aria-hidden="true"></div>
-    <div class="container cta-banner-inner reveal">
+    <div class="container cta-banner-inner reveal" data-animate>
       <span class="cta-banner-eyebrow">
         <span class="cta-banner-eyebrow-dot" aria-hidden="true"></span>
         Tranquilidade
@@ -205,6 +205,10 @@ const safetyCommitments = [
 </BaseLayout>
 
 <style>
+  .section-alt {
+    background-color: var(--vp-gray-50, #F9FAFB);
+  }
+
   /* ============================================================
      Trust section — TrustBadges row
      ============================================================ */
@@ -271,7 +275,7 @@ const safetyCommitments = [
     padding: var(--space-4) var(--space-5);
     background-color: var(--color-surface);
     border: 1px solid var(--color-neutral-200);
-    border-left: 4px solid var(--color-accent-500);
+    border-left: 4px solid var(--vp-gold-deep, #DAA520);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
     font-family: var(--font-sans);
@@ -286,7 +290,7 @@ const safetyCommitments = [
 
   .commitment:hover {
     transform: translateX(4px);
-    border-left-color: var(--color-accent-700);
+    border-left-color: var(--vp-gold-deep, #DAA520);
     box-shadow: var(--shadow-md);
   }
 
@@ -297,8 +301,8 @@ const safetyCommitments = [
     justify-content: center;
     width: 28px;
     height: 28px;
-    color: var(--color-accent-700);
-    background-color: var(--color-accent-50);
+    color: var(--vp-gold-deep, #DAA520);
+    background-color: color-mix(in srgb, var(--vp-gold, #FFD700) 12%, white);
     border-radius: var(--radius-full);
     margin-top: 2px;
   }
@@ -316,12 +320,7 @@ const safetyCommitments = [
     isolation: isolate;
     overflow: hidden;
     color: #fff;
-    background: linear-gradient(
-      135deg,
-      var(--color-primary-900) 0%,
-      var(--color-primary-700) 60%,
-      var(--color-accent-700) 100%
-    );
+    background: var(--grad-hero, linear-gradient(135deg, #6C3483 0%, #9B59B6 40%, #BB8FCE 100%));
     padding-block: clamp(4rem, 9vh, 6rem);
   }
 
@@ -331,7 +330,7 @@ const safetyCommitments = [
     right: -15%;
     width: 70%;
     height: 100%;
-    background: radial-gradient(ellipse at center, rgb(246 201 31 / 0.18) 0%, transparent 60%);
+    background: radial-gradient(ellipse at center, rgb(155 89 182 / 0.18) 0%, transparent 60%);
     pointer-events: none;
     z-index: -1;
   }
@@ -355,9 +354,9 @@ const safetyCommitments = [
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent-200);
+    color: var(--vp-purple-light, #D2B4DE);
     background: rgb(255 255 255 / 0.06);
-    border: 1px solid rgb(255 255 255 / 0.16);
+    border: 1px solid rgb(210 180 222 / 0.28);
     border-radius: var(--radius-full);
   }
 
@@ -365,11 +364,10 @@ const safetyCommitments = [
     width: 6px;
     height: 6px;
     border-radius: var(--radius-full);
-    background-color: var(--color-accent-400);
+    background-color: var(--vp-purple-light, #D2B4DE);
   }
 
   .cta-banner-title {
-    font-family: var(--font-display);
     font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
     line-height: 1.15;
     color: #fff;

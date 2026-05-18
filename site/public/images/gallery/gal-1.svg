@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Cotidiano">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#004a5c"/>
+      <stop offset="0%" stop-color="#6C3483"/>
       <stop offset="100%" stop-color="#268ea5"/>
     </linearGradient>
     <radialGradient id="h" cx="0.82" cy="0.18" r="0.7">
@@ -19,5 +19,5 @@
   <g opacity="0.55" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(50% 50%) scale(2.5)">
     <circle cx='-25' cy='10' r='14'/><circle cx='15' cy='-10' r='10'/><circle cx='30' cy='20' r='8'/><path d='M-40 35 L40 35'/>
   </g>
-  <text x="40" y="60" font-family="Georgia, 'Playfair Display', serif" font-size="22" font-style="italic" fill="rgba(255,255,255,0.85)" letter-spacing="0.04em">Cotidiano</text>
+  <text x="40" y="60" font-family="'Fredoka', 'Inter', sans-serif" font-size="22" font-style="italic" fill="rgba(255,255,255,0.85)" letter-spacing="0.04em">Cotidiano</text>
 </svg>

@@ -19,5 +19,5 @@
   <g opacity="0.55" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(50% 50%) scale(2.5)">
     <rect x='-30' y='-30' width='25' height='25'/><rect x='5' y='-30' width='25' height='25'/><rect x='-30' y='5' width='25' height='25'/><rect x='5' y='5' width='25' height='25'/><circle cx='50' cy='-15' r='8'/>
   </g>
-  <text x="40" y="60" font-family="Georgia, 'Playfair Display', serif" font-size="22" font-style="italic" fill="rgba(255,255,255,0.85)" letter-spacing="0.04em">Sala de Atividades</text>
+  <text x="40" y="60" font-family="'Fredoka', 'Inter', sans-serif" font-size="22" font-style="italic" fill="rgba(255,255,255,0.85)" letter-spacing="0.04em">Sala de Atividades</text>
 </svg>

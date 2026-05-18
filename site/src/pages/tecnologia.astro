@@ -96,14 +96,14 @@ const techDifferentials = [
   <!-- ============================================================
        1. Recursos tecnológicos
        ============================================================ -->
-  <section class="section container">
+  <section class="section container" data-animate>
     <SectionTitle
       tag="Recursos"
       title="Tecnologia integrada à rotina escolar"
       subtitle="Seis frentes em que a tecnologia apoia o cuidado, a comunicação e a aprendizagem na primeira infância."
     />
 
-    <div class="tech-grid">
+    <div class="tech-grid stagger" data-animate>
       {techFeatures.map((item, i) => (
         <FeatureCard
           title={item.title}
@@ -118,7 +118,7 @@ const techDifferentials = [
   <!-- ============================================================
        2. Diferenciais
        ============================================================ -->
-  <section class="section section-muted">
+  <section class="section section-alt" data-animate>
     <div class="container">
       <SectionTitle
         tag="Princípios"
@@ -126,9 +126,9 @@ const techDifferentials = [
         subtitle="A tecnologia é um meio. O que importa é a forma como ela apoia o desenvolvimento integral das crianças."
       />
 
-      <div class="differentials-grid">
+      <div class="differentials-grid stagger" data-animate>
         {techDifferentials.map((diff, i) => (
-          <article class="differential reveal" data-reveal-delay={i * 80}>
+          <article class="differential reveal" data-reveal-delay={i * 80} data-animate>
             <span class="differential-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <h3 class="differential-title">{diff.title}</h3>
             <p class="differential-detail">{diff.detail}</p>
@@ -141,9 +141,9 @@ const techDifferentials = [
   <!-- ============================================================
        3. CTA — Saiba mais sobre os diferenciais
        ============================================================ -->
-  <section class="cta-banner">
+  <section class="cta-banner section-dark" data-animate>
     <div class="cta-banner-glow" aria-hidden="true"></div>
-    <div class="container cta-banner-inner reveal">
+    <div class="container cta-banner-inner reveal" data-animate>
       <span class="cta-banner-eyebrow">
         <span class="cta-banner-eyebrow-dot" aria-hidden="true"></span>
         Diferenciais
@@ -172,6 +172,10 @@ const techDifferentials = [
 </BaseLayout>
 
 <style>
+  .section-alt {
+    background-color: var(--vp-gray-50, #F9FAFB);
+  }
+
   /* ============================================================
      Recursos tecnológicos — 3 col / 2 col / 1 col
      ============================================================ */
@@ -228,23 +232,21 @@ const techDifferentials = [
   .differential:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-xl);
-    border-color: var(--color-primary-200);
+    border-color: var(--vp-purple-light, #D2B4DE);
   }
 
   .differential-num {
-    font-family: var(--font-display);
     font-size: 3.5rem;
     font-weight: 800;
     line-height: 1;
-    color: var(--color-accent-100);
+    color: color-mix(in srgb, var(--vp-gold, #FFD700) 25%, white);
     user-select: none;
-    -webkit-text-stroke: 1px var(--color-accent-300);
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--vp-gold, #FFD700) 70%, white);
   }
 
   .differential-title {
-    font-family: var(--font-display);
     font-size: var(--text-xl);
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     margin: 0;
     line-height: 1.25;
   }
@@ -265,12 +267,7 @@ const techDifferentials = [
     isolation: isolate;
     overflow: hidden;
     color: #fff;
-    background: linear-gradient(
-      135deg,
-      var(--color-primary-900) 0%,
-      var(--color-primary-700) 60%,
-      var(--color-accent-700) 100%
-    );
+    background: var(--grad-hero, linear-gradient(135deg, #6C3483 0%, #9B59B6 40%, #BB8FCE 100%));
     padding-block: clamp(4rem, 9vh, 6rem);
   }
 
@@ -280,7 +277,7 @@ const techDifferentials = [
     right: -15%;
     width: 70%;
     height: 100%;
-    background: radial-gradient(ellipse at center, rgb(246 201 31 / 0.18) 0%, transparent 60%);
+    background: radial-gradient(ellipse at center, rgb(155 89 182 / 0.18) 0%, transparent 60%);
     pointer-events: none;
     z-index: -1;
   }
@@ -304,9 +301,9 @@ const techDifferentials = [
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent-200);
+    color: var(--vp-purple-light, #D2B4DE);
     background: rgb(255 255 255 / 0.06);
-    border: 1px solid rgb(255 255 255 / 0.16);
+    border: 1px solid rgb(210 180 222 / 0.28);
     border-radius: var(--radius-full);
   }
 
@@ -314,11 +311,10 @@ const techDifferentials = [
     width: 6px;
     height: 6px;
     border-radius: var(--radius-full);
-    background-color: var(--color-accent-400);
+    background-color: var(--vp-purple-light, #D2B4DE);
   }
 
   .cta-banner-title {
-    font-family: var(--font-display);
     font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
     line-height: 1.15;
     color: #fff;

@@ -19,5 +19,5 @@
   <g opacity="0.55" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(50% 50%) scale(2.5)">
     <rect x='-35' y='-20' width='70' height='45' rx='6'/><line x1='-20' y1='-5' x2='20' y2='-5'/><line x1='-20' y1='8' x2='10' y2='8'/>
   </g>
-  <text x="40" y="60" font-family="Georgia, 'Playfair Display', serif" font-size="22" font-style="italic" fill="rgba(255,255,255,0.85)" letter-spacing="0.04em">Hora da história</text>
+  <text x="40" y="60" font-family="'Fredoka', 'Inter', sans-serif" font-size="22" font-style="italic" fill="rgba(255,255,255,0.85)" letter-spacing="0.04em">Hora da história</text>
 </svg>

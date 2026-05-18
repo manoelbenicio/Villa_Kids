@@ -59,13 +59,13 @@ const sections = [
   <!-- ============================================================
        Last updated stripe
        ============================================================ -->
-  <section class="meta-strip">
-    <div class="container meta-strip-inner">
-      <div class="meta-item">
+  <section class="meta-strip" data-animate>
+    <div class="container meta-strip-inner stagger" data-animate>
+      <div class="meta-item reveal" data-animate>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <span>Última atualização: <strong>{lastUpdatedFormatted}</strong></span>
       </div>
-      <div class="meta-item">
+      <div class="meta-item reveal" data-reveal-delay="80" data-animate>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
         <span>Conforme <strong>Lei 13.709/2018 (LGPD)</strong></span>
       </div>
@@ -75,8 +75,8 @@ const sections = [
   <!-- ============================================================
        Body — TOC + content
        ============================================================ -->
-  <section class="section privacy-section">
-    <div class="container privacy-grid">
+  <section class="section privacy-section" data-animate>
+    <div class="container privacy-grid stagger" data-animate>
       <!-- Table of contents (sticky on desktop) -->
       <aside class="privacy-toc">
         <span class="privacy-toc-label">Sumário</span>
@@ -94,7 +94,7 @@ const sections = [
 
       <!-- Article body -->
       <article class="privacy-article">
-        <section id="1-introducao">
+        <section id="1-introducao" data-animate>
           <h2>1. Introdução</h2>
           <p>
             O <strong>{schoolInfo.legalName}</strong> ("Villa Prime", "nós") tem
@@ -111,7 +111,7 @@ const sections = [
           </p>
         </section>
 
-        <section id="2-dados-coletados">
+        <section id="2-dados-coletados" data-animate>
           <h2>2. Dados que coletamos</h2>
           <p>Coletamos as seguintes categorias de dados pessoais:</p>
           <ul>
@@ -124,7 +124,7 @@ const sections = [
           </ul>
         </section>
 
-        <section id="3-finalidades">
+        <section id="3-finalidades" data-animate>
           <h2>3. Finalidades do tratamento</h2>
           <p>Tratamos os dados pessoais com as seguintes finalidades:</p>
           <ul>
@@ -139,7 +139,7 @@ const sections = [
           </ul>
         </section>
 
-        <section id="4-base-legal">
+        <section id="4-base-legal" data-animate>
           <h2>4. Base legal</h2>
           <p>O tratamento dos dados pessoais é realizado com base nas seguintes hipóteses legais previstas na LGPD:</p>
           <ul>
@@ -151,7 +151,7 @@ const sections = [
           </ul>
         </section>
 
-        <section id="5-compartilhamento">
+        <section id="5-compartilhamento" data-animate>
           <h2>5. Compartilhamento de dados</h2>
           <p>
             <strong>Não vendemos, alugamos ou negociamos dados pessoais</strong>.
@@ -165,7 +165,7 @@ const sections = [
           </ul>
         </section>
 
-        <section id="6-retencao">
+        <section id="6-retencao" data-animate>
           <h2>6. Retenção dos dados</h2>
           <p>
             Mantemos os dados pessoais apenas pelo tempo necessário ao
@@ -176,7 +176,7 @@ const sections = [
           </p>
         </section>
 
-        <section id="7-direitos">
+        <section id="7-direitos" data-animate>
           <h2>7. Direitos do titular</h2>
           <p>
             A LGPD assegura ao titular dos dados — ou ao representante legal
@@ -198,7 +198,7 @@ const sections = [
           </p>
         </section>
 
-        <section id="8-seguranca">
+        <section id="8-seguranca" data-animate>
           <h2>8. Segurança da informação</h2>
           <p>
             Adotamos medidas técnicas e organizacionais para proteger os dados
@@ -220,7 +220,7 @@ const sections = [
           </p>
         </section>
 
-        <section id="9-cookies">
+        <section id="9-cookies" data-animate>
           <h2>9. Cookies e tecnologias similares</h2>
           <p>
             Nosso site utiliza cookies essenciais para garantir o funcionamento
@@ -234,7 +234,7 @@ const sections = [
           </p>
         </section>
 
-        <section id="10-criancas">
+        <section id="10-criancas" data-animate>
           <h2>10. Dados de crianças e adolescentes</h2>
           <p>
             O tratamento de dados de crianças e adolescentes é realizado em
@@ -250,7 +250,7 @@ const sections = [
           </p>
         </section>
 
-        <section id="11-mudancas">
+        <section id="11-mudancas" data-animate>
           <h2>11. Mudanças nesta política</h2>
           <p>
             Esta Política pode ser atualizada periodicamente para refletir
@@ -266,7 +266,7 @@ const sections = [
           </p>
         </section>
 
-        <section id="12-contato-dpo">
+        <section id="12-contato-dpo" data-animate>
           <h2>12. Contato com o DPO (Encarregado)</h2>
           <p>
             Se você tem dúvidas sobre o tratamento dos seus dados, deseja
@@ -322,14 +322,14 @@ const sections = [
   }
 
   .meta-item strong {
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     font-weight: 600;
   }
 
   .meta-item svg {
     width: 16px;
     height: 16px;
-    color: var(--color-accent-600);
+    color: var(--vp-gold-deep, #DAA520);
     flex: 0 0 auto;
   }
 
@@ -360,7 +360,7 @@ const sections = [
     max-height: calc(100vh - 8rem);
     overflow-y: auto;
     padding: var(--space-5);
-    background-color: var(--color-surface-muted);
+    background-color: var(--vp-gray-50, #F9FAFB);
     border: 1px solid var(--color-neutral-200);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-sm);
@@ -380,7 +380,7 @@ const sections = [
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent-700);
+    color: var(--vp-gold-deep, #DAA520);
     margin-bottom: var(--space-3);
   }
 
@@ -410,16 +410,15 @@ const sections = [
   }
 
   .privacy-toc a:hover {
-    background-color: var(--color-primary-50);
-    color: var(--color-primary-800);
+    background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 8%, white);
+    color: var(--vp-purple-deep, #6C3483);
   }
 
   .privacy-toc-num {
     flex: 0 0 auto;
-    font-family: var(--font-display);
     font-size: 0.78rem;
     font-weight: 700;
-    color: var(--color-accent-600);
+    color: var(--vp-gold-deep, #DAA520);
     margin-top: 0.1rem;
     letter-spacing: 0.04em;
   }
@@ -441,14 +440,13 @@ const sections = [
   }
 
   .privacy-article h2 {
-    font-family: var(--font-display);
     font-size: clamp(1.4rem, 1.6vw + 0.6rem, 1.75rem);
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     margin: 0 0 var(--space-4);
     line-height: 1.2;
     letter-spacing: -0.01em;
     padding-bottom: var(--space-2);
-    border-bottom: 2px solid var(--color-accent-200);
+    border-bottom: 2px solid color-mix(in srgb, var(--vp-gold, #FFD700) 45%, white);
   }
 
   .privacy-article p {
@@ -466,7 +464,7 @@ const sections = [
   }
 
   .privacy-article strong {
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     font-weight: 600;
   }
 
@@ -496,30 +494,30 @@ const sections = [
     top: 1.05rem;
     width: 8px;
     height: 8px;
-    background: linear-gradient(135deg, var(--color-accent-400) 0%, var(--color-accent-700) 100%);
+    background: linear-gradient(135deg, var(--vp-gold, #FFD700) 0%, var(--vp-gold-deep, #DAA520) 100%);
     border-radius: var(--radius-full);
-    box-shadow: 0 0 0 3px var(--color-accent-50);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--vp-gold, #FFD700) 12%, white);
   }
 
   .privacy-article a {
-    color: var(--color-primary-700);
+    color: var(--vp-purple-deep, #6C3483);
     text-decoration: underline;
-    text-decoration-color: var(--color-accent-300);
+    text-decoration-color: color-mix(in srgb, var(--vp-gold, #FFD700) 70%, white);
     text-underline-offset: 3px;
     transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .privacy-article a:hover {
-    color: var(--color-accent-700);
-    text-decoration-color: var(--color-accent-600);
+    color: var(--vp-gold-deep, #DAA520);
+    text-decoration-color: var(--vp-gold-deep, #DAA520);
   }
 
   /* Special "contact-block" inside Section 12 */
   .privacy-article .contact-block {
     padding: var(--space-5);
-    background-color: var(--color-surface-muted);
+    background-color: var(--vp-gray-50, #F9FAFB);
     border: 1px solid var(--color-neutral-200);
-    border-left: 4px solid var(--color-accent-500);
+    border-left: 4px solid var(--vp-gold-deep, #DAA520);
     border-radius: var(--radius-md);
     margin-bottom: var(--space-3);
   }

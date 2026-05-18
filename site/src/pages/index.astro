@@ -102,9 +102,9 @@ const faqPreview = faqItems.slice(0, 5);
   <!-- ============================================================
        2. SOBRE A ESCOLA — split layout 60/40
        ============================================================ -->
-  <section id="sobre" class="section section-sobre">
-    <div class="container sobre-grid">
-      <div class="sobre-text reveal">
+  <section id="sobre" class="section section-sobre" data-animate>
+    <div class="container sobre-grid stagger" data-animate>
+      <div class="sobre-text reveal" data-animate>
         <span class="eyebrow">Quem Somos</span>
         <h2 class="sobre-heading">
           Uma escola onde cada criança floresce no seu próprio tempo
@@ -148,7 +148,7 @@ const faqPreview = faqItems.slice(0, 5);
         </div>
       </div>
 
-      <div class="sobre-image reveal" data-reveal-delay="120">
+      <div class="sobre-image reveal" data-reveal-delay="120" data-animate>
         <div class="sobre-image-shell" aria-hidden="true">
           <div class="sobre-image-core">
             <img
@@ -174,7 +174,7 @@ const faqPreview = faqItems.slice(0, 5);
   <!-- ============================================================
        3. PILARES PEDAGÓGICOS
        ============================================================ -->
-  <section id="pilares" class="section section-muted">
+  <section id="pilares" class="section section-alt" data-animate>
     <div class="container">
       <SectionTitle
         tag="Nossos Pilares"
@@ -182,7 +182,7 @@ const faqPreview = faqItems.slice(0, 5);
         subtitle="Cada decisão pedagógica nasce destes princípios — eles guiam o cotidiano da escola e o cuidado com cada criança."
       />
 
-      <div class="pilares-grid">
+      <div class="pilares-grid stagger" data-animate>
         {features.map((feature, i) => (
           <FeatureCard
             title={feature.title}
@@ -199,7 +199,7 @@ const faqPreview = faqItems.slice(0, 5);
   <!-- ============================================================
        4. NOSSOS AMBIENTES
        ============================================================ -->
-  <section id="ambientes" class="section">
+  <section id="ambientes" class="section" data-animate>
     <div class="container">
       <SectionTitle
         tag="Ambientes Projetados para a Infância"
@@ -207,9 +207,9 @@ const faqPreview = faqItems.slice(0, 5);
         subtitle="Cada ambiente é pensado em escala infantil, com atenção a higiene, conforto, acessibilidade e a estímulos para o desenvolvimento integral."
       />
 
-      <div class="ambientes-grid">
+      <div class="ambientes-grid stagger" data-animate>
         {ambientes.map((ambiente, i) => (
-          <article class="ambiente-card reveal" data-reveal-delay={i * 70}>
+          <article class="ambiente-card reveal" data-reveal-delay={i * 70} data-animate>
             <div class="ambiente-shell" aria-hidden="true">
               <div class="ambiente-core">
                 <img
@@ -235,7 +235,7 @@ const faqPreview = faqItems.slice(0, 5);
   <!-- ============================================================
        5. GALERIA
        ============================================================ -->
-  <section id="galeria" class="section section-muted">
+  <section id="galeria" class="section section-alt" data-animate>
     <div class="container">
       <SectionTitle
         tag="Galeria"
@@ -250,7 +250,7 @@ const faqPreview = faqItems.slice(0, 5);
   <!-- ============================================================
        6. DEPOIMENTOS
        ============================================================ -->
-  <section id="depoimentos" class="section">
+  <section id="depoimentos" class="section" data-animate>
     <div class="container">
       <SectionTitle
         tag="Famílias Villa Prime"
@@ -258,7 +258,7 @@ const faqPreview = faqItems.slice(0, 5);
         subtitle="A confiança das famílias é a maior credencial que carregamos. Conheça algumas histórias."
       />
 
-      <div class="depoimentos-grid">
+      <div class="depoimentos-grid stagger" data-animate>
         {testimonials.map((t, i) => (
           <TestimonialCard
             quote={t.quote}
@@ -276,7 +276,7 @@ const faqPreview = faqItems.slice(0, 5);
   <!-- ============================================================
        7. FAQ PREVIEW
        ============================================================ -->
-  <section id="faq" class="section section-muted">
+  <section id="faq" class="section section-alt" data-animate>
     <div class="container">
       <SectionTitle
         tag="Perguntas Frequentes"
@@ -286,7 +286,7 @@ const faqPreview = faqItems.slice(0, 5);
 
       <FAQ items={faqPreview} schema={true} />
 
-      <div class="faq-cta reveal" data-reveal-delay="200">
+      <div class="faq-cta reveal" data-reveal-delay="200" data-animate>
         <CTAButton
           text="Tire todas as suas dúvidas — Fale conosco"
           href="/contato/"
@@ -300,11 +300,11 @@ const faqPreview = faqItems.slice(0, 5);
   <!-- ============================================================
        8. CTA FINAL
        ============================================================ -->
-  <section id="visita" class="section-lg cta-final">
+  <section id="visita" class="section-lg cta-final section-dark" data-animate>
     <div class="cta-final-glow" aria-hidden="true"></div>
     <div class="cta-final-noise" aria-hidden="true"></div>
 
-    <div class="container cta-final-content reveal">
+    <div class="container cta-final-content reveal" data-animate>
       <span class="eyebrow eyebrow-light">Próximo Passo</span>
       <h2 class="cta-final-title">
         Venha conhecer o Villa Prime
@@ -353,23 +353,23 @@ const faqPreview = faqItems.slice(0, 5);
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent-700);
-    background-color: var(--color-accent-50);
-    border: 1px solid var(--color-accent-200);
+    color: var(--vp-purple, #9B59B6);
+    background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 10%, white);
+    border: 1px solid color-mix(in srgb, var(--vp-purple, #9B59B6) 24%, white);
     border-radius: var(--radius-full);
     width: fit-content;
   }
 
   .eyebrow-light {
-    color: var(--color-accent-200);
+    color: var(--vp-purple-light, #D2B4DE);
     background-color: rgb(255 255 255 / 0.06);
     border-color: rgb(255 255 255 / 0.16);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
 
-  .section-muted {
-    background-color: var(--color-surface-muted);
+  .section-alt {
+    background-color: var(--vp-gray-50, #F9FAFB);
   }
 
   /* ============================================================
@@ -399,10 +399,9 @@ const faqPreview = faqItems.slice(0, 5);
   }
 
   .sobre-heading {
-    font-family: var(--font-display);
     font-size: clamp(1.75rem, 3vw + 1rem, 3rem);
     line-height: 1.15;
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     margin: 0;
     letter-spacing: -0.015em;
     text-wrap: balance;
@@ -450,10 +449,9 @@ const faqPreview = faqItems.slice(0, 5);
   }
 
   .sobre-pillar-num {
-    font-family: var(--font-display);
     font-size: var(--text-3xl);
     font-weight: 700;
-    color: var(--color-accent-600);
+    color: var(--vp-gold-deep, #DAA520);
     line-height: 1;
   }
 
@@ -480,8 +478,8 @@ const faqPreview = faqItems.slice(0, 5);
     padding: 8px;
     background: linear-gradient(
       135deg,
-      rgb(0 66 84 / 0.06) 0%,
-      rgb(212 169 16 / 0.10) 100%
+      rgb(155 89 182 / 0.06) 0%,
+      rgb(218 165 32 / 0.10) 100%
     );
     border: 1px solid var(--color-neutral-200);
     border-radius: calc(var(--radius-2xl) + 8px);
@@ -492,7 +490,7 @@ const faqPreview = faqItems.slice(0, 5);
     overflow: hidden;
     border-radius: var(--radius-2xl);
     aspect-ratio: 4 / 5;
-    background-color: var(--color-primary-100);
+    background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 14%, white);
     box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.4);
   }
 
@@ -513,7 +511,7 @@ const faqPreview = faqItems.slice(0, 5);
     gap: var(--space-2);
     padding: var(--space-3) var(--space-4);
     background-color: var(--color-surface);
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-xl);
     border: 1px solid var(--color-neutral-200);
@@ -524,7 +522,7 @@ const faqPreview = faqItems.slice(0, 5);
     flex: 0 0 auto;
     width: 28px;
     height: 28px;
-    color: var(--color-accent-500);
+    color: var(--vp-gold-deep, #DAA520);
   }
 
   .sobre-image-badge span {
@@ -582,8 +580,8 @@ const faqPreview = faqItems.slice(0, 5);
     padding: 6px;
     background: linear-gradient(
       135deg,
-      rgb(0 66 84 / 0.04) 0%,
-      rgb(212 169 16 / 0.08) 100%
+      rgb(155 89 182 / 0.04) 0%,
+      rgb(218 165 32 / 0.08) 100%
     );
     border: 1px solid var(--color-neutral-200);
     border-radius: calc(var(--radius-xl) + 6px);
@@ -597,7 +595,7 @@ const faqPreview = faqItems.slice(0, 5);
   .ambiente-card:hover .ambiente-shell {
     transform: translateY(-3px);
     box-shadow: var(--shadow-xl);
-    border-color: var(--color-primary-200);
+    border-color: var(--vp-purple-light, #D2B4DE);
   }
 
   .ambiente-core {
@@ -605,7 +603,7 @@ const faqPreview = faqItems.slice(0, 5);
     aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: var(--radius-xl);
-    background-color: var(--color-primary-100);
+    background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 14%, white);
   }
 
   .ambiente-core img {
@@ -628,9 +626,9 @@ const faqPreview = faqItems.slice(0, 5);
     padding: var(--space-4) var(--space-5);
     background: linear-gradient(
       180deg,
-      rgb(0 30 43 / 0) 0%,
-      rgb(0 30 43 / 0.7) 60%,
-      rgb(0 30 43 / 0.92) 100%
+      rgb(17 24 39 / 0) 0%,
+      rgb(17 24 39 / 0.7) 60%,
+      rgb(17 24 39 / 0.92) 100%
     );
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -638,7 +636,6 @@ const faqPreview = faqItems.slice(0, 5);
   }
 
   .ambiente-caption h3 {
-    font-family: var(--font-display);
     font-size: var(--text-xl);
     font-weight: 700;
     color: #fff;
@@ -688,12 +685,7 @@ const faqPreview = faqItems.slice(0, 5);
     isolation: isolate;
     overflow: hidden;
     color: #fff;
-    background: linear-gradient(
-      135deg,
-      var(--color-primary-900) 0%,
-      var(--color-primary-700) 55%,
-      var(--color-accent-700) 100%
-    );
+    background: var(--grad-hero, linear-gradient(135deg, #6C3483 0%, #9B59B6 40%, #BB8FCE 100%));
     padding-block: clamp(5rem, 12vh, 8rem);
   }
 
@@ -705,7 +697,7 @@ const faqPreview = faqItems.slice(0, 5);
     height: 100%;
     background: radial-gradient(
       ellipse at center,
-      rgb(246 201 31 / 0.18) 0%,
+      rgb(155 89 182 / 0.18) 0%,
       transparent 60%
     );
     pointer-events: none;
@@ -731,7 +723,6 @@ const faqPreview = faqItems.slice(0, 5);
   }
 
   .cta-final-title {
-    font-family: var(--font-display);
     font-size: clamp(2rem, 4vw + 1rem, 3.75rem);
     line-height: 1.1;
     color: #fff;
@@ -776,7 +767,7 @@ const faqPreview = faqItems.slice(0, 5);
   .cta-final-hours svg {
     width: 16px;
     height: 16px;
-    color: var(--color-accent-300);
+    color: color-mix(in srgb, var(--vp-gold, #FFD700) 70%, white);
   }
 
   /* ============================================================

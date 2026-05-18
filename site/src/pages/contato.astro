@@ -43,8 +43,8 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
   <!-- ============================================================
        Quick WhatsApp CTA (sticky alternative)
        ============================================================ -->
-  <section class="quick-strip">
-    <div class="container quick-strip-inner reveal">
+  <section class="quick-strip" data-animate>
+    <div class="container quick-strip-inner reveal" data-animate>
       <div class="quick-strip-text">
         <span class="quick-strip-eyebrow">
           <span class="quick-strip-eyebrow-dot" aria-hidden="true"></span>
@@ -64,10 +64,10 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
   <!-- ============================================================
        Layout 2-col: Form + Info
        ============================================================ -->
-  <section class="section container">
-    <div class="contato-grid">
+  <section class="section container" data-animate>
+    <div class="contato-grid stagger" data-animate>
       <!-- Form -->
-      <div class="contato-form-side reveal">
+      <div class="contato-form-side reveal" data-animate>
         <header class="contato-form-header">
           <span class="eyebrow">
             <span class="eyebrow-dot" aria-hidden="true"></span>
@@ -84,7 +84,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
       </div>
 
       <!-- Info panel -->
-      <aside class="contato-info-side reveal" data-reveal-delay="120">
+      <aside class="contato-info-side reveal" data-reveal-delay="120" data-animate>
         <header class="contato-info-header">
           <span class="eyebrow">
             <span class="eyebrow-dot" aria-hidden="true"></span>
@@ -93,8 +93,8 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
           <h2 class="contato-heading">Como nos encontrar</h2>
         </header>
 
-        <ul class="info-list">
-          <li class="info-item">
+        <ul class="info-list stagger" data-animate>
+          <li class="info-item reveal" data-animate>
             <span class="info-icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
             </span>
@@ -107,7 +107,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
             </div>
           </li>
 
-          <li class="info-item">
+          <li class="info-item reveal" data-reveal-delay="80" data-animate>
             <span class="info-icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
             </span>
@@ -117,7 +117,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
             </div>
           </li>
 
-          <li class="info-item">
+          <li class="info-item reveal" data-reveal-delay="160" data-animate>
             <span class="info-icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
             </span>
@@ -127,7 +127,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
             </div>
           </li>
 
-          <li class="info-item">
+          <li class="info-item reveal" data-reveal-delay="240" data-animate>
             <span class="info-icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </span>
@@ -183,9 +183,9 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
   <!-- ============================================================
        Mapa
        ============================================================ -->
-  <section class="map-section">
+  <section class="map-section" data-animate>
     <div class="container">
-      <header class="map-header reveal">
+      <header class="map-header reveal" data-animate>
         <span class="eyebrow">
           <span class="eyebrow-dot" aria-hidden="true"></span>
           Localização
@@ -196,7 +196,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
         </p>
       </header>
 
-      <div class="map-shell reveal" data-reveal-delay="120">
+      <div class="map-shell reveal" data-reveal-delay="120" data-animate>
         <div class="map-core">
           <iframe
             src={mapsEmbedUrl}
@@ -229,9 +229,9 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-accent-700);
-    background-color: var(--color-accent-50);
-    border: 1px solid var(--color-accent-200);
+    color: var(--vp-purple, #9B59B6);
+    background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 10%, white);
+    border: 1px solid color-mix(in srgb, var(--vp-purple, #9B59B6) 24%, white);
     border-radius: var(--radius-full);
     width: fit-content;
   }
@@ -240,14 +240,13 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     width: 6px;
     height: 6px;
     border-radius: var(--radius-full);
-    background-color: var(--color-accent-500);
+    background-color: var(--vp-purple, #9B59B6);
   }
 
   .contato-heading {
-    font-family: var(--font-display);
     font-size: clamp(1.75rem, 2.4vw + 0.8rem, 2.5rem);
     line-height: 1.15;
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     margin: var(--space-2) 0 var(--space-2);
     letter-spacing: -0.015em;
   }
@@ -265,7 +264,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
      Quick WhatsApp strip
      ============================================================ */
   .quick-strip {
-    background-color: var(--color-surface-muted);
+    background-color: var(--vp-gray-50, #F9FAFB);
     border-top: 1px solid var(--color-neutral-100);
     border-bottom: 1px solid var(--color-neutral-100);
     padding-block: var(--space-6);
@@ -295,9 +294,9 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #1ea050;
-    background-color: rgb(37 211 102 / 0.1);
-    border: 1px solid rgb(37 211 102 / 0.25);
+    color: var(--vp-purple, #9B59B6);
+    background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 10%, white);
+    border: 1px solid color-mix(in srgb, var(--vp-purple, #9B59B6) 24%, white);
     border-radius: var(--radius-full);
     width: fit-content;
   }
@@ -306,15 +305,15 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     width: 6px;
     height: 6px;
     border-radius: var(--radius-full);
-    background-color: #25d366;
-    box-shadow: 0 0 8px rgb(37 211 102 / 0.6);
+    background-color: var(--vp-purple, #9B59B6);
+    box-shadow: 0 0 8px rgb(155 89 182 / 0.45);
   }
 
   .quick-strip-text p {
     margin: 0;
     font-family: var(--font-sans);
     font-size: var(--text-base);
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     font-weight: 500;
   }
 
@@ -380,9 +379,9 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     justify-content: center;
     width: 44px;
     height: 44px;
-    color: var(--color-accent-700);
-    background: linear-gradient(135deg, var(--color-accent-50) 0%, var(--color-accent-100) 100%);
-    border: 1px solid var(--color-accent-200);
+    color: var(--vp-gold-deep, #DAA520);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--vp-gold, #FFD700) 12%, white) 0%, color-mix(in srgb, var(--vp-gold, #FFD700) 25%, white) 100%);
+    border: 1px solid color-mix(in srgb, var(--vp-gold, #FFD700) 45%, white);
     border-radius: var(--radius-md);
     margin-top: 2px;
   }
@@ -410,12 +409,12 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     font-family: var(--font-sans);
     font-size: var(--text-base);
     font-weight: 500;
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     text-decoration: none;
     transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .info-text a:hover { color: var(--color-primary-600); }
+  .info-text a:hover { color: var(--vp-purple, #9B59B6); }
 
   /* Social */
   .info-social {
@@ -453,7 +452,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     font-family: var(--font-sans);
     font-size: var(--text-sm);
     font-weight: 600;
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     background-color: var(--color-surface);
     border: 1px solid var(--color-neutral-200);
     border-radius: var(--radius-full);
@@ -465,17 +464,17 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
 
   .info-social a:hover {
     transform: translateY(-1px);
-    border-color: var(--color-accent-400);
-    color: var(--color-accent-700);
+    border-color: var(--vp-gold, #FFD700);
+    color: var(--vp-gold-deep, #DAA520);
   }
 
-  .info-social svg { width: 16px; height: 16px; color: var(--color-accent-600); }
+  .info-social svg { width: 16px; height: 16px; color: var(--vp-gold-deep, #DAA520); }
 
   /* ============================================================
      Map section
      ============================================================ */
   .map-section {
-    background-color: var(--color-surface-muted);
+    background-color: var(--vp-gray-50, #F9FAFB);
     padding-block: clamp(3rem, 6vw, 5rem);
     border-top: 1px solid var(--color-neutral-100);
   }
@@ -491,7 +490,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
   .map-shell {
     position: relative;
     padding: 8px;
-    background: linear-gradient(135deg, rgb(0 66 84 / 0.05) 0%, rgb(212 169 16 / 0.10) 100%);
+    background: linear-gradient(135deg, rgb(155 89 182 / 0.05) 0%, rgb(218 165 32 / 0.10) 100%);
     border: 1px solid var(--color-neutral-200);
     border-radius: calc(var(--radius-xl) + 8px);
     box-shadow: var(--shadow-xl);
@@ -502,7 +501,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     overflow: hidden;
     border-radius: var(--radius-xl);
     aspect-ratio: 16 / 9;
-    background-color: var(--color-primary-100);
+    background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 14%, white);
   }
 
   @media (max-width: 768px) {
@@ -527,7 +526,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     font-family: var(--font-sans);
     font-size: var(--text-sm);
     font-weight: 600;
-    color: var(--color-primary-800);
+    color: var(--vp-purple-deep, #6C3483);
     background-color: rgb(255 255 255 / 0.96);
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-lg);
@@ -540,7 +539,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
   .map-link:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-xl);
-    color: var(--color-primary-600);
+    color: var(--vp-purple, #9B59B6);
   }
 
   .map-link svg { width: 14px; height: 14px; }
