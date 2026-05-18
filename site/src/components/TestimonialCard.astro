@@ -27,7 +27,7 @@ const initials = name
 
 <figure class="testimonial reveal" data-animate="fade-scale" data-reveal-delay={delay}>
   {rating && (
-    <div class="testimonial-rating" aria-label={`Avaliação: ${rating} de 5 estrelas`}>
+    <div class="testimonial-rating" role="img" aria-label={`Avaliação: ${rating} de 5 estrelas`}>
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ const initials = name
   .testimonial-rating {
     display: inline-flex;
     gap: 2px;
-    color: var(--vp-gold-deep, #daa520);
+    color: var(--color-accent-700, #8a6408);
     margin-left: auto;
   }
 

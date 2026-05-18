@@ -27,7 +27,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
 <BaseLayout
   title="Fale Conosco — Contato"
   description="Entre em contato com o Colégio Villa Prime. Endereço, telefone, e-mail, horário de funcionamento e formulário direto. Atendimento humano em até 1 hora útil."
-  schemaType="WebPage"
+  schemaType="ContactPage"
 >
   <PageHero
     eyebrow="Estamos por perto"
@@ -229,7 +229,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--vp-purple, #9B59B6);
+    color: var(--vp-purple-deep, #6C3483);
     background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 10%, white);
     border: 1px solid color-mix(in srgb, var(--vp-purple, #9B59B6) 24%, white);
     border-radius: var(--radius-full);
@@ -294,7 +294,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--vp-purple, #9B59B6);
+    color: var(--vp-purple-deep, #6C3483);
     background-color: color-mix(in srgb, var(--vp-purple, #9B59B6) 10%, white);
     border: 1px solid color-mix(in srgb, var(--vp-purple, #9B59B6) 24%, white);
     border-radius: var(--radius-full);
@@ -379,7 +379,7 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
     justify-content: center;
     width: 44px;
     height: 44px;
-    color: var(--vp-gold-deep, #DAA520);
+    color: var(--color-accent-700, #8A6408);
     background: linear-gradient(135deg, color-mix(in srgb, var(--vp-gold, #FFD700) 12%, white) 0%, color-mix(in srgb, var(--vp-gold, #FFD700) 25%, white) 100%);
     border: 1px solid color-mix(in srgb, var(--vp-gold, #FFD700) 45%, white);
     border-radius: var(--radius-md);
@@ -465,10 +465,10 @@ const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery
   .info-social a:hover {
     transform: translateY(-1px);
     border-color: var(--vp-gold, #FFD700);
-    color: var(--vp-gold-deep, #DAA520);
+    color: var(--color-accent-700, #8A6408);
   }
 
-  .info-social svg { width: 16px; height: 16px; color: var(--vp-gold-deep, #DAA520); }
+  .info-social svg { width: 16px; height: 16px; color: var(--color-accent-700, #8A6408); }
 
   /* ============================================================
      Map section

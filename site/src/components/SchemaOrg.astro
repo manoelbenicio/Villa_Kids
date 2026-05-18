@@ -12,7 +12,7 @@
 import { schoolInfo } from '../data/school-info.ts';
 
 export interface Props {
-  type?: 'LocalBusiness' | 'EducationalOrganization' | 'WebPage' | 'Default';
+  type?: 'LocalBusiness' | 'EducationalOrganization' | 'WebPage' | 'ContactPage' | 'Default';
   name?: string;
   description?: string;
   url?: string;
@@ -65,10 +65,10 @@ const baseOrg = {
 
 let payload: Record<string, unknown> = baseOrg;
 
-if (type === 'WebPage') {
+if (type === 'WebPage' || type === 'ContactPage') {
   payload = {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    '@type': type,
     name,
     description,
     url: pageUrl,

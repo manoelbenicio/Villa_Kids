@@ -441,7 +441,7 @@ a:hover {
 .section-head .eyebrow,
 .eyebrow {
   margin-bottom: var(--s-3);
-  color: var(--vp-purple);
+  color: var(--vp-purple-deep);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -591,7 +591,7 @@ a:hover {
 
 .badge-purple { color: var(--vp-purple); background: rgb(155 89 182 / 0.1); }
 .badge-green { color: var(--vp-green-deep); background: rgb(126 211 33 / 0.1); }
-.badge-gold { color: var(--vp-gold-deep); background: rgb(255 215 0 / 0.15); }
+.badge-gold { color: var(--color-accent-700); background: var(--color-accent-50); }
 .badge-cyan { color: var(--vp-cyan-deep); background: rgb(80 227 194 / 0.1); }
 .badge-magenta { color: var(--vp-magenta); background: rgb(255 0 128 / 0.08); }
 
