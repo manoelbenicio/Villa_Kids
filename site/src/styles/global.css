@@ -595,6 +595,16 @@ a:hover {
 .badge-cyan { color: var(--vp-cyan-deep); background: rgb(80 227 194 / 0.1); }
 .badge-magenta { color: var(--vp-magenta); background: rgb(255 0 128 / 0.08); }
 
+.btn-primary {
+  color: #fff;
+  background: var(--vp-purple);
+  box-shadow: 0 4px 15px rgb(155 89 182 / 0.3);
+}
+
+.btn-primary:hover {
+  box-shadow: var(--shadow-glow-purple);
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
