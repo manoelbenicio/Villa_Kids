@@ -82,7 +82,7 @@ import CTAButton from './CTAButton.astro';
   </div>
 
   <!-- Mobile menu overlay -->
-  <div id="mobile-menu" class="mobile-menu" data-menu hidden>
+  <div id="mobile-menu" class="mobile-menu" data-menu hidden inert>
     <nav aria-label="Navegação principal (mobile)">
       <ul>
         {mainNav.map((link, i) => (
@@ -161,6 +161,7 @@ import CTAButton from './CTAButton.astro';
       header.dataset.menu = open ? 'open' : 'closed';
       if (open) {
         menu.hidden = false;
+        menu.removeAttribute('inert');
         document.body.style.overflow = 'hidden';
         // Wait one frame so the [hidden] removal lands before transitioning in.
         requestAnimationFrame(() => {
@@ -168,6 +169,7 @@ import CTAButton from './CTAButton.astro';
         });
       } else {
         menu.dataset.visible = 'false';
+        menu.setAttribute('inert', '');
         document.body.style.overflow = '';
         // Hide after transition completes
         window.setTimeout(() => {

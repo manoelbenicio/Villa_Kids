@@ -52,6 +52,8 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
                 alt={image.alt}
                 loading="lazy"
                 decoding="async"
+                width="400"
+                height="300"
               />
               <span class="gallery-overlay">
                 <svg
@@ -130,7 +132,10 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
       counter.textContent = `${index + 1} / ${images.length}`;
     };
 
+    let triggerIndex = 0;
+
     const open = (index) => {
+      triggerIndex = index;
       render(index);
       if (typeof dialog.showModal === 'function') {
         dialog.showModal();
@@ -138,6 +143,7 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
         dialog.setAttribute('open', '');
       }
       document.body.style.overflow = 'hidden';
+      root.querySelector('[data-lightbox-close]')?.focus();
     };
 
     const close = () => {
@@ -147,6 +153,7 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
         dialog.removeAttribute('open');
       }
       document.body.style.overflow = '';
+      triggers[triggerIndex]?.focus();
     };
 
     const next = () => render((current + 1) % images.length);
@@ -219,7 +226,7 @@ const { images, id = 'gallery', stagger = 60 } = Astro.props;
   }
 
   .gallery-trigger:focus-visible {
-    outline: 2px solid var(--color-accent-500);
+    outline: 2px solid var(--color-primary-500);
     outline-offset: 4px;
     border-radius: var(--radius-xl);
   }

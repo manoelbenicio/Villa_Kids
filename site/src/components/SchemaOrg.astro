@@ -22,8 +22,10 @@ const {
   type = 'Default',
   name = schoolInfo.name,
   description = schoolInfo.shortDescription,
-  url = schoolInfo.url,
+  url,
 } = Astro.props;
+
+const pageUrl = url ?? new URL(Astro.url.pathname, Astro.site ?? schoolInfo.url).toString();
 
 const baseOrg = {
   '@context': 'https://schema.org',
@@ -69,7 +71,7 @@ if (type === 'WebPage') {
     '@type': 'WebPage',
     name,
     description,
-    url,
+    url: pageUrl,
     isPartOf: {
       '@type': 'WebSite',
       name: schoolInfo.name,

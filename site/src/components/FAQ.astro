@@ -36,10 +36,10 @@ const jsonLd = schema
   : null;
 ---
 
-<div class="faq" role="list">
+<div class="faq">
   {items.map((item, i) => (
-    <details class="faq-item reveal" data-reveal-delay={i * 60} role="listitem">
-      <summary class="faq-question">
+    <details class="faq-item reveal" data-reveal-delay={i * 60}>
+      <summary class="faq-question" aria-expanded="false">
         <span class="faq-question-text">{item.question}</span>
         <span class="faq-chevron" aria-hidden="true">
           <svg
@@ -63,6 +63,17 @@ const jsonLd = schema
 </div>
 
 {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
+
+<script is:inline>
+  document.querySelectorAll('.faq-item').forEach((details) => {
+    const summary = details.querySelector('summary');
+    if (!summary) return;
+    summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+    details.addEventListener('toggle', () => {
+      summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+    });
+  });
+</script>
 
 <style>
   .faq {

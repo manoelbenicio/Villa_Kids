@@ -35,7 +35,8 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
   novalidate
   data-school-whatsapp={schoolInfo.whatsapp}
 >
-  <div class="form-grid">
+  <fieldset class="form-grid">
+    <legend class="sr-only">Dados de contato</legend>
     <!-- Nome -->
     <div class="form-field">
       <input
@@ -117,7 +118,7 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
       <label for={`${id}-mensagem`}>Mensagem</label>
       <span class="form-error" id={`${id}-mensagem-error`} aria-live="polite"></span>
     </div>
-  </div>
+  </fieldset>
 
   <!-- Honeypot — invisible field bots fill in -->
   <div class="honeypot" aria-hidden="true">
@@ -262,6 +263,24 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
     box-shadow: var(--shadow-lg);
   }
 
+  .contact-form fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
   .form-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -324,7 +343,7 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
   .form-field input:focus-visible,
   .form-field select:focus-visible,
   .form-field textarea:focus-visible {
-    outline: 2px solid var(--color-accent-500);
+    outline: 2px solid var(--color-primary-500);
     outline-offset: 4px;
     border-radius: var(--radius-sm);
   }
@@ -420,7 +439,7 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
   }
 
   .form-consent input[type="checkbox"]:focus-visible {
-    outline: 2px solid var(--color-accent-500);
+    outline: 2px solid var(--color-primary-500);
     outline-offset: 3px;
   }
 

@@ -19,6 +19,25 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
+      serialize(item) {
+        // Custom priority per route
+        if (item.url.endsWith('.com.br/')) {
+          item.priority = 1.0;
+          item.changefreq = 'weekly';
+        } else if (item.url.includes('/matriculas/')) {
+          item.priority = 0.9;
+          item.changefreq = 'weekly';
+        } else if (item.url.includes('/contato/') || item.url.includes('/turmas/')) {
+          item.priority = 0.8;
+          item.changefreq = 'weekly';
+        } else if (item.url.includes('/politica-de-privacidade/')) {
+          item.priority = 0.3;
+          item.changefreq = 'yearly';
+        } else {
+          item.priority = 0.7;
+        }
+        return item;
+      },
     }),
   ],
 
