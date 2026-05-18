@@ -1,0 +1,47 @@
+[
+  {
+    "Route": "/",
+    "Status": 200,
+    "Bytes": 74971
+  },
+  {
+    "Route": "/proposta-pedagogica/",
+    "Status": 200,
+    "Bytes": 54060
+  },
+  {
+    "Route": "/turmas/",
+    "Status": 200,
+    "Bytes": 52738
+  },
+  {
+    "Route": "/estrutura/",
+    "Status": 200,
+    "Bytes": 67258
+  },
+  {
+    "Route": "/tecnologia/",
+    "Status": 200,
+    "Bytes": 47757
+  },
+  {
+    "Route": "/seguranca/",
+    "Status": 200,
+    "Bytes": 52862
+  },
+  {
+    "Route": "/contato/",
+    "Status": 200,
+    "Bytes": 40054
+  },
+  {
+    "Route": "/matriculas/",
+    "Status": 200,
+    "Bytes": 67274
+  },
+  {
+    "Route": "/politica-de-privacidade/",
+    "Status": 200,
+    "Bytes": 48614
+  }
+]

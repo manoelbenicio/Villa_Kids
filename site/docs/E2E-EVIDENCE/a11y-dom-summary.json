@@ -1,0 +1,1205 @@
+[
+  {
+    "route": "/",
+    "axe": {
+      "url": "http://localhost:4321/",
+      "violations": 2,
+      "incomplete": 1,
+      "passes": 21,
+      "impactCounts": {
+        "critical": 0,
+        "serious": 14,
+        "moderate": 0,
+        "minor": 0
+      },
+      "violationIds": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "nodes": 3,
+          "help": "Elements must only use permitted ARIA attributes",
+          "targets": [
+            [
+              ".testimonial[data-animate=\"fade-scale\"][data-reveal-delay=\"0\"] > .testimonial-rating[aria-label=\"Avaliação: 5 de 5 estrelas\"][data-astro-cid-3ba2o4vp=\"\"]"
+            ],
+            [
+              "figure[data-reveal-delay=\"100\"] > .testimonial-rating[aria-label=\"Avaliação: 5 de 5 estrelas\"][data-astro-cid-3ba2o4vp=\"\"]"
+            ],
+            [
+              ".testimonial[data-animate=\"fade-scale\"][data-reveal-delay=\"200\"] > .testimonial-rating[aria-label=\"Avaliação: 5 de 5 estrelas\"][data-astro-cid-3ba2o4vp=\"\"]"
+            ]
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 11,
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "targets": [
+            [
+              ".sobre-pillar:nth-child(1) > .sobre-pillar-num"
+            ],
+            [
+              ".sobre-pillar:nth-child(2) > .sobre-pillar-num"
+            ],
+            [
+              ".sobre-pillar:nth-child(3) > .sobre-pillar-num"
+            ],
+            [
+              "#pilares > .container > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              "#ambientes > .container > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              "#galeria > .container > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              "#depoimentos > .container > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".testimonial[data-animate=\"fade-scale\"][data-reveal-delay=\"0\"] > .testimonial-author > div[data-astro-cid-3ba2o4vp=\"\"]:nth-child(2) > .testimonial-role[data-astro-cid-3ba2o4vp=\"\"]"
+            ],
+            [
+              "figure[data-reveal-delay=\"100\"] > .testimonial-author > div[data-astro-cid-3ba2o4vp=\"\"]:nth-child(2) > .testimonial-role[data-astro-cid-3ba2o4vp=\"\"]"
+            ],
+            [
+              ".testimonial[data-animate=\"fade-scale\"][data-reveal-delay=\"200\"] > .testimonial-author > div[data-astro-cid-3ba2o4vp=\"\"]:nth-child(2) > .testimonial-role[data-astro-cid-3ba2o4vp=\"\"]"
+            ],
+            [
+              "#faq > .container > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ]
+          ]
+        }
+      ]
+    },
+    "dom": {
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Educação que transforma os primeiros anos"
+        },
+        {
+          "level": 2,
+          "text": "Uma escola onde cada criança floresce no seu próprio tempo"
+        },
+        {
+          "level": 2,
+          "text": "Quatro fundamentos que sustentam nossa pedagogia"
+        },
+        {
+          "level": 3,
+          "text": "Acolhimento"
+        },
+        {
+          "level": 3,
+          "text": "Desenvolvimento Integral"
+        },
+        {
+          "level": 3,
+          "text": "Segurança"
+        },
+        {
+          "level": 3,
+          "text": "Família Presente"
+        },
+        {
+          "level": 2,
+          "text": "Espaços que estimulam a curiosidade e a segurança"
+        },
+        {
+          "level": 3,
+          "text": "Berçário"
+        },
+        {
+          "level": 3,
+          "text": "Sala de Atividades"
+        },
+        {
+          "level": 3,
+          "text": "Playground"
+        },
+        {
+          "level": 3,
+          "text": "Refeitório"
+        },
+        {
+          "level": 3,
+          "text": "Sala Multimídia"
+        },
+        {
+          "level": 3,
+          "text": "Área Verde"
+        },
+        {
+          "level": 2,
+          "text": "O cotidiano em imagens"
+        },
+        {
+          "level": 2,
+          "text": "Quem vive a escola, conta"
+        },
+        {
+          "level": 2,
+          "text": "Esclareça as suas dúvidas"
+        },
+        {
+          "level": 2,
+          "text": "Venha conhecer o Villa Prime"
+        },
+        {
+          "level": 2,
+          "text": "Navegação"
+        },
+        {
+          "level": 2,
+          "text": "Contato"
+        },
+        {
+          "level": 2,
+          "text": "Acompanhe"
+        }
+      ],
+      "headingSkips": [],
+      "landmarks": {
+        "header": 6,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "skipLink": true,
+      "imagesTotal": 19,
+      "imagesMissingAlt": 0,
+      "controlsTotal": 0,
+      "unlabeledControls": [],
+      "ariaExpandedMissingControls": 5,
+      "local404Candidates": [],
+      "hasFocusVisibleCss": true
+    }
+  },
+  {
+    "route": "/proposta-pedagogica/",
+    "axe": {
+      "url": "http://localhost:4321/proposta-pedagogica/",
+      "violations": 1,
+      "incomplete": 1,
+      "passes": 19,
+      "impactCounts": {
+        "critical": 0,
+        "serious": 4,
+        "moderate": 0,
+        "minor": 0
+      },
+      "violationIds": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 4,
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "targets": [
+            [
+              ".section:nth-child(3) > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".section-alt > .container > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".section:nth-child(5) > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".contact-mini-eyebrow"
+            ]
+          ]
+        }
+      ]
+    },
+    "dom": {
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Nossa Proposta Pedagógica"
+        },
+        {
+          "level": 2,
+          "text": "O brincar é a forma mais séria de aprender"
+        },
+        {
+          "level": 3,
+          "text": "Aprendizagem pelo brincar"
+        },
+        {
+          "level": 3,
+          "text": "Escuta ativa"
+        },
+        {
+          "level": 3,
+          "text": "Currículo intencional"
+        },
+        {
+          "level": 3,
+          "text": "Família como parceira"
+        },
+        {
+          "level": 2,
+          "text": "Quatro dimensões trabalhadas com intencionalidade"
+        },
+        {
+          "level": 3,
+          "text": "Cognitivo"
+        },
+        {
+          "level": 3,
+          "text": "Socioemocional"
+        },
+        {
+          "level": 3,
+          "text": "Motor"
+        },
+        {
+          "level": 3,
+          "text": "Linguagem"
+        },
+        {
+          "level": 2,
+          "text": "Um dia no Colégio Villa Prime"
+        },
+        {
+          "level": 3,
+          "text": "Acolhida e roda de chegada"
+        },
+        {
+          "level": 3,
+          "text": "Café da manhã coletivo"
+        },
+        {
+          "level": 3,
+          "text": "Atividades pedagógicas"
+        },
+        {
+          "level": 3,
+          "text": "Almoço e higiene"
+        },
+        {
+          "level": 3,
+          "text": "Soneca / repouso"
+        },
+        {
+          "level": 3,
+          "text": "Atividades externas e lúdicas"
+        },
+        {
+          "level": 3,
+          "text": "Lanche e roda final"
+        },
+        {
+          "level": 3,
+          "text": "Saída flexível"
+        },
+        {
+          "level": 2,
+          "text": "Agende uma visita para conhecer na prática"
+        },
+        {
+          "level": 2,
+          "text": "Quer saber mais sobre nossa proposta?"
+        },
+        {
+          "level": 2,
+          "text": "Navegação"
+        },
+        {
+          "level": 2,
+          "text": "Contato"
+        },
+        {
+          "level": 2,
+          "text": "Acompanhe"
+        }
+      ],
+      "headingSkips": [],
+      "landmarks": {
+        "header": 4,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "skipLink": true,
+      "imagesTotal": 0,
+      "imagesMissingAlt": 0,
+      "controlsTotal": 0,
+      "unlabeledControls": [],
+      "ariaExpandedMissingControls": 0,
+      "local404Candidates": [],
+      "hasFocusVisibleCss": true
+    }
+  },
+  {
+    "route": "/turmas/",
+    "axe": {
+      "url": "http://localhost:4321/turmas/",
+      "violations": 1,
+      "incomplete": 1,
+      "passes": 21,
+      "impactCounts": {
+        "critical": 0,
+        "serious": 2,
+        "moderate": 0,
+        "minor": 0
+      },
+      "violationIds": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 2,
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "targets": [
+            [
+              ".section-tag"
+            ],
+            [
+              ".contact-mini-eyebrow"
+            ]
+          ]
+        }
+      ]
+    },
+    "dom": {
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Nossas Turmas"
+        },
+        {
+          "level": 2,
+          "text": "A turma certa para cada momento da infância"
+        },
+        {
+          "level": 2,
+          "text": "Berçário"
+        },
+        {
+          "level": 2,
+          "text": "Maternal I"
+        },
+        {
+          "level": 2,
+          "text": "Maternal II"
+        },
+        {
+          "level": 2,
+          "text": "Jardim I"
+        },
+        {
+          "level": 2,
+          "text": "Jardim II"
+        },
+        {
+          "level": 2,
+          "text": "Pré"
+        },
+        {
+          "level": 2,
+          "text": "Encontre a turma ideal para o seu filho"
+        },
+        {
+          "level": 2,
+          "text": "Em dúvida sobre qual turma escolher?"
+        },
+        {
+          "level": 2,
+          "text": "Navegação"
+        },
+        {
+          "level": 2,
+          "text": "Contato"
+        },
+        {
+          "level": 2,
+          "text": "Acompanhe"
+        }
+      ],
+      "headingSkips": [],
+      "landmarks": {
+        "header": 8,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "skipLink": true,
+      "imagesTotal": 6,
+      "imagesMissingAlt": 0,
+      "controlsTotal": 0,
+      "unlabeledControls": [],
+      "ariaExpandedMissingControls": 0,
+      "local404Candidates": [],
+      "hasFocusVisibleCss": true
+    }
+  },
+  {
+    "route": "/estrutura/",
+    "axe": {
+      "url": "http://localhost:4321/estrutura/",
+      "violations": 1,
+      "incomplete": 1,
+      "passes": 20,
+      "impactCounts": {
+        "critical": 0,
+        "serious": 6,
+        "moderate": 0,
+        "minor": 0
+      },
+      "violationIds": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 6,
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "targets": [
+            [
+              ".stat-item[data-reveal-delay=\"80\"][data-animate=\"\"] > .stat-value"
+            ],
+            [
+              ".stat-item[data-reveal-delay=\"160\"][data-animate=\"\"] > .stat-value"
+            ],
+            [
+              ".stat-item[data-reveal-delay=\"240\"][data-animate=\"\"] > .stat-value"
+            ],
+            [
+              ".section:nth-child(4) > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".section-alt > .container > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".contact-mini-eyebrow"
+            ]
+          ]
+        }
+      ]
+    },
+    "dom": {
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Espaços projetados para a primeira infância"
+        },
+        {
+          "level": 2,
+          "text": "Conheça em detalhes cada espaço"
+        },
+        {
+          "level": 2,
+          "text": "Berçário"
+        },
+        {
+          "level": 2,
+          "text": "Sala de Atividades"
+        },
+        {
+          "level": 2,
+          "text": "Playground"
+        },
+        {
+          "level": 2,
+          "text": "Refeitório"
+        },
+        {
+          "level": 2,
+          "text": "Sala Multimídia"
+        },
+        {
+          "level": 2,
+          "text": "Área Verde"
+        },
+        {
+          "level": 2,
+          "text": "O cotidiano em imagens"
+        },
+        {
+          "level": 2,
+          "text": "Venha conhecer pessoalmente"
+        },
+        {
+          "level": 2,
+          "text": "Quer conhecer mais detalhes da estrutura?"
+        },
+        {
+          "level": 2,
+          "text": "Navegação"
+        },
+        {
+          "level": 2,
+          "text": "Contato"
+        },
+        {
+          "level": 2,
+          "text": "Acompanhe"
+        }
+      ],
+      "headingSkips": [],
+      "landmarks": {
+        "header": 3,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "skipLink": true,
+      "imagesTotal": 15,
+      "imagesMissingAlt": 0,
+      "controlsTotal": 0,
+      "unlabeledControls": [],
+      "ariaExpandedMissingControls": 0,
+      "local404Candidates": [],
+      "hasFocusVisibleCss": true
+    }
+  },
+  {
+    "route": "/tecnologia/",
+    "axe": {
+      "url": "http://localhost:4321/tecnologia/",
+      "violations": 1,
+      "incomplete": 1,
+      "passes": 19,
+      "impactCounts": {
+        "critical": 0,
+        "serious": 6,
+        "moderate": 0,
+        "minor": 0
+      },
+      "violationIds": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 6,
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "targets": [
+            [
+              ".section:nth-child(3) > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".section-alt > .container > .section-title.align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".differential[data-reveal-delay=\"0\"] > .differential-num[data-astro-cid-7ponev73=\"\"]"
+            ],
+            [
+              ".differential[data-reveal-delay=\"80\"] > .differential-num[data-astro-cid-7ponev73=\"\"]"
+            ],
+            [
+              ".differential[data-reveal-delay=\"160\"] > .differential-num[data-astro-cid-7ponev73=\"\"]"
+            ],
+            [
+              ".contact-mini-eyebrow"
+            ]
+          ]
+        }
+      ]
+    },
+    "dom": {
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Tecnologia que aproxima famílias e escola"
+        },
+        {
+          "level": 2,
+          "text": "Tecnologia integrada à rotina escolar"
+        },
+        {
+          "level": 3,
+          "text": "Agenda Digital"
+        },
+        {
+          "level": 3,
+          "text": "Câmeras de Monitoramento"
+        },
+        {
+          "level": 3,
+          "text": "Controle de Acesso por Biometria"
+        },
+        {
+          "level": 3,
+          "text": "Plataforma de Comunicação"
+        },
+        {
+          "level": 3,
+          "text": "Lousa Interativa"
+        },
+        {
+          "level": 3,
+          "text": "Backup em Nuvem"
+        },
+        {
+          "level": 2,
+          "text": "Como pensamos a tecnologia para a infância"
+        },
+        {
+          "level": 3,
+          "text": "Tecnologia a serviço da pedagogia"
+        },
+        {
+          "level": 3,
+          "text": "Tempo de tela equilibrado"
+        },
+        {
+          "level": 3,
+          "text": "LGPD e privacidade"
+        },
+        {
+          "level": 2,
+          "text": "Saiba mais sobre nossos diferenciais"
+        },
+        {
+          "level": 2,
+          "text": "Curioso sobre nossa plataforma para pais?"
+        },
+        {
+          "level": 2,
+          "text": "Navegação"
+        },
+        {
+          "level": 2,
+          "text": "Contato"
+        },
+        {
+          "level": 2,
+          "text": "Acompanhe"
+        }
+      ],
+      "headingSkips": [],
+      "landmarks": {
+        "header": 3,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "skipLink": true,
+      "imagesTotal": 0,
+      "imagesMissingAlt": 0,
+      "controlsTotal": 0,
+      "unlabeledControls": [],
+      "ariaExpandedMissingControls": 0,
+      "local404Candidates": [],
+      "hasFocusVisibleCss": true
+    }
+  },
+  {
+    "route": "/seguranca/",
+    "axe": {
+      "url": "http://localhost:4321/seguranca/",
+      "violations": 1,
+      "incomplete": 2,
+      "passes": 19,
+      "impactCounts": {
+        "critical": 0,
+        "serious": 3,
+        "moderate": 0,
+        "minor": 0
+      },
+      "violationIds": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 3,
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "targets": [
+            [
+              ".align-center > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".align-left > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".contact-mini-eyebrow"
+            ]
+          ]
+        }
+      ]
+    },
+    "dom": {
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "A segurança do seu filho é nossa prioridade absoluta"
+        },
+        {
+          "level": 2,
+          "text": "Camadas integradas de proteção"
+        },
+        {
+          "level": 3,
+          "text": "Controle de Acesso por Biometria"
+        },
+        {
+          "level": 3,
+          "text": "Monitoramento 24h por CCTV"
+        },
+        {
+          "level": 3,
+          "text": "Equipe Treinada em Primeiros Socorros"
+        },
+        {
+          "level": 3,
+          "text": "Plano de Evacuação"
+        },
+        {
+          "level": 3,
+          "text": "Protocolos de Saúde"
+        },
+        {
+          "level": 3,
+          "text": "Conformidade com a LGPD"
+        },
+        {
+          "level": 2,
+          "text": "Pequenos detalhes que fazem grande diferença"
+        },
+        {
+          "level": 2,
+          "text": "A segurança do seu filho é prioridade"
+        },
+        {
+          "level": 2,
+          "text": "Tem alguma dúvida específica sobre segurança?"
+        },
+        {
+          "level": 2,
+          "text": "Navegação"
+        },
+        {
+          "level": 2,
+          "text": "Contato"
+        },
+        {
+          "level": 2,
+          "text": "Acompanhe"
+        }
+      ],
+      "headingSkips": [],
+      "landmarks": {
+        "header": 3,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "skipLink": true,
+      "imagesTotal": 0,
+      "imagesMissingAlt": 0,
+      "controlsTotal": 0,
+      "unlabeledControls": [],
+      "ariaExpandedMissingControls": 0,
+      "local404Candidates": [],
+      "hasFocusVisibleCss": true
+    }
+  },
+  {
+    "route": "/contato/",
+    "axe": {
+      "url": "http://localhost:4321/contato/",
+      "violations": 1,
+      "incomplete": 1,
+      "passes": 31,
+      "impactCounts": {
+        "critical": 0,
+        "serious": 4,
+        "moderate": 0,
+        "minor": 0
+      },
+      "violationIds": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 4,
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "targets": [
+            [
+              ".quick-strip-eyebrow"
+            ],
+            [
+              ".contato-form-header > .eyebrow"
+            ],
+            [
+              ".contato-info-header > .eyebrow"
+            ],
+            [
+              ".map-header > .eyebrow"
+            ]
+          ]
+        }
+      ]
+    },
+    "dom": {
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Fale Conosco"
+        },
+        {
+          "level": 2,
+          "text": "Envie sua mensagem"
+        },
+        {
+          "level": 2,
+          "text": "Como nos encontrar"
+        },
+        {
+          "level": 2,
+          "text": "Onde estamos"
+        },
+        {
+          "level": 2,
+          "text": "Navegação"
+        },
+        {
+          "level": 2,
+          "text": "Contato"
+        },
+        {
+          "level": 2,
+          "text": "Acompanhe"
+        }
+      ],
+      "headingSkips": [],
+      "landmarks": {
+        "header": 4,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "skipLink": true,
+      "imagesTotal": 0,
+      "imagesMissingAlt": 0,
+      "controlsTotal": 7,
+      "unlabeledControls": [
+        "<input type=\"checkbox\" name=\"consent\" id=\"form-contato-consent\" required aria-describedby=\"form-contato-consent-error\" data-astro-cid-svshx33u>"
+      ],
+      "ariaExpandedMissingControls": 0,
+      "local404Candidates": [],
+      "hasFocusVisibleCss": true
+    }
+  },
+  {
+    "route": "/matriculas/",
+    "axe": {
+      "url": "http://localhost:4321/matriculas/",
+      "violations": 2,
+      "incomplete": 2,
+      "passes": 28,
+      "impactCounts": {
+        "critical": 0,
+        "serious": 17,
+        "moderate": 0,
+        "minor": 0
+      },
+      "violationIds": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "nodes": 3,
+          "help": "Elements must only use permitted ARIA attributes",
+          "targets": [
+            [
+              "figure:nth-child(1) > .testimonial-rating[aria-label=\"Avaliação: 5 de 5 estrelas\"][data-astro-cid-3ba2o4vp=\"\"]"
+            ],
+            [
+              "figure:nth-child(2) > .testimonial-rating[aria-label=\"Avaliação: 5 de 5 estrelas\"][data-astro-cid-3ba2o4vp=\"\"]"
+            ],
+            [
+              "figure:nth-child(3) > .testimonial-rating[aria-label=\"Avaliação: 5 de 5 estrelas\"][data-astro-cid-3ba2o4vp=\"\"]"
+            ]
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 14,
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "targets": [
+            [
+              ".section:nth-child(3) > .align-center.section-title > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".step[data-reveal-delay=\"0\"][data-animate=\"\"] > .step-shell > .step-core > .step-num"
+            ],
+            [
+              ".step[data-reveal-delay=\"0\"][data-animate=\"\"] > .step-shell > .step-core > .step-duration > span"
+            ],
+            [
+              ".step[data-reveal-delay=\"100\"][data-animate=\"\"] > .step-shell > .step-core > .step-num"
+            ],
+            [
+              ".step[data-reveal-delay=\"100\"][data-animate=\"\"] > .step-shell > .step-core > .step-duration > span"
+            ],
+            [
+              ".step[data-reveal-delay=\"200\"][data-animate=\"\"] > .step-shell > .step-core > .step-num"
+            ],
+            [
+              ".step[data-reveal-delay=\"200\"][data-animate=\"\"] > .step-shell > .step-core > .step-duration > span"
+            ],
+            [
+              ".section-alt.section:nth-child(4) > .container > .align-center.section-title > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".section:nth-child(5) > .align-center.section-title > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              "figure:nth-child(1) > figcaption > div[data-astro-cid-3ba2o4vp=\"\"]:nth-child(2) > .testimonial-role[data-astro-cid-3ba2o4vp=\"\"]"
+            ],
+            [
+              "figure:nth-child(2) > figcaption > div[data-astro-cid-3ba2o4vp=\"\"]:nth-child(2) > .testimonial-role[data-astro-cid-3ba2o4vp=\"\"]"
+            ],
+            [
+              "figure:nth-child(3) > figcaption > div[data-astro-cid-3ba2o4vp=\"\"]:nth-child(2) > .testimonial-role[data-astro-cid-3ba2o4vp=\"\"]"
+            ],
+            [
+              ".align-left > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ],
+            [
+              ".section:nth-child(7) > .align-center.section-title > .section-tag[data-reveal-delay=\"0\"][data-astro-cid-azbpcp4f=\"\"]"
+            ]
+          ]
+        }
+      ]
+    },
+    "dom": {
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Matrículas Abertas 2026"
+        },
+        {
+          "level": 2,
+          "text": "Três passos simples até a matrícula"
+        },
+        {
+          "level": 3,
+          "text": "Visita guiada"
+        },
+        {
+          "level": 3,
+          "text": "Entrevista pedagógica"
+        },
+        {
+          "level": 3,
+          "text": "Confirmação e adaptação"
+        },
+        {
+          "level": 2,
+          "text": "Números que sustentam a confiança"
+        },
+        {
+          "level": 2,
+          "text": "O que dizem as famílias que já vivem a escola"
+        },
+        {
+          "level": 2,
+          "text": "O que você precisa para a matrícula"
+        },
+        {
+          "level": 2,
+          "text": "Dúvidas mais comuns sobre a matrícula"
+        },
+        {
+          "level": 2,
+          "text": "Garanta a vaga da sua criança em poucos minutos"
+        },
+        {
+          "level": 3,
+          "text": "Formulário de Interesse Conte um pouco sobre você"
+        },
+        {
+          "level": 2,
+          "text": "Navegação"
+        },
+        {
+          "level": 2,
+          "text": "Contato"
+        },
+        {
+          "level": 2,
+          "text": "Acompanhe"
+        }
+      ],
+      "headingSkips": [],
+      "landmarks": {
+        "header": 6,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "skipLink": true,
+      "imagesTotal": 3,
+      "imagesMissingAlt": 0,
+      "controlsTotal": 7,
+      "unlabeledControls": [
+        "<input type=\"checkbox\" name=\"consent\" id=\"form-matricula-consent\" required aria-describedby=\"form-matricula-consent-error\" data-astro-cid-svshx33u>"
+      ],
+      "ariaExpandedMissingControls": 4,
+      "local404Candidates": [],
+      "hasFocusVisibleCss": true
+    }
+  },
+  {
+    "route": "/politica-de-privacidade/",
+    "axe": {
+      "url": "http://localhost:4321/politica-de-privacidade/",
+      "violations": 1,
+      "incomplete": 1,
+      "passes": 20,
+      "impactCounts": {
+        "critical": 0,
+        "serious": 14,
+        "moderate": 0,
+        "minor": 0
+      },
+      "violationIds": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 14,
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "targets": [
+            [
+              ".privacy-toc-label"
+            ],
+            [
+              "a[href$=\"#1-introducao\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#2-dados-coletados\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#3-finalidades\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#4-base-legal\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#5-compartilhamento\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#6-retencao\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#7-direitos\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#8-seguranca\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#9-cookies\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#10-criancas\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#11-mudancas\"] > .privacy-toc-num"
+            ],
+            [
+              "a[href$=\"#12-contato-dpo\"] > .privacy-toc-num"
+            ],
+            [
+              ".contact-mini-eyebrow"
+            ]
+          ]
+        }
+      ]
+    },
+    "dom": {
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Política de Privacidade"
+        },
+        {
+          "level": 2,
+          "text": "1. Introdução"
+        },
+        {
+          "level": 2,
+          "text": "2. Dados que coletamos"
+        },
+        {
+          "level": 2,
+          "text": "3. Finalidades do tratamento"
+        },
+        {
+          "level": 2,
+          "text": "4. Base legal"
+        },
+        {
+          "level": 2,
+          "text": "5. Compartilhamento de dados"
+        },
+        {
+          "level": 2,
+          "text": "6. Retenção dos dados"
+        },
+        {
+          "level": 2,
+          "text": "7. Direitos do titular"
+        },
+        {
+          "level": 2,
+          "text": "8. Segurança da informação"
+        },
+        {
+          "level": 2,
+          "text": "9. Cookies e tecnologias similares"
+        },
+        {
+          "level": 2,
+          "text": "10. Dados de crianças e adolescentes"
+        },
+        {
+          "level": 2,
+          "text": "11. Mudanças nesta política"
+        },
+        {
+          "level": 2,
+          "text": "12. Contato com o DPO (Encarregado)"
+        },
+        {
+          "level": 2,
+          "text": "Dúvidas sobre o tratamento dos seus dados?"
+        },
+        {
+          "level": 2,
+          "text": "Navegação"
+        },
+        {
+          "level": 2,
+          "text": "Contato"
+        },
+        {
+          "level": 2,
+          "text": "Acompanhe"
+        }
+      ],
+      "headingSkips": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "skipLink": true,
+      "imagesTotal": 0,
+      "imagesMissingAlt": 0,
+      "controlsTotal": 0,
+      "unlabeledControls": [],
+      "ariaExpandedMissingControls": 0,
+      "local404Candidates": [],
+      "hasFocusVisibleCss": true
+    }
+  }
+]
