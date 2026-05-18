@@ -1,0 +1,454 @@
+---
+/**
+ * @file ContactForm.astro
+ * @description Premium contact form with floating labels, accent focus glow,
+ *              client-side validation, honeypot anti-spam, and submit
+ *              loading state. Submission target is configurable via the
+ *              `action` prop (defaults to a placeholder).
+ *
+ *              Accessibility:
+ *              - All inputs labeled via <label> + aria-describedby for errors
+ *              - aria-invalid toggled on validation failure
+ *              - aria-live status region for submit feedback
+ *
+ * @author GEMINI-UX
+ * @phase 2
+ * @created 2026-05-17T20:49:00Z
+ */
+import { schoolInfo } from '../data/school-info.ts';
+
+export interface Props {
+  /** Form submission endpoint (Formspree, /api/contact, etc.). */
+  action?: string;
+  /** Form id (useful when multiple forms per page). */
+  id?: string;
+}
+
+const { action = '/api/contact', id = 'contact-form' } = Astro.props;
+---
+
+<form
+  id={id}
+  class="contact-form reveal"
+  method="POST"
+  action={action}
+  novalidate
+  data-school-whatsapp={schoolInfo.whatsapp}
+>
+  <div class="form-grid">
+    <!-- Nome -->
+    <div class="form-field">
+      <input
+        type="text"
+        name="nome"
+        id={`${id}-nome`}
+        placeholder=" "
+        required
+        minlength="2"
+        autocomplete="name"
+        aria-describedby={`${id}-nome-error`}
+      />
+      <label for={`${id}-nome`}>Nome completo</label>
+      <span class="form-error" id={`${id}-nome-error`} aria-live="polite"></span>
+    </div>
+
+    <!-- Email -->
+    <div class="form-field">
+      <input
+        type="email"
+        name="email"
+        id={`${id}-email`}
+        placeholder=" "
+        required
+        autocomplete="email"
+        aria-describedby={`${id}-email-error`}
+      />
+      <label for={`${id}-email`}>E-mail</label>
+      <span class="form-error" id={`${id}-email-error`} aria-live="polite"></span>
+    </div>
+
+    <!-- Telefone -->
+    <div class="form-field">
+      <input
+        type="tel"
+        name="telefone"
+        id={`${id}-telefone`}
+        placeholder=" "
+        required
+        inputmode="tel"
+        autocomplete="tel"
+        aria-describedby={`${id}-telefone-error`}
+      />
+      <label for={`${id}-telefone`}>Telefone / WhatsApp</label>
+      <span class="form-error" id={`${id}-telefone-error`} aria-live="polite"></span>
+    </div>
+
+    <!-- Turma -->
+    <div class="form-field">
+      <select
+        name="turma"
+        id={`${id}-turma`}
+        required
+        aria-describedby={`${id}-turma-error`}
+      >
+        <option value="" disabled selected>Selecione a turma de interesse</option>
+        <option value="bercario">Berçário (4 meses a 1 ano)</option>
+        <option value="maternal-1">Maternal I (1 a 2 anos)</option>
+        <option value="maternal-2">Maternal II (2 a 3 anos)</option>
+        <option value="infantil-1">Infantil I (4 anos)</option>
+        <option value="infantil-2">Infantil II (5 anos)</option>
+        <option value="indeciso">Ainda em dúvida</option>
+      </select>
+      <label for={`${id}-turma`} class="form-label-static">Turma de interesse</label>
+      <span class="form-error" id={`${id}-turma-error`} aria-live="polite"></span>
+    </div>
+
+    <!-- Mensagem -->
+    <div class="form-field form-field-full">
+      <textarea
+        name="mensagem"
+        id={`${id}-mensagem`}
+        rows="4"
+        placeholder=" "
+        required
+        minlength="10"
+        aria-describedby={`${id}-mensagem-error`}
+      ></textarea>
+      <label for={`${id}-mensagem`}>Mensagem</label>
+      <span class="form-error" id={`${id}-mensagem-error`} aria-live="polite"></span>
+    </div>
+  </div>
+
+  <!-- Honeypot — invisible field bots fill in -->
+  <div class="honeypot" aria-hidden="true">
+    <label for={`${id}-website`}>Website (deixe em branco)</label>
+    <input type="text" name="website" id={`${id}-website`} tabindex="-1" autocomplete="off" />
+  </div>
+
+  <!-- LGPD consent -->
+  <label class="form-consent">
+    <input type="checkbox" name="consent" required />
+    <span>
+      Concordo em ser contatado(a) pelo Colégio Villa Prime e li a
+      <a href="/politica-de-privacidade/">Política de Privacidade</a>.
+    </span>
+  </label>
+
+  <!-- Submit -->
+  <button type="submit" class="form-submit">
+    <span class="form-submit-text">Enviar mensagem</span>
+    <span class="form-submit-loading" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M21 12a9 9 0 1 1-6.22-8.55"/>
+      </svg>
+    </span>
+  </button>
+
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  // Client-side enhancement (zero deps).
+  const forms = document.querySelectorAll<HTMLFormElement>('.contact-form');
+  forms.forEach((form) => {
+    const status = form.querySelector<HTMLElement>('.form-status');
+    const submit = form.querySelector<HTMLButtonElement>('.form-submit');
+    const setError = (field: HTMLElement, msg: string) => {
+      const id = field.getAttribute('aria-describedby');
+      if (!id) return;
+      const node = document.getElementById(id);
+      if (node) node.textContent = msg;
+      field.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    };
+
+    const validate = (): boolean => {
+      let ok = true;
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
+        'input[required], select[required], textarea[required]'
+      ).forEach((field) => {
+        if (field.name === 'consent') {
+          const cb = field as HTMLInputElement;
+          if (!cb.checked) ok = false;
+          return;
+        }
+        if (!field.value || (field instanceof HTMLInputElement && !field.checkValidity())) {
+          setError(field, 'Por favor, preencha este campo corretamente.');
+          ok = false;
+        } else {
+          setError(field, '');
+        }
+      });
+      return ok;
+    };
+
+    form.addEventListener('submit', (e) => {
+      // Honeypot triggered → silently drop
+      const honey = form.querySelector<HTMLInputElement>('input[name="website"]');
+      if (honey?.value) {
+        e.preventDefault();
+        return;
+      }
+
+      if (!validate()) {
+        e.preventDefault();
+        if (status) status.textContent = 'Verifique os campos destacados antes de enviar.';
+        return;
+      }
+
+      if (submit) {
+        submit.classList.add('is-loading');
+        submit.disabled = true;
+      }
+      if (status) status.textContent = 'Enviando sua mensagem...';
+    });
+
+    form.querySelectorAll<HTMLInputElement>('input, textarea, select').forEach((field) => {
+      field.addEventListener('input', () => setError(field, ''));
+      field.addEventListener('blur', () => {
+        if (field.required && !field.value) {
+          setError(field, 'Campo obrigatório.');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    width: 100%;
+    max-width: 48rem;
+    margin-inline: auto;
+    padding: var(--space-8);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 640px) {
+    .form-grid { grid-template-columns: 1fr; }
+  }
+
+  .form-field-full {
+    grid-column: 1 / -1;
+  }
+
+  /* --- Floating label inputs --- */
+  .form-field {
+    position: relative;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    width: 100%;
+    padding: 1.4rem 0.25rem 0.5rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-neutral-800);
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1.5px solid var(--color-neutral-300);
+    border-radius: 0;
+    outline: none;
+    transition:
+      border-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    appearance: none;
+  }
+
+  .form-field textarea {
+    resize: vertical;
+    min-height: 6rem;
+  }
+
+  .form-field select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23004254' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.25rem center;
+    padding-right: 1.75rem;
+  }
+
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    border-color: var(--color-accent-500);
+    box-shadow: 0 1px 0 0 var(--color-accent-500),
+      0 6px 12px -8px rgb(212 169 16 / 0.4);
+  }
+
+  .form-field input[aria-invalid="true"],
+  .form-field select[aria-invalid="true"],
+  .form-field textarea[aria-invalid="true"] {
+    border-color: var(--color-error);
+    box-shadow: 0 1px 0 0 var(--color-error);
+  }
+
+  /* --- Floating labels --- */
+  .form-field label:not(.form-label-static) {
+    position: absolute;
+    left: 0.25rem;
+    top: 1.4rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-neutral-500);
+    pointer-events: none;
+    transform-origin: left top;
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+      color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .form-field input:focus + label,
+  .form-field input:not(:placeholder-shown) + label,
+  .form-field textarea:focus + label,
+  .form-field textarea:not(:placeholder-shown) + label {
+    transform: translateY(-1.15rem) scale(0.78);
+    color: var(--color-primary-700);
+  }
+
+  /* Static label for <select> (since no placeholder-shown trick) */
+  .form-label-static {
+    position: absolute;
+    left: 0.25rem;
+    top: 0.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-primary-700);
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* --- Errors --- */
+  .form-error {
+    display: block;
+    min-height: 1.1rem;
+    margin-top: 0.3rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--color-error);
+    line-height: 1.2;
+  }
+
+  /* --- Honeypot --- */
+  .honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* --- Consent --- */
+  .form-consent {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-neutral-600);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  .form-consent input[type="checkbox"] {
+    flex: 0 0 auto;
+    margin-top: 0.18rem;
+    width: 1.05rem;
+    height: 1.05rem;
+    accent-color: var(--color-primary-600);
+    cursor: pointer;
+  }
+
+  .form-consent a {
+    color: var(--color-primary-600);
+    text-decoration: underline;
+  }
+
+  /* --- Submit --- */
+  .form-submit {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 1rem 2rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-700) 0%,
+      var(--color-primary-500) 100%
+    );
+    border: 0;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition:
+      transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .form-submit:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .form-submit:disabled {
+    opacity: 0.7;
+    cursor: progress;
+  }
+
+  .form-submit-loading {
+    display: none;
+    width: 1.1rem;
+    height: 1.1rem;
+    animation: spin 0.8s linear infinite;
+  }
+  .form-submit-loading svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .form-submit.is-loading .form-submit-text {
+    opacity: 0.6;
+  }
+  .form-submit.is-loading .form-submit-loading {
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* --- Status message --- */
+  .form-status {
+    margin: 0;
+    min-height: 1.2rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-neutral-600);
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .form-submit-loading { animation: none; }
+    .form-submit { transition: none; }
+  }
+</style>

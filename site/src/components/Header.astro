@@ -1,0 +1,532 @@
+---
+/**
+ * @file Header.astro
+ * @description Sticky site header. Transparent over the hero, switches to a
+ *              solid glass surface once the user scrolls past the threshold.
+ *              Includes:
+ *              - Logo (left) · primary nav (center) · highlighted CTA (right)
+ *              - Hamburger morphing into an X on mobile
+ *              - Full-screen overlay menu with staggered link reveal
+ *              - Locks body scroll while the mobile menu is open
+ *              - Closes on Escape, on link click, and on outside click
+ *
+ * @author GEMINI-UX
+ * @phase 2
+ * @created 2026-05-17T20:49:00Z
+ */
+import { schoolInfo } from '../data/school-info.ts';
+import { mainNav } from '../data/navigation.ts';
+import CTAButton from './CTAButton.astro';
+---
+
+<header class="site-header" data-state="top">
+  <a href="#main-content" class="skip-to-content">Pular para o conteúdo</a>
+
+  <div class="header-inner container">
+    <a class="header-logo" href="/" aria-label={`${schoolInfo.name} — voltar à página inicial`}>
+      <span class="header-logo-mark" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path
+            d="M6 26 16 6l10 20H6Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+            fill="rgba(212, 169, 16, 0.15)"
+          />
+          <circle cx="16" cy="20" r="2.4" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="header-logo-text">
+        <span class="header-logo-name">Villa Prime</span>
+        <span class="header-logo-tag">Educação Infantil</span>
+      </span>
+    </a>
+
+    <nav class="header-nav" aria-label="Navegação principal">
+      <ul>
+        {mainNav
+          .filter((link) => !link.highlight)
+          .map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  'header-link',
+                  Astro.url.pathname === link.href ? 'is-current' : '',
+                ]}
+                aria-current={Astro.url.pathname === link.href ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <CTAButton text="Matrículas" href="/matriculas/" variant="primary" size="sm" />
+    </div>
+
+    <button
+      class="header-toggle"
+      type="button"
+      aria-label="Abrir menu de navegação"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <span class="header-toggle-bar" aria-hidden="true"></span>
+      <span class="header-toggle-bar" aria-hidden="true"></span>
+      <span class="header-toggle-bar" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu overlay -->
+  <div id="mobile-menu" class="mobile-menu" data-menu hidden>
+    <nav aria-label="Navegação principal (mobile)">
+      <ul>
+        {mainNav.map((link, i) => (
+          <li style={`--i: ${i}`}>
+            <a
+              href={link.href}
+              class:list={[
+                'mobile-link',
+                link.highlight ? 'is-highlight' : '',
+                Astro.url.pathname === link.href ? 'is-current' : '',
+              ]}
+              data-menu-link
+            >
+              {link.label}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mobile-menu-footer">
+        <a href={`tel:${schoolInfo.phoneRaw}`} class="mobile-meta">{schoolInfo.phone}</a>
+        <a href={`mailto:${schoolInfo.email}`} class="mobile-meta">{schoolInfo.email}</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector('.site-header');
+    const toggle = document.querySelector('[data-menu-toggle]');
+    const menu = document.querySelector('[data-menu]');
+    const links = document.querySelectorAll('[data-menu-link]');
+    if (!header || !toggle || !menu) return;
+
+    // --- Scroll state (top vs scrolled) ---
+    const updateScrollState = () => {
+      header.dataset.state = window.scrollY > 16 ? 'scrolled' : 'top';
+    };
+    updateScrollState();
+
+    let ticking = false;
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateScrollState();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+
+    // --- Mobile menu toggle ---
+    const setOpen = (open) => {
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute(
+        'aria-label',
+        open ? 'Fechar menu de navegação' : 'Abrir menu de navegação',
+      );
+      header.dataset.menu = open ? 'open' : 'closed';
+      if (open) {
+        menu.hidden = false;
+        document.body.style.overflow = 'hidden';
+        // Wait one frame so the [hidden] removal lands before transitioning in.
+        requestAnimationFrame(() => {
+          menu.dataset.visible = 'true';
+        });
+      } else {
+        menu.dataset.visible = 'false';
+        document.body.style.overflow = '';
+        // Hide after transition completes
+        window.setTimeout(() => {
+          if (menu.dataset.visible === 'false') {
+            menu.hidden = true;
+          }
+        }, 350);
+      }
+    };
+
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      setOpen(open);
+    });
+
+    links.forEach((link) => link.addEventListener('click', () => setOpen(false)));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  })();
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    width: 100%;
+    transition:
+      background-color 320ms cubic-bezier(0.32, 0.72, 0, 1),
+      box-shadow 320ms cubic-bezier(0.32, 0.72, 0, 1),
+      backdrop-filter 320ms cubic-bezier(0.32, 0.72, 0, 1),
+      border-color 320ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  /* Transparent on the hero */
+  .site-header[data-state="top"] {
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    color: #fff;
+  }
+
+  /* Solid glass on scroll */
+  .site-header[data-state="scrolled"] {
+    background-color: rgb(255 255 255 / 0.92);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border-bottom: 1px solid rgb(0 66 84 / 0.08);
+    box-shadow: 0 8px 24px -16px rgb(0 66 84 / 0.18);
+    color: var(--color-primary-800);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding-block: var(--space-3);
+    min-height: 4.5rem;
+  }
+
+  /* --- Logo --- */
+  .header-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: inherit;
+    text-decoration: none;
+    line-height: 1.1;
+    transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .header-logo:hover { opacity: 0.85; color: inherit; }
+
+  .header-logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: var(--color-accent-500);
+    background: linear-gradient(
+      135deg,
+      rgb(255 255 255 / 0.15) 0%,
+      rgb(212 169 16 / 0.18) 100%
+    );
+    border: 1px solid rgb(212 169 16 / 0.35);
+    border-radius: var(--radius-md);
+  }
+
+  .site-header[data-state="scrolled"] .header-logo-mark {
+    background: var(--color-accent-50);
+    border-color: var(--color-accent-200);
+  }
+
+  .header-logo-mark svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .header-logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header-logo-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .header-logo-tag {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.78;
+  }
+
+  /* --- Desktop nav --- */
+  .header-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header-nav ul {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-link {
+    position: relative;
+    display: inline-block;
+    padding: 0.55rem 0.9rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: inherit;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition:
+      color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .header-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0.25rem;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent-500);
+    transform: translateX(-50%);
+    transition: width 220ms cubic-bezier(0.32, 0.72, 0, 1);
+    border-radius: var(--radius-full);
+  }
+
+  .header-link:hover {
+    color: var(--color-accent-400);
+  }
+
+  .site-header[data-state="scrolled"] .header-link:hover {
+    color: var(--color-primary-600);
+    background-color: var(--color-primary-50);
+  }
+
+  .header-link:hover::after,
+  .header-link.is-current::after {
+    width: 1.5rem;
+  }
+
+  .header-link.is-current {
+    color: var(--color-accent-300);
+  }
+
+  .site-header[data-state="scrolled"] .header-link.is-current {
+    color: var(--color-primary-700);
+  }
+
+  /* --- Right-side actions --- */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  /* --- Hamburger toggle (mobile only) --- */
+  .header-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    color: inherit;
+    transition:
+      background-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .header-toggle-bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: currentColor;
+    border-radius: var(--radius-full);
+    transition: transform 320ms cubic-bezier(0.32, 0.72, 0, 1),
+      opacity 220ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  /* Hamburger → X morph */
+  .site-header[data-menu="open"] .header-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .site-header[data-menu="open"] .header-toggle-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .site-header[data-menu="open"] .header-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* --- Mobile menu overlay --- */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-sticky) - 1);
+    display: flex;
+    align-items: flex-start;
+    justify-content: stretch;
+    padding-top: 5rem;
+    padding-inline: var(--space-6);
+    background: rgb(0 30 43 / 0.96);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 320ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .mobile-menu[data-visible="true"] {
+    opacity: 1;
+  }
+
+  .mobile-menu nav {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .mobile-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .mobile-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 400ms cubic-bezier(0.32, 0.72, 0, 1),
+      transform 400ms cubic-bezier(0.32, 0.72, 0, 1),
+      color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-menu[data-visible="true"] .mobile-link {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(var(--i) * 60ms + 80ms);
+  }
+
+  .mobile-link svg {
+    width: 22px;
+    height: 22px;
+    color: rgb(255 255 255 / 0.6);
+    transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1),
+      color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-link:hover { color: var(--color-accent-300); }
+  .mobile-link:hover svg {
+    color: var(--color-accent-300);
+    transform: translateX(4px);
+  }
+
+  .mobile-link.is-current {
+    color: var(--color-accent-300);
+  }
+
+  .mobile-link.is-highlight {
+    color: var(--color-accent-300);
+  }
+
+  .mobile-menu-footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-top: var(--space-4);
+    border-top: 1px solid rgb(255 255 255 / 0.08);
+  }
+
+  .mobile-meta {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: rgb(255 255 255 / 0.7);
+    text-decoration: none;
+  }
+
+  .mobile-meta:hover { color: #fff; }
+
+  /* --- Responsive switches --- */
+  @media (max-width: 1024px) {
+    .header-nav { display: none; }
+    .header-actions { display: none; }
+    .header-toggle { display: inline-flex; }
+  }
+
+  /* --- Reduced motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    .site-header,
+    .header-toggle-bar,
+    .header-link::after,
+    .header-link,
+    .mobile-menu,
+    .mobile-link,
+    .mobile-link svg {
+      transition: none;
+    }
+  }
+</style>

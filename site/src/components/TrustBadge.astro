@@ -1,0 +1,92 @@
+---
+/**
+ * @file TrustBadge.astro
+ * @description Large numeric trust indicator with count-up animation
+ *              triggered when the badge enters the viewport (handled by
+ *              src/scripts/scroll-reveal.ts via [data-countup]).
+ *
+ *              Example: <TrustBadge value={500} suffix="+" label="Famílias atendidas" />
+ *
+ * @author GEMINI-UX
+ * @phase 2
+ * @created 2026-05-17T20:49:00Z
+ */
+
+export interface Props {
+  /** Final integer value to count up to. */
+  value: number;
+  /** Optional suffix appended to the number (e.g. "+", "%"). */
+  suffix?: string;
+  /** Optional prefix prepended to the number (e.g. "R$"). */
+  prefix?: string;
+  /** Description label below the number. */
+  label: string;
+  /** Stagger delay in ms for grid entrance. */
+  delay?: number;
+  /** Animation duration in ms (default 1600). */
+  duration?: number;
+}
+
+const { value, suffix = '', prefix = '', label, delay = 0, duration = 1600 } = Astro.props;
+---
+
+<div class="trust-badge reveal" data-reveal-delay={delay}>
+  <span class="trust-prefix" aria-hidden="true">{prefix}</span>
+  <span
+    class="trust-number"
+    data-countup={value}
+    data-countup-suffix={suffix}
+    data-countup-duration={duration}
+    aria-label={`${prefix}${value}${suffix} ${label}`}
+  >
+    {prefix}0{suffix}
+  </span>
+  <span class="trust-label">{label}</span>
+</div>
+
+<style>
+  .trust-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    text-align: center;
+  }
+
+  .trust-prefix {
+    display: none; /* visually merged into .trust-number */
+  }
+
+  .trust-number {
+    font-family: var(--font-display);
+    font-size: var(--text-5xl);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-accent-500);
+    background: linear-gradient(
+      135deg,
+      var(--color-accent-500) 0%,
+      var(--color-accent-700) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 1px 0 rgb(0 66 84 / 0.04);
+  }
+
+  .trust-label {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--color-neutral-600);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 640px) {
+    .trust-number {
+      font-size: var(--text-4xl);
+    }
+  }
+</style>

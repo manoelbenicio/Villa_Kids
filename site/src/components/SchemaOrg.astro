@@ -1,0 +1,87 @@
+---
+/**
+ * @file SchemaOrg.astro
+ * @description Outputs Schema.org JSON-LD structured data. Default schema
+ *              describes the school as both LocalBusiness and
+ *              EducationalOrganization. Pages can override with `type` and
+ *              custom name/description for non-home pages.
+ * @author GEMINI-UX
+ * @phase 2
+ * @created 2026-05-17T20:49:00Z
+ */
+import { schoolInfo } from '../data/school-info.ts';
+
+export interface Props {
+  type?: 'LocalBusiness' | 'EducationalOrganization' | 'WebPage' | 'Default';
+  name?: string;
+  description?: string;
+  url?: string;
+}
+
+const {
+  type = 'Default',
+  name = schoolInfo.name,
+  description = schoolInfo.shortDescription,
+  url = schoolInfo.url,
+} = Astro.props;
+
+const baseOrg = {
+  '@context': 'https://schema.org',
+  '@type': ['LocalBusiness', 'EducationalOrganization'],
+  '@id': `${schoolInfo.url}#organization`,
+  name: schoolInfo.name,
+  legalName: schoolInfo.legalName,
+  description: schoolInfo.shortDescription,
+  slogan: schoolInfo.tagline,
+  url: schoolInfo.url,
+  telephone: schoolInfo.phoneRaw,
+  email: schoolInfo.email,
+  priceRange: schoolInfo.priceRange,
+  foundingDate: String(schoolInfo.founded),
+  image: new URL(schoolInfo.ogImage, schoolInfo.url).toString(),
+  logo: new URL('/favicon.svg', schoolInfo.url).toString(),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: `${schoolInfo.address.street}, ${schoolInfo.address.number}`,
+    addressLocality: schoolInfo.address.city,
+    addressRegion: schoolInfo.address.stateCode,
+    postalCode: schoolInfo.address.zip,
+    addressCountry: schoolInfo.address.countryCode,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: schoolInfo.geo.latitude,
+    longitude: schoolInfo.geo.longitude,
+  },
+  openingHours: schoolInfo.hoursMachine,
+  sameAs: [schoolInfo.social.instagram, schoolInfo.social.facebook].filter(Boolean),
+  audience: {
+    '@type': 'EducationalAudience',
+    educationalRole: 'Educação Infantil — 0 a 6 anos',
+  },
+};
+
+let payload: Record<string, unknown> = baseOrg;
+
+if (type === 'WebPage') {
+  payload = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name,
+    description,
+    url,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: schoolInfo.name,
+      url: schoolInfo.url,
+    },
+    about: { '@id': `${schoolInfo.url}#organization` },
+  };
+} else if (type === 'LocalBusiness' || type === 'EducationalOrganization') {
+  payload = { ...baseOrg, '@type': type };
+}
+
+const json = JSON.stringify(payload);
+---
+
+<script type="application/ld+json" set:html={json} />

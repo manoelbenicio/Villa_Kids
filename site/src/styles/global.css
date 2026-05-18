@@ -1,0 +1,346 @@
+@import "tailwindcss";
+
+/**
+ * @file global.css
+ * @description Design System — Colégio Villa Prime
+ * @author OPUS-ARCH + GEMINI-UX
+ * @phase 1
+ * @created 2026-05-17T23:20:00Z
+ *
+ * Color Palette: Deep Teal institutional — premium, NOT childish
+ * Typography: Inter (body) + Playfair Display (headings accent)
+ */
+
+/* ============================================
+   DESIGN TOKENS — CSS Custom Properties
+   ============================================ */
+
+@theme {
+  /* --- Primary Palette: Deep Teal --- */
+  --color-primary-50: #e6f2f5;
+  --color-primary-100: #b3d9e1;
+  --color-primary-200: #80c0cd;
+  --color-primary-300: #4da7b9;
+  --color-primary-400: #268ea5;
+  --color-primary-500: #006d84;
+  --color-primary-600: #005c70;
+  --color-primary-700: #004a5c;
+  --color-primary-800: #004254;
+  --color-primary-900: #003040;
+  --color-primary-950: #001e2b;
+
+  /* --- Accent: Warm Gold --- */
+  --color-accent-50: #fef9e7;
+  --color-accent-100: #fcedb5;
+  --color-accent-200: #fae183;
+  --color-accent-300: #f8d551;
+  --color-accent-400: #f6c91f;
+  --color-accent-500: #d4a910;
+  --color-accent-600: #a3830c;
+  --color-accent-700: #725d09;
+  --color-accent-800: #413605;
+  --color-accent-900: #201b03;
+
+  /* --- Neutral --- */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+
+  /* --- Semantic --- */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* --- Surface --- */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafb;
+  --color-surface-elevated: #ffffff;
+  --color-surface-dark: #004254;
+
+  /* --- Typography --- */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Playfair Display', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* --- Font Size Scale --- */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+
+  /* --- Spacing Scale --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* --- Border Radius --- */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 2px 0 rgb(0 66 84 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 66 84 / 0.07), 0 2px 4px -2px rgb(0 66 84 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 66 84 / 0.08), 0 4px 6px -4px rgb(0 66 84 / 0.04);
+  --shadow-xl: 0 20px 25px -5px rgb(0 66 84 / 0.1), 0 8px 10px -6px rgb(0 66 84 / 0.04);
+  --shadow-glow: 0 0 20px rgb(0 109 132 / 0.15);
+
+  /* --- Transitions --- */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Container --- */
+  --container-max: 1280px;
+  --container-padding: 1.5rem;
+
+  /* --- Z-Index Scale --- */
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+  --z-tooltip: 70;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-neutral-800);
+  background-color: var(--color-surface);
+  line-height: 1.6;
+}
+
+/* --- Typography Base --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-primary-800);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+h1 { font-size: var(--text-5xl); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-3xl); }
+h4 { font-size: var(--text-2xl); }
+h5 { font-size: var(--text-xl); }
+h6 { font-size: var(--text-lg); }
+
+@media (max-width: 768px) {
+  h1 { font-size: var(--text-3xl); }
+  h2 { font-size: var(--text-2xl); }
+  h3 { font-size: var(--text-xl); }
+  h4 { font-size: var(--text-lg); }
+}
+
+p {
+  margin-bottom: var(--space-4);
+  color: var(--color-neutral-600);
+}
+
+a {
+  color: var(--color-primary-600);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-400);
+}
+
+/* --- Focus Styles (Accessibility) --- */
+:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Selection --- */
+::selection {
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-900);
+}
+
+/* --- Skip to Content (A11y) --- */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-primary-800);
+  color: white;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  z-index: var(--z-tooltip);
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+.section {
+  padding-block: var(--space-20);
+}
+
+.section-sm {
+  padding-block: var(--space-12);
+}
+
+.section-lg {
+  padding-block: var(--space-32);
+}
+
+/* --- Glass Effect --- */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(0, 66, 84, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Gradient Backgrounds --- */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary-800) 0%, var(--color-primary-600) 50%, var(--color-primary-500) 100%);
+}
+
+.bg-gradient-warm {
+  background: linear-gradient(135deg, var(--color-primary-800) 0%, var(--color-primary-700) 60%, var(--color-accent-700) 100%);
+}
+
+.bg-gradient-hero {
+  background: linear-gradient(180deg, var(--color-primary-950) 0%, var(--color-primary-800) 40%, var(--color-primary-600) 100%);
+}
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+/* --- Scroll Reveal (used with IntersectionObserver) --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

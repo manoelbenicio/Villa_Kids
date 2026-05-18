@@ -1,0 +1,345 @@
+---
+/**
+ * @file Hero.astro
+ * @description Maximum-impact landing hero. Features:
+ *              - Full-bleed background image (or gradient fallback) with
+ *                primary-950 → transparent overlay
+ *              - GPU-safe parallax scroll (translate3d via rAF, mobile-throttled)
+ *              - Eyebrow pill, display H1 (text-7xl/4xl), subtitle
+ *              - Two side-by-side CTAs (WhatsApp + outline)
+ *              - Stagger fadeInUp entrance animation
+ *              - Trust strip on the bottom slot
+ *              - min-h-[100dvh] to avoid iOS Safari viewport jump
+ *              - Honors prefers-reduced-motion (disables parallax + animations)
+ *
+ * @author GEMINI-UX
+ * @phase 2
+ * @created 2026-05-17T20:49:00Z
+ */
+import CTAButton from './CTAButton.astro';
+import { schoolInfo, whatsappLink } from '../data/school-info.ts';
+
+export interface Props {
+  /** Optional eyebrow tag above the H1 (e.g. "EDUCAÇÃO INFANTIL · 0 A 6 ANOS"). */
+  eyebrow?: string;
+  /** Required H1 (use a single sentence — markup will balance it). */
+  title: string;
+  /** Required descriptor paragraph below H1. */
+  subtitle: string;
+  /** Primary CTA — defaults to "Agende uma Visita" (WhatsApp). */
+  primaryCta?: { text: string; href: string; whatsapp?: boolean };
+  /** Secondary CTA — defaults to "Conheça a Escola" (outline). */
+  secondaryCta?: { text: string; href: string };
+  /** Background image URL. Optional — gradient fallback otherwise. */
+  backgroundImage?: string;
+  /** Disable parallax (e.g. on internal pages). Default false. */
+  disableParallax?: boolean;
+}
+
+const {
+  eyebrow,
+  title,
+  subtitle,
+  primaryCta = {
+    text: 'Agende uma Visita',
+    href: whatsappLink(),
+    whatsapp: true,
+  },
+  secondaryCta = {
+    text: 'Conheça a Escola',
+    href: '#sobre',
+  },
+  backgroundImage,
+  disableParallax = false,
+} = Astro.props;
+
+const bgStyle = backgroundImage
+  ? `background-image: url('${backgroundImage}');`
+  : '';
+---
+
+<section class="hero" data-disable-parallax={String(disableParallax)}>
+  <div class="hero-background" style={bgStyle}>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-noise" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero-content container">
+    {eyebrow && (
+      <span class="hero-eyebrow" data-stagger="0">
+        <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+        {eyebrow}
+      </span>
+    )}
+
+    <h1 class="hero-title" data-stagger="1">{title}</h1>
+
+    <p class="hero-subtitle" data-stagger="2">{subtitle}</p>
+
+    <div class="hero-actions" data-stagger="3">
+      <CTAButton
+        text={primaryCta.text}
+        href={primaryCta.href}
+        variant={primaryCta.whatsapp ? 'whatsapp' : 'primary'}
+        size="lg"
+        external={primaryCta.whatsapp}
+      />
+      <CTAButton
+        text={secondaryCta.text}
+        href={secondaryCta.href}
+        variant="outline"
+        size="lg"
+      />
+    </div>
+
+    <slot name="meta" />
+
+    <a class="hero-scroll-cue" href="#sobre" aria-label="Rolar para a próxima seção" data-stagger="4">
+      <span>Role para descobrir</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<script is:inline>
+  // GPU-safe parallax via rAF. Skipped if user prefers reduced motion or
+  // if the hero opts out via data-disable-parallax="true".
+  (() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+
+    const heroes = document.querySelectorAll('.hero[data-disable-parallax="false"]');
+    if (heroes.length === 0) return;
+
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const intensity = isMobile ? 0.18 : 0.32; // mobile-safe parallax
+
+    let ticking = false;
+
+    const update = () => {
+      const scrollY = window.scrollY;
+      heroes.forEach((hero) => {
+        const bg = hero.querySelector('.hero-background');
+        if (!bg) return;
+        bg.style.transform = `translate3d(0, ${scrollY * intensity}px, 0)`;
+      });
+      ticking = false;
+    };
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+  })();
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: min(100dvh, 760px);
+    display: flex;
+    align-items: center;
+    color: #fff;
+    /* Account for sticky header height — pages without header can override */
+    padding-block: clamp(6rem, 14vh, 9rem) clamp(4rem, 10vh, 7rem);
+  }
+
+  /* --- Background layer (parallax target) --- */
+  .hero-background {
+    position: absolute;
+    inset: -10% 0 0 0; /* extra room so parallax doesn't expose seams */
+    background-color: var(--color-primary-900);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+
+  /* Tinted gradient overlay (primary-950 70% → transparent at bottom) */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        180deg,
+        rgb(0 30 43 / 0.78) 0%,
+        rgb(0 66 84 / 0.72) 45%,
+        rgb(0 66 84 / 0.55) 100%
+      ),
+      radial-gradient(
+        ellipse at top right,
+        rgb(212 169 16 / 0.18) 0%,
+        transparent 55%
+      );
+    pointer-events: none;
+  }
+
+  /* Subtle film-grain texture (premium tactile feel) */
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+  }
+
+  /* --- Content --- */
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 56rem;
+    text-align: center;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.45rem 1rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent-200);
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .hero-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent-400);
+    box-shadow: 0 0 12px rgb(246 201 31 / 0.6);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 5.5vw + 1rem, 4.5rem); /* text-4xl → text-7xl */
+    line-height: 1.05;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    text-shadow: 0 2px 24px rgb(0 0 0 / 0.25);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 1.4vw + 0.6rem, 1.35rem);
+    line-height: 1.55;
+    color: rgb(255 255 255 / 0.88);
+    max-width: 44rem;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+
+  /* --- Scroll cue --- */
+  .hero-scroll-cue {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    margin-top: var(--space-8);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.7);
+    transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hero-scroll-cue:hover {
+    color: #fff;
+  }
+
+  .hero-scroll-cue svg {
+    width: 18px;
+    height: 18px;
+    animation: heroScrollBounce 2.4s cubic-bezier(0.32, 0.72, 0, 1) infinite;
+  }
+
+  @keyframes heroScrollBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.7; }
+    50% { transform: translateY(6px); opacity: 1; }
+  }
+
+  /* --- Stagger entrance animation --- */
+  .hero-content > [data-stagger] {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: heroFadeInUp 800ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  }
+
+  .hero-content > [data-stagger="0"] { animation-delay: 100ms; }
+  .hero-content > [data-stagger="1"] { animation-delay: 240ms; }
+  .hero-content > [data-stagger="2"] { animation-delay: 380ms; }
+  .hero-content > [data-stagger="3"] { animation-delay: 520ms; }
+  .hero-content > [data-stagger="4"] { animation-delay: 720ms; }
+
+  @keyframes heroFadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* --- Reduced motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-content > [data-stagger] {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+    .hero-scroll-cue svg {
+      animation: none;
+    }
+    .hero-background {
+      transform: none !important;
+    }
+  }
+</style>

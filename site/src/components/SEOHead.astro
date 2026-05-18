@@ -1,0 +1,90 @@
+---
+/**
+ * @file SEOHead.astro
+ * @description Centralized <head> meta tags: charset, viewport, title,
+ *              description, canonical, robots, Open Graph and Twitter Card.
+ *              All other layouts/pages route SEO through this single component.
+ * @author GEMINI-UX
+ * @phase 2
+ * @created 2026-05-17T20:49:00Z
+ */
+import { schoolInfo } from '../data/school-info.ts';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonicalURL?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalURL,
+  ogImage = schoolInfo.ogImage,
+  ogType = 'website',
+  noindex = false,
+} = Astro.props;
+
+const siteName = schoolInfo.name;
+const fullTitle = title.includes(siteName) ? title : `${title} · ${siteName}`;
+
+// Resolve canonical and OG URLs against Astro.site if available.
+const siteURL = Astro.site ?? new URL(schoolInfo.url);
+const canonical = canonicalURL
+  ? new URL(canonicalURL, siteURL).toString()
+  : new URL(Astro.url.pathname, siteURL).toString();
+const ogImageAbsolute = new URL(ogImage, siteURL).toString();
+---
+
+<!-- Charset & Viewport -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<!-- Primary Meta -->
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="author" content={siteName} />
+<meta name="generator" content={Astro.generator} />
+<link rel="canonical" href={canonical} />
+
+<!-- Robots -->
+{noindex
+  ? <meta name="robots" content="noindex,nofollow" />
+  : <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+}
+
+<!-- Theme & Color -->
+<meta name="theme-color" content="#004254" />
+<meta name="color-scheme" content="light" />
+
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImageAbsolute} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${siteName} — ${schoolInfo.tagline}`} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageAbsolute} />
+<meta name="twitter:image:alt" content={`${siteName} — ${schoolInfo.tagline}`} />
+
+<!-- Preconnect to font CDN for fast load -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

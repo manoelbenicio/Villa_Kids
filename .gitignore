@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output
+site/dist/
+
+# Environment
+.env
+.env.local
+.env.deploy.local
+*.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Firecrawl cache
+.firecrawl/
+
+# Data expert skills (local tooling)
+data_expert_skills/
+
+# Astro
+.astro/

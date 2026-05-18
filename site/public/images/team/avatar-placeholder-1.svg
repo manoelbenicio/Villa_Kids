@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Avatar MA">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#004a5c"/>
+      <stop offset="100%" stop-color="#268ea5"/>
+    </linearGradient>
+  </defs>
+  <circle cx="48" cy="48" r="48" fill="url(#g)"/>
+  <text x="48" y="58" font-family="Georgia, 'Playfair Display', serif" font-size="36" font-weight="700" text-anchor="middle" fill="rgba(255,255,255,0.95)">MA</text>
+</svg>
