@@ -4,11 +4,11 @@
  * @description Master layout wrapping every page. Wires up:
  *              - <SEOHead /> (meta + OG + Twitter)
  *              - <SchemaOrg /> (JSON-LD)
- *              - Google Fonts preconnect + Inter + Playfair Display
+ *              - Google Fonts preconnect + Fredoka + Inter
  *              - global.css design tokens
  *              - Header + main slot + Footer
  *              - WhatsApp floating button on every page
- *              - scroll-reveal client script
+ *              - app.js client enhancements
  *
  * @author GEMINI-UX
  * @phase 2
@@ -58,14 +58,10 @@ const {
       noindex={noindex}
     />
 
-    <!-- Google Fonts: async load to avoid render-blocking -->
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap&subset=latin,latin-ext"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap&subset=latin,latin-ext" /></noscript>
+    <!-- Google Fonts: DS v3.0 Fredoka + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Preload hero image for LCP -->
     <link rel="preload" as="image" href="/images/hero/hero-main.svg" />
@@ -93,9 +89,9 @@ const {
 
     <WhatsAppButton />
 
-    <!-- Client-side enhancements (scroll-reveal + countup) -->
+    <!-- Client-side enhancements (reveals + countup + navbar + forms + hero canvas) -->
     <script>
-      import '../scripts/scroll-reveal.ts';
+      import '../scripts/app.js';
     </script>
   </body>
 </html>
