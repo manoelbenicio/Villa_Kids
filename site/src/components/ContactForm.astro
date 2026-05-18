@@ -75,6 +75,7 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
         id={`${id}-telefone`}
         placeholder=" "
         required
+        pattern="[0-9 ()+.-]{10,}"
         inputmode="tel"
         autocomplete="tel"
         aria-describedby={`${id}-telefone-error`}
@@ -127,12 +128,19 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
 
   <!-- LGPD consent -->
   <label class="form-consent">
-    <input type="checkbox" name="consent" required />
+    <input
+      type="checkbox"
+      name="consent"
+      id={`${id}-consent`}
+      required
+      aria-describedby={`${id}-consent-error`}
+    />
     <span>
       Concordo em ser contatado(a) pelo Colégio Villa Prime e li a
       <a href="/politica-de-privacidade/">Política de Privacidade</a>.
     </span>
   </label>
+  <span class="form-error form-consent-error" id={`${id}-consent-error`} aria-live="polite"></span>
 
   <!-- Submit -->
   <button type="submit" class="form-submit">
@@ -161,6 +169,25 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
       field.setAttribute('aria-invalid', msg ? 'true' : 'false');
     };
 
+    const messageFor = (field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): string => {
+      if (field.name === 'telefone') {
+        const digits = field.value.replace(/\D/g, '');
+        if (digits.length < 10) return 'Informe um telefone com DDD.';
+      }
+      if (field.validity.valueMissing) return 'Campo obrigatório.';
+      if (field.validity.typeMismatch && field instanceof HTMLInputElement && field.type === 'email') {
+        return 'Informe um e-mail válido.';
+      }
+      if (field.validity.patternMismatch && field.name === 'telefone') {
+        return 'Informe um telefone válido com DDD.';
+      }
+      if (field.validity.tooShort) {
+        return `Informe pelo menos ${field.getAttribute('minlength')} caracteres.`;
+      }
+      if (!field.checkValidity()) return 'Por favor, preencha este campo corretamente.';
+      return '';
+    };
+
     const validate = (): boolean => {
       let ok = true;
       form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
@@ -168,11 +195,17 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
       ).forEach((field) => {
         if (field.name === 'consent') {
           const cb = field as HTMLInputElement;
-          if (!cb.checked) ok = false;
+          if (!cb.checked) {
+            setError(cb, 'Confirme o consentimento para contato.');
+            ok = false;
+          } else {
+            setError(cb, '');
+          }
           return;
         }
-        if (!field.value || (field instanceof HTMLInputElement && !field.checkValidity())) {
-          setError(field, 'Por favor, preencha este campo corretamente.');
+        const error = messageFor(field);
+        if (error) {
+          setError(field, error);
           ok = false;
         } else {
           setError(field, '');
@@ -202,11 +235,13 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
       if (status) status.textContent = 'Enviando sua mensagem...';
     });
 
-    form.querySelectorAll<HTMLInputElement>('input, textarea, select').forEach((field) => {
+    form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input, textarea, select').forEach((field) => {
       field.addEventListener('input', () => setError(field, ''));
       field.addEventListener('blur', () => {
-        if (field.required && !field.value) {
-          setError(field, 'Campo obrigatório.');
+        if (!field.required) return;
+        const error = messageFor(field);
+        if (error) {
+          setError(field, error);
         }
       });
     });
@@ -287,6 +322,14 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
       0 6px 12px -8px rgb(212 169 16 / 0.4);
   }
 
+  .form-field input:focus-visible,
+  .form-field select:focus-visible,
+  .form-field textarea:focus-visible {
+    outline: 2px solid var(--color-accent-500);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+  }
+
   .form-field input[aria-invalid="true"],
   .form-field select[aria-invalid="true"],
   .form-field textarea[aria-invalid="true"] {
@@ -341,6 +384,10 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
     line-height: 1.2;
   }
 
+  .form-consent-error {
+    margin-top: calc(var(--space-5) * -1);
+  }
+
   /* --- Honeypot --- */
   .honeypot {
     position: absolute;
@@ -371,6 +418,11 @@ const { action = '/api/contact', id = 'contact-form' } = Astro.props;
     height: 1.05rem;
     accent-color: var(--color-primary-600);
     cursor: pointer;
+  }
+
+  .form-consent input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--color-accent-500);
+    outline-offset: 3px;
   }
 
   .form-consent a {

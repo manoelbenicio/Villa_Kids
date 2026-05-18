@@ -1,4 +1,974 @@
 ---
-layout: '../layouts/BaseLayout.astro'
-title: 'Matrículas'
+/**
+ * @file matriculas.astro
+ * @description Página /matriculas/ — flagship comercial. Conversão máxima:
+ *              urgency badge no hero, 3-step process visual, 4 TrustBadges
+ *              de social proof, depoimentos, FAQ específica de matrícula,
+ *              CTA principal grande (WhatsApp + formulário de interesse).
+ *
+ * @author GEMINI-UX
+ * @phase 5
+ * @created 2026-05-17T21:45:00Z
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import TrustBadge from '../components/TrustBadge.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import FAQ from '../components/FAQ.astro';
+import ContactForm from '../components/ContactForm.astro';
+import CTAButton from '../components/CTAButton.astro';
+import { schoolInfo, whatsappLink } from '../data/school-info.ts';
+import { testimonials } from '../data/testimonials.ts';
+
+const breadcrumbs = [
+  { label: 'Início', href: '/' },
+  { label: 'Matrículas' },
+];
+
+const siteURL = Astro.site ?? new URL(schoolInfo.url);
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.label,
+    ...(c.href ? { item: new URL(c.href, siteURL).toString() } : {}),
+  })),
+});
+
+// --- 3-step process ---
+const steps = [
+  {
+    n: '01',
+    title: 'Visita guiada',
+    description:
+      'Agende uma visita para conhecer a escola, os ambientes e a equipe pedagógica. Tiramos todas as suas dúvidas presencialmente.',
+    duration: '~ 1 hora',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  },
+  {
+    n: '02',
+    title: 'Entrevista pedagógica',
+    description:
+      'Conversa com a coordenação para conhecer a sua família, entender o momento da criança e apresentar a proposta em detalhes.',
+    duration: '~ 45 min',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>`,
+  },
+  {
+    n: '03',
+    title: 'Confirmação e adaptação',
+    description:
+      'Assinatura do contrato, entrega de documentos e início do período de adaptação acompanhado pela equipe educadora.',
+    duration: '7 a 15 dias',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+  },
+];
+
+// --- Documents required ---
+const requiredDocs = [
+  'RG e CPF dos pais ou responsáveis legais',
+  'Certidão de nascimento da criança',
+  'Comprovante de endereço atualizado',
+  'Carteira de vacinação atualizada',
+  'Foto 3×4 recente da criança',
+  'Relatório do médico pediatra (se aplicável)',
+];
+
+// --- Trust numbers ---
+const trustNumbers = [
+  { value: 15, suffix: '+', label: 'Anos de experiência' },
+  { value: 500, suffix: '+', label: 'Famílias atendidas' },
+  { value: 98, suffix: '%', label: 'Satisfação dos pais' },
+  { value: 1, prefix: '', suffix: ':6', label: 'Razão professor / aluno' },
+];
+
+// --- FAQ específica de matrículas ---
+const matriculasFaq = [
+  {
+    question: 'Quais são os horários disponíveis (meio período / integral)?',
+    answer:
+      'Oferecemos meio período manhã (7h–12h), meio período tarde (13h–18h) e período integral (7h–19h). Os horários e a alimentação são adaptáveis conforme a rotina da família.',
+  },
+  {
+    question: 'Como funciona o período de adaptação?',
+    answer:
+      'A adaptação é gradual e respeita o ritmo de cada criança. Tipicamente dura entre 7 e 15 dias, com aumento progressivo do tempo na escola e acompanhamento próximo da família e da equipe pedagógica.',
+  },
+  {
+    question: 'Há descontos para irmãos ou para pagamento à vista?',
+    answer:
+      'Sim. Oferecemos desconto para irmãos matriculados simultaneamente e condições especiais para pagamento à vista da anuidade. Detalhes específicos são apresentados na conversa com a coordenação.',
+  },
+  {
+    question: 'Posso fazer a matrícula durante o ano letivo?',
+    answer:
+      'Sim. Atendemos matrículas durante o ano letivo, mediante disponibilidade de vagas na turma da idade da criança. Entre em contato para confirmar disponibilidade.',
+  },
+];
 ---
+
+<BaseLayout
+  title="Matrículas Abertas 2026 — Educação Infantil Premium"
+  description="Matrículas abertas para o Colégio Villa Prime — educação infantil premium em São Paulo. Agende uma visita, conheça nossa proposta pedagógica e garanta a vaga da sua criança."
+  schemaType="WebPage"
+>
+  <!-- ============================================================
+       HERO — full-bleed with urgency
+       ============================================================ -->
+  <section class="matriculas-hero">
+    <div class="matriculas-hero-bg" aria-hidden="true"></div>
+    <div class="matriculas-hero-overlay" aria-hidden="true"></div>
+    <div class="matriculas-hero-noise" aria-hidden="true"></div>
+
+    <div class="container matriculas-hero-content">
+      <nav class="breadcrumb reveal" aria-label="Trilha de navegação">
+        <ol>
+          <li><a href="/">Início</a></li>
+          <li>
+            <svg class="breadcrumb-sep" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            <span aria-current="page">Matrículas</span>
+          </li>
+        </ol>
+      </nav>
+
+      <span class="urgency-badge reveal" data-reveal-delay="80">
+        <span class="urgency-dot" aria-hidden="true"></span>
+        <span class="urgency-text">Vagas limitadas para 2026</span>
+      </span>
+
+      <h1 class="matriculas-title reveal" data-reveal-delay="160">
+        Matrículas Abertas <span class="title-accent">2026</span>
+      </h1>
+
+      <p class="matriculas-subtitle reveal" data-reveal-delay="240">
+        Garanta a vaga da sua criança em uma escola que acompanha cada passo
+        com cuidado, intencionalidade pedagógica e segurança em cada detalhe.
+      </p>
+
+      <div class="matriculas-actions reveal" data-reveal-delay="320">
+        <CTAButton
+          text="Agendar visita pelo WhatsApp"
+          href={whatsappLink('Olá! Tenho interesse em fazer a matrícula no Villa Prime. Gostaria de agendar uma visita.')}
+          variant="whatsapp"
+          size="lg"
+        />
+        <CTAButton text="Ver formulário de interesse" href="#interesse" variant="outline" size="lg" />
+      </div>
+
+      <ul class="matriculas-meta reveal" data-reveal-delay="400">
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Resposta em até 1 hora útil</span>
+        </li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Visita guiada gratuita</span>
+        </li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Sem compromisso inicial</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={breadcrumbSchema} />
+
+  <!-- ============================================================
+       PROCESSO 3 STEPS
+       ============================================================ -->
+  <section class="section container">
+    <SectionTitle
+      tag="Como funciona"
+      title="Três passos simples até a matrícula"
+      subtitle="Um caminho claro, sem burocracia desnecessária — para que você decida com confiança."
+    />
+
+    <ol class="steps">
+      {steps.map((step, i) => (
+        <li class="step reveal" data-reveal-delay={i * 100}>
+          <div class="step-shell" aria-hidden="true">
+            <div class="step-core">
+              <span class="step-num">{step.n}</span>
+              <span class="step-icon" set:html={step.icon} aria-hidden="true" />
+              <h3 class="step-title">{step.title}</h3>
+              <p class="step-description">{step.description}</p>
+              <span class="step-duration">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>{step.duration}</span>
+              </span>
+            </div>
+          </div>
+          {i < steps.length - 1 && (
+            <span class="step-connector" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- ============================================================
+       SOCIAL PROOF — TrustBadges
+       ============================================================ -->
+  <section class="section section-muted">
+    <div class="container">
+      <SectionTitle
+        tag="Por que confiar"
+        title="Números que sustentam a confiança"
+        subtitle="A experiência das famílias que vieram antes — em quatro indicadores que importam."
+      />
+
+      <div class="trust-grid">
+        {trustNumbers.map((tn, i) => (
+          <TrustBadge
+            value={tn.value}
+            prefix={tn.prefix}
+            suffix={tn.suffix}
+            label={tn.label}
+            delay={i * 100}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SOCIAL PROOF — TESTIMONIALS
+       ============================================================ -->
+  <section class="section container">
+    <SectionTitle
+      tag="Famílias Villa Prime"
+      title="O que dizem as famílias que já vivem a escola"
+      subtitle="Histórias reais, em primeira pessoa, de quem confiou os primeiros anos das suas crianças à nossa equipe."
+    />
+
+    <div class="testimonials-grid">
+      {testimonials.map((t, i) => (
+        <TestimonialCard
+          quote={t.quote}
+          name={t.name}
+          role={t.role}
+          avatar={t.avatar}
+          rating={t.rating}
+          delay={i * 100}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DOCUMENTOS NECESSÁRIOS
+       ============================================================ -->
+  <section class="section section-muted">
+    <div class="container docs-container">
+      <SectionTitle
+        tag="Documentação"
+        title="O que você precisa para a matrícula"
+        subtitle="Lista enxuta — sem surpresas. Caso alguma documentação esteja em andamento, conversamos sobre alternativas."
+        alignment="left"
+      />
+
+      <ul class="docs-list">
+        {requiredDocs.map((doc, i) => (
+          <li class="doc-item reveal" data-reveal-delay={i * 50}>
+            <span class="doc-marker" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </span>
+            <span>{doc}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ
+       ============================================================ -->
+  <section class="section container">
+    <SectionTitle
+      tag="Perguntas Frequentes"
+      title="Dúvidas mais comuns sobre a matrícula"
+      subtitle="As respostas que ouvimos das famílias durante o processo. Não encontrou a sua?"
+    />
+
+    <FAQ items={matriculasFaq} schema={true} />
+  </section>
+
+  <!-- ============================================================
+       CTA PRINCIPAL — WhatsApp grande + formulário de interesse
+       ============================================================ -->
+  <section id="interesse" class="cta-final">
+    <div class="cta-final-glow" aria-hidden="true"></div>
+    <div class="cta-final-noise" aria-hidden="true"></div>
+
+    <div class="container cta-final-grid">
+      <!-- Side 1: big WhatsApp CTA + value props -->
+      <div class="cta-final-pitch reveal">
+        <span class="cta-final-eyebrow">
+          <span class="cta-final-eyebrow-dot" aria-hidden="true"></span>
+          Próximo passo
+        </span>
+        <h2 class="cta-final-title">
+          Garanta a vaga da sua criança<br/>em poucos minutos
+        </h2>
+        <p class="cta-final-subtitle">
+          Converse direto com nossa equipe pelo WhatsApp ou preencha o
+          formulário ao lado. Respondemos em até 1 hora útil.
+        </p>
+
+        <div class="cta-final-actions">
+          <CTAButton
+            text="Conversar no WhatsApp"
+            href={whatsappLink('Olá! Tenho interesse em iniciar a matrícula no Villa Prime para 2026. Podemos conversar?')}
+            variant="whatsapp"
+            size="lg"
+          />
+          <CTAButton
+            text={`Ligar: ${schoolInfo.phone}`}
+            href={`tel:${schoolInfo.phoneRaw}`}
+            variant="outline"
+            size="lg"
+          />
+        </div>
+
+        <ul class="cta-final-promises">
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>Sem compromisso</strong> — você decide depois da visita.</span>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>Resposta em até 1 hora útil</strong> de segunda a sexta.</span>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>Atendimento humano</strong> — você fala com a coordenação, não com um chatbot.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Side 2: form de interesse -->
+      <div class="cta-final-form reveal" data-reveal-delay="120">
+        <div class="cta-final-form-card">
+          <h3 class="cta-final-form-title">
+            <span class="cta-final-form-eyebrow">Formulário de Interesse</span>
+            <span>Conte um pouco sobre você</span>
+          </h3>
+          <ContactForm id="form-matricula" />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HERO — full-bleed with urgency
+     ============================================================ */
+  .matriculas-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #fff;
+    padding-block: clamp(7rem, 16vh, 10rem) clamp(4rem, 9vh, 6rem);
+    background-color: var(--color-primary-950);
+    min-height: min(85vh, 720px);
+    display: flex;
+    align-items: center;
+  }
+
+  .matriculas-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgb(212 169 16 / 0.22) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgb(0 109 132 / 0.35) 0%, transparent 55%),
+      linear-gradient(135deg, var(--color-primary-950) 0%, var(--color-primary-800) 100%);
+    z-index: -2;
+  }
+
+  .matriculas-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgb(0 30 43 / 0.4) 0%, rgb(0 30 43 / 0.65) 100%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .matriculas-hero-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+  }
+
+  .matriculas-hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: flex-start;
+    max-width: 60rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Breadcrumb (matches PageHero) */
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .breadcrumb li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.7);
+  }
+
+  .breadcrumb a { color: inherit; text-decoration: none; transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1); }
+  .breadcrumb a:hover { color: var(--color-accent-300); }
+  .breadcrumb [aria-current="page"] { color: var(--color-accent-200); }
+  .breadcrumb-sep { width: 12px; height: 12px; color: rgb(255 255 255 / 0.4); }
+
+  /* --- Urgency badge (pulsing, conversion-focused) --- */
+  .urgency-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.5rem 1.1rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-primary-950);
+    background: linear-gradient(135deg, var(--color-accent-300) 0%, var(--color-accent-500) 100%);
+    border-radius: var(--radius-full);
+    box-shadow: 0 8px 24px -10px rgb(246 201 31 / 0.55);
+  }
+
+  .urgency-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background-color: #c92626;
+    box-shadow: 0 0 0 0 rgba(201, 38, 38, 0.7);
+    animation: urgencyPulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes urgencyPulse {
+    0% { box-shadow: 0 0 0 0 rgba(201, 38, 38, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(201, 38, 38, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(201, 38, 38, 0); }
+  }
+
+  .matriculas-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw + 1rem, 5rem);
+    line-height: 1.05;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    text-shadow: 0 2px 24px rgb(0 0 0 / 0.25);
+  }
+
+  .title-accent {
+    background: linear-gradient(135deg, var(--color-accent-300) 0%, var(--color-accent-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .matriculas-subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.8vw + 0.85rem, 1.25rem);
+    line-height: 1.6;
+    color: rgb(255 255 255 / 0.88);
+    max-width: 44rem;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .matriculas-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+
+  .matriculas-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-6);
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+  }
+
+  .matriculas-meta li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  .matriculas-meta svg {
+    width: 18px;
+    height: 18px;
+    color: var(--color-accent-300);
+    flex: 0 0 auto;
+  }
+
+  /* Stagger entrance for hero content */
+  .matriculas-hero-content > [data-reveal-delay] {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeInUp 800ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  }
+
+  .matriculas-hero-content > .breadcrumb { animation-delay: 80ms; }
+  .matriculas-hero-content > [data-reveal-delay="80"] { animation-delay: 200ms; }
+  .matriculas-hero-content > [data-reveal-delay="160"] { animation-delay: 320ms; }
+  .matriculas-hero-content > [data-reveal-delay="240"] { animation-delay: 460ms; }
+  .matriculas-hero-content > [data-reveal-delay="320"] { animation-delay: 580ms; }
+  .matriculas-hero-content > [data-reveal-delay="400"] { animation-delay: 700ms; }
+
+  .matriculas-hero-content > .breadcrumb {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeInUp 800ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  }
+
+  @keyframes heroFadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============================================================
+     STEPS (3-step process)
+     ============================================================ */
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: stretch;
+  }
+
+  @media (max-width: 1024px) {
+    .steps {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Double-bezel step card */
+  .step-shell {
+    flex: 1;
+    padding: 6px;
+    background: linear-gradient(135deg, rgb(0 66 84 / 0.06) 0%, rgb(212 169 16 / 0.10) 100%);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: calc(var(--radius-xl) + 6px);
+    box-shadow: var(--shadow-sm);
+    transition:
+      transform 350ms cubic-bezier(0.32, 0.72, 0, 1),
+      box-shadow 350ms cubic-bezier(0.32, 0.72, 0, 1),
+      border-color 350ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .step:hover .step-shell {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--color-accent-300);
+  }
+
+  .step-core {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    height: 100%;
+    padding: var(--space-6);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-xl);
+    box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.5);
+  }
+
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--color-accent-100);
+    -webkit-text-stroke: 1.5px var(--color-accent-500);
+  }
+
+  .step-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    color: var(--color-primary-700);
+    background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-primary-100) 100%);
+    border-radius: var(--radius-md);
+  }
+
+  .step-icon :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+
+  .step-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    color: var(--color-primary-800);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .step-description {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-neutral-600);
+    margin: 0;
+    flex: 1;
+  }
+
+  .step-duration {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent-700);
+    background-color: var(--color-accent-50);
+    border: 1px solid var(--color-accent-200);
+    border-radius: var(--radius-full);
+    padding: 0.3rem 0.75rem;
+  }
+
+  .step-duration svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Connector arrow between steps */
+  .step-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--space-3);
+    color: var(--color-accent-500);
+  }
+
+  .step-connector svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  @media (max-width: 1024px) {
+    .step-connector {
+      display: none;
+    }
+  }
+
+  /* ============================================================
+     TRUST + TESTIMONIALS grids
+     ============================================================ */
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 1024px) {
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      max-width: 36rem;
+      margin-inline: auto;
+    }
+  }
+
+  /* ============================================================
+     DOCS list
+     ============================================================ */
+  .docs-container {
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+
+  .docs-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  @media (max-width: 640px) {
+    .docs-list { grid-template-columns: 1fr; }
+  }
+
+  .doc-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-neutral-700);
+    transition:
+      border-color 250ms cubic-bezier(0.32, 0.72, 0, 1),
+      transform 250ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .doc-item:hover {
+    transform: translateX(2px);
+    border-color: var(--color-primary-200);
+  }
+
+  .doc-marker {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: var(--color-primary-700);
+    background-color: var(--color-primary-50);
+    border-radius: var(--radius-md);
+  }
+
+  .doc-marker svg { width: 16px; height: 16px; }
+
+  /* ============================================================
+     CTA FINAL — flagship conversion block
+     ============================================================ */
+  .cta-final {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #fff;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-950) 0%,
+      var(--color-primary-800) 50%,
+      var(--color-accent-700) 100%
+    );
+    padding-block: clamp(5rem, 11vh, 8rem);
+  }
+
+  .cta-final-glow {
+    position: absolute;
+    top: -25%;
+    right: -15%;
+    width: 70%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgb(246 201 31 / 0.22) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .cta-final-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+  }
+
+  .cta-final-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .cta-final-grid { grid-template-columns: 1fr; }
+  }
+
+  .cta-final-pitch {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .cta-final-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.4rem 0.95rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent-200);
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: var(--radius-full);
+    width: fit-content;
+  }
+
+  .cta-final-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent-400);
+  }
+
+  .cta-final-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.2vw + 1rem, 3rem);
+    line-height: 1.1;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .cta-final-subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.6vw + 0.85rem, 1.15rem);
+    line-height: 1.6;
+    color: rgb(255 255 255 / 0.85);
+    margin: 0;
+    max-width: 36rem;
+  }
+
+  .cta-final-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .cta-final-promises {
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .cta-final-promises li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: rgb(255 255 255 / 0.88);
+  }
+
+  .cta-final-promises strong { color: #fff; font-weight: 700; }
+
+  .cta-final-promises svg {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin-top: 0.15rem;
+    color: var(--color-accent-300);
+  }
+
+  /* --- Form card on the right --- */
+  .cta-final-form-card {
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.45);
+    border: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .cta-final-form-title {
+    margin: 0 0 var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    color: var(--color-primary-800);
+    line-height: 1.2;
+  }
+
+  .cta-final-form-eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent-700);
+  }
+
+  /* ContactForm inside CTA: reset its padded card style */
+  .cta-final-form-card :global(.contact-form) {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    max-width: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .urgency-dot { animation: none; }
+    .matriculas-hero-content > [data-reveal-delay],
+    .matriculas-hero-content > .breadcrumb {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+    .step-shell,
+    .doc-item { transition: none; }
+    .step:hover .step-shell { transform: none; }
+    .doc-item:hover { transform: none; }
+  }
+</style>

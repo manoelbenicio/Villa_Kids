@@ -1,4 +1,540 @@
 ---
-layout: '../layouts/BaseLayout.astro'
-title: 'Política de Privacidade'
+/**
+ * @file politica-de-privacidade.astro
+ * @description Página /politica-de-privacidade/ — Política de Privacidade
+ *              em conformidade com a LGPD (Lei 13.709/2018). Texto longo,
+ *              tipografia legível, estrutura clara em seções numeradas.
+ *
+ * @author GEMINI-UX
+ * @phase 5
+ * @created 2026-05-17T21:45:00Z
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactMiniSection from '../components/ContactMiniSection.astro';
+import { schoolInfo } from '../data/school-info.ts';
+
+// Data da última atualização. Atualize manualmente quando o texto mudar
+// para refletir a data efetiva da revisão. Default: data do build.
+const lastUpdated = new Date('2026-05-17');
+const lastUpdatedFormatted = lastUpdated.toLocaleDateString('pt-BR', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
+
+// --- Sumário (table of contents) ---
+const sections = [
+  { id: '1-introducao', label: 'Introdução' },
+  { id: '2-dados-coletados', label: 'Dados que coletamos' },
+  { id: '3-finalidades', label: 'Finalidades do tratamento' },
+  { id: '4-base-legal', label: 'Base legal' },
+  { id: '5-compartilhamento', label: 'Compartilhamento de dados' },
+  { id: '6-retencao', label: 'Retenção dos dados' },
+  { id: '7-direitos', label: 'Direitos do titular' },
+  { id: '8-seguranca', label: 'Segurança da informação' },
+  { id: '9-cookies', label: 'Cookies e tecnologias similares' },
+  { id: '10-criancas', label: 'Dados de crianças e adolescentes' },
+  { id: '11-mudancas', label: 'Mudanças nesta política' },
+  { id: '12-contato-dpo', label: 'Contato com o DPO' },
+];
 ---
+
+<BaseLayout
+  title="Política de Privacidade"
+  description="Política de Privacidade do Colégio Villa Prime em conformidade com a Lei Geral de Proteção de Dados (LGPD). Saiba como coletamos, usamos e protegemos seus dados pessoais."
+  schemaType="WebPage"
+  noindex={false}
+>
+  <PageHero
+    eyebrow="LGPD · Proteção de Dados"
+    title="Política de Privacidade"
+    subtitle="Tratamos os dados pessoais com responsabilidade, transparência e em conformidade com a Lei 13.709/2018 (LGPD)."
+    breadcrumbs={[
+      { label: 'Início', href: '/' },
+      { label: 'Política de Privacidade' },
+    ]}
+  />
+
+  <!-- ============================================================
+       Last updated stripe
+       ============================================================ -->
+  <section class="meta-strip">
+    <div class="container meta-strip-inner">
+      <div class="meta-item">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Última atualização: <strong>{lastUpdatedFormatted}</strong></span>
+      </div>
+      <div class="meta-item">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+        <span>Conforme <strong>Lei 13.709/2018 (LGPD)</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Body — TOC + content
+       ============================================================ -->
+  <section class="section privacy-section">
+    <div class="container privacy-grid">
+      <!-- Table of contents (sticky on desktop) -->
+      <aside class="privacy-toc">
+        <span class="privacy-toc-label">Sumário</span>
+        <ol>
+          {sections.map((s, i) => (
+            <li>
+              <a href={`#${s.id}`}>
+                <span class="privacy-toc-num">{String(i + 1).padStart(2, '0')}</span>
+                <span>{s.label}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </aside>
+
+      <!-- Article body -->
+      <article class="privacy-article">
+        <section id="1-introducao">
+          <h2>1. Introdução</h2>
+          <p>
+            O <strong>{schoolInfo.legalName}</strong> ("Villa Prime", "nós") tem
+            o compromisso de proteger a privacidade e os dados pessoais das
+            famílias, crianças, colaboradores e visitantes que se relacionam
+            com a escola. Esta Política de Privacidade descreve, de forma
+            clara, como coletamos, utilizamos, armazenamos e protegemos os
+            dados pessoais que tratamos no curso das nossas atividades.
+          </p>
+          <p>
+            Esta política é elaborada em conformidade com a
+            <strong>Lei nº 13.709/2018 — Lei Geral de Proteção de Dados (LGPD)</strong>,
+            o Marco Civil da Internet e as demais normas aplicáveis.
+          </p>
+        </section>
+
+        <section id="2-dados-coletados">
+          <h2>2. Dados que coletamos</h2>
+          <p>Coletamos as seguintes categorias de dados pessoais:</p>
+          <ul>
+            <li><strong>Dados de identificação dos responsáveis:</strong> nome completo, CPF, RG, data de nascimento, estado civil e profissão.</li>
+            <li><strong>Dados de contato:</strong> endereço residencial, telefone, e-mail e contato de emergência.</li>
+            <li><strong>Dados das crianças:</strong> nome completo, data de nascimento, certidão de nascimento, foto, informações pediátricas e relatórios médicos pertinentes ao cuidado escolar.</li>
+            <li><strong>Dados financeiros:</strong> informações para emissão de boletos, comprovantes de pagamento e documentos contratuais.</li>
+            <li><strong>Dados sensíveis (apenas com consentimento explícito):</strong> condições de saúde, alergias, restrições alimentares e dados biométricos para controle de acesso.</li>
+            <li><strong>Dados de navegação:</strong> endereço IP, tipo de navegador, páginas visitadas e cookies (ver Seção 9).</li>
+          </ul>
+        </section>
+
+        <section id="3-finalidades">
+          <h2>3. Finalidades do tratamento</h2>
+          <p>Tratamos os dados pessoais com as seguintes finalidades:</p>
+          <ul>
+            <li>Execução do contrato de prestação de serviços educacionais;</li>
+            <li>Cumprimento de obrigações legais e regulatórias (educacionais, fiscais, trabalhistas, sanitárias);</li>
+            <li>Comunicação com as famílias sobre rotina, calendário, atividades e ocorrências;</li>
+            <li>Gestão pedagógica, registro de desenvolvimento e avaliação;</li>
+            <li>Cuidado em saúde, alimentação e segurança das crianças;</li>
+            <li>Controle de acesso à escola por biometria;</li>
+            <li>Resposta a solicitações, reclamações e exercício de direitos do titular;</li>
+            <li>Marketing institucional e relacionamento, sempre com base legal apropriada.</li>
+          </ul>
+        </section>
+
+        <section id="4-base-legal">
+          <h2>4. Base legal</h2>
+          <p>O tratamento dos dados pessoais é realizado com base nas seguintes hipóteses legais previstas na LGPD:</p>
+          <ul>
+            <li><strong>Execução de contrato</strong> (Art. 7, V): para prestação dos serviços educacionais e administração do vínculo escolar;</li>
+            <li><strong>Cumprimento de obrigação legal</strong> (Art. 7, II): para atendimento a normas educacionais, fiscais e sanitárias;</li>
+            <li><strong>Proteção da vida e da incolumidade física</strong> (Art. 7, IV): em situações de saúde e emergência;</li>
+            <li><strong>Consentimento</strong> (Art. 7, I e Art. 11, I): para uso de imagem em comunicação institucional, dados sensíveis e marketing;</li>
+            <li><strong>Legítimo interesse</strong> (Art. 7, IX): para segurança da escola e prevenção de fraudes, observados os direitos do titular.</li>
+          </ul>
+        </section>
+
+        <section id="5-compartilhamento">
+          <h2>5. Compartilhamento de dados</h2>
+          <p>
+            <strong>Não vendemos, alugamos ou negociamos dados pessoais</strong>.
+            Podemos compartilhar dados, exclusivamente para as finalidades
+            descritas, com:
+          </p>
+          <ul>
+            <li><strong>Operadores de serviços essenciais:</strong> sistemas de gestão escolar, plataforma de comunicação com pais, hospedagem em nuvem e processadores de pagamento — todos contratualmente obrigados a observar a LGPD;</li>
+            <li><strong>Autoridades competentes:</strong> quando exigido por lei, ordem judicial ou requisição administrativa válida;</li>
+            <li><strong>Profissionais de saúde:</strong> em situações de emergência ou para cuidado contínuo, sempre informando os responsáveis.</li>
+          </ul>
+        </section>
+
+        <section id="6-retencao">
+          <h2>6. Retenção dos dados</h2>
+          <p>
+            Mantemos os dados pessoais apenas pelo tempo necessário ao
+            cumprimento das finalidades para as quais foram coletados, e em
+            observância aos prazos legais aplicáveis (educacionais, fiscais,
+            trabalhistas e cíveis). Após esse período, os dados são eliminados
+            de forma segura ou anonimizados.
+          </p>
+        </section>
+
+        <section id="7-direitos">
+          <h2>7. Direitos do titular</h2>
+          <p>
+            A LGPD assegura ao titular dos dados — ou ao representante legal
+            de criança ou adolescente — os seguintes direitos:
+          </p>
+          <ul>
+            <li><strong>Confirmação</strong> da existência de tratamento dos seus dados;</li>
+            <li><strong>Acesso</strong> aos dados;</li>
+            <li><strong>Correção</strong> de dados incompletos, inexatos ou desatualizados;</li>
+            <li><strong>Anonimização, bloqueio ou eliminação</strong> de dados desnecessários ou tratados em desconformidade;</li>
+            <li><strong>Portabilidade</strong> dos dados para outro fornecedor, observados o segredo comercial e industrial;</li>
+            <li><strong>Eliminação</strong> dos dados tratados com base no consentimento;</li>
+            <li><strong>Informação</strong> sobre as entidades públicas e privadas com as quais houve compartilhamento;</li>
+            <li><strong>Revogação do consentimento</strong> a qualquer momento, sem prejuízo dos tratamentos lícitos já realizados.</li>
+          </ul>
+          <p>
+            Para exercer esses direitos, entre em contato com o nosso DPO (ver
+            Seção 12). Responderemos em até 15 dias.
+          </p>
+        </section>
+
+        <section id="8-seguranca">
+          <h2>8. Segurança da informação</h2>
+          <p>
+            Adotamos medidas técnicas e organizacionais para proteger os dados
+            contra acesso não autorizado, perda acidental, destruição,
+            divulgação indevida ou qualquer outra forma de tratamento ilícito:
+          </p>
+          <ul>
+            <li>Criptografia de dados em trânsito e em repouso quando aplicável;</li>
+            <li>Controle de acesso por níveis de permissão e autenticação;</li>
+            <li>Backups periódicos com armazenamento seguro;</li>
+            <li>Treinamento contínuo da equipe em proteção de dados;</li>
+            <li>Procedimentos de resposta a incidentes de segurança.</li>
+          </ul>
+          <p>
+            Em caso de incidente de segurança que possa acarretar risco ou
+            dano relevante aos titulares, notificaremos a Autoridade Nacional
+            de Proteção de Dados (ANPD) e os titulares afetados, conforme a
+            LGPD.
+          </p>
+        </section>
+
+        <section id="9-cookies">
+          <h2>9. Cookies e tecnologias similares</h2>
+          <p>
+            Nosso site utiliza cookies essenciais para garantir o funcionamento
+            adequado, e pode utilizar cookies analíticos e de desempenho para
+            entender como o site é utilizado e melhorá-lo continuamente.
+          </p>
+          <p>
+            Você pode gerenciar as preferências de cookies diretamente nas
+            configurações do seu navegador. A desativação de cookies essenciais
+            pode prejudicar a navegação.
+          </p>
+        </section>
+
+        <section id="10-criancas">
+          <h2>10. Dados de crianças e adolescentes</h2>
+          <p>
+            O tratamento de dados de crianças e adolescentes é realizado em
+            seu melhor interesse e mediante consentimento específico e
+            destacado dos pais ou responsáveis legais, em conformidade com o
+            Art. 14 da LGPD.
+          </p>
+          <p>
+            Adotamos cuidados especiais com fotos, vídeos e relatos
+            individualizados, restringindo a divulgação a canais estritamente
+            necessários, sempre com base no consentimento expresso dos
+            responsáveis.
+          </p>
+        </section>
+
+        <section id="11-mudancas">
+          <h2>11. Mudanças nesta política</h2>
+          <p>
+            Esta Política pode ser atualizada periodicamente para refletir
+            evoluções da legislação, novas práticas operacionais ou novos
+            recursos do site. A versão vigente é sempre a publicada nesta
+            página, com a respectiva data de última atualização indicada no
+            topo.
+          </p>
+          <p>
+            Recomendamos que você revisite esta página com regularidade.
+            Mudanças relevantes serão informadas pelos canais oficiais da
+            escola.
+          </p>
+        </section>
+
+        <section id="12-contato-dpo">
+          <h2>12. Contato com o DPO (Encarregado)</h2>
+          <p>
+            Se você tem dúvidas sobre o tratamento dos seus dados, deseja
+            exercer um direito previsto na LGPD ou apresentar uma reclamação,
+            entre em contato com o nosso Encarregado pelo Tratamento de Dados
+            Pessoais (DPO):
+          </p>
+          <ul class="contact-block">
+            <li><strong>E-mail:</strong> <a href={`mailto:${schoolInfo.email}`}>{schoolInfo.email}</a></li>
+            <li><strong>Telefone:</strong> <a href={`tel:${schoolInfo.phoneRaw}`}>{schoolInfo.phone}</a></li>
+            <li><strong>Endereço:</strong> {schoolInfo.address.fullStreet} — CEP {schoolInfo.address.zip}</li>
+          </ul>
+          <p class="anpd-note">
+            Caso entenda que sua solicitação não foi adequadamente atendida,
+            você pode também acionar a
+            <a href="https://www.gov.br/anpd/" target="_blank" rel="noopener noreferrer">Autoridade Nacional de Proteção de Dados (ANPD)</a>.
+          </p>
+        </section>
+      </article>
+    </div>
+  </section>
+
+  <ContactMiniSection
+    title="Dúvidas sobre o tratamento dos seus dados?"
+    subtitle="Nosso DPO responde por e-mail em até 15 dias úteis, em conformidade com a LGPD."
+  />
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     Last-updated meta strip
+     ============================================================ */
+  .meta-strip {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-neutral-100);
+    padding-block: var(--space-4);
+  }
+
+  .meta-strip-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-6);
+  }
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-neutral-600);
+  }
+
+  .meta-item strong {
+    color: var(--color-primary-800);
+    font-weight: 600;
+  }
+
+  .meta-item svg {
+    width: 16px;
+    height: 16px;
+    color: var(--color-accent-600);
+    flex: 0 0 auto;
+  }
+
+  /* ============================================================
+     Privacy section layout (TOC sticky + article)
+     ============================================================ */
+  .privacy-section {
+    background-color: var(--color-surface);
+  }
+
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: 18rem 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .privacy-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* --- TOC --- */
+  .privacy-toc {
+    position: sticky;
+    top: 6rem;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+    padding: var(--space-5);
+    background-color: var(--color-surface-muted);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 1024px) {
+    .privacy-toc {
+      position: static;
+      max-height: none;
+    }
+  }
+
+  .privacy-toc-label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent-700);
+    margin-bottom: var(--space-3);
+  }
+
+  .privacy-toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .privacy-toc a {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: 0.55rem 0.65rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    color: var(--color-neutral-700);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition:
+      background-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+      color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .privacy-toc a:hover {
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-800);
+  }
+
+  .privacy-toc-num {
+    flex: 0 0 auto;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-accent-600);
+    margin-top: 0.1rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ============================================================
+     Article body
+     ============================================================ */
+  .privacy-article {
+    max-width: 48rem;
+  }
+
+  .privacy-article section {
+    margin-bottom: var(--space-10);
+    scroll-margin-top: 6rem;
+  }
+
+  .privacy-article section:last-child {
+    margin-bottom: 0;
+  }
+
+  .privacy-article h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 1.6vw + 0.6rem, 1.75rem);
+    color: var(--color-primary-800);
+    margin: 0 0 var(--space-4);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--color-accent-200);
+  }
+
+  .privacy-article p {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--color-neutral-700);
+    margin: 0 0 var(--space-3);
+    text-wrap: pretty;
+    max-width: 42rem;
+  }
+
+  .privacy-article p:last-child {
+    margin-bottom: 0;
+  }
+
+  .privacy-article strong {
+    color: var(--color-primary-800);
+    font-weight: 600;
+  }
+
+  .privacy-article ul {
+    margin: 0 0 var(--space-3);
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    max-width: 44rem;
+  }
+
+  .privacy-article ul li {
+    position: relative;
+    padding: 0.4rem 0 0.4rem var(--space-6);
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-neutral-700);
+  }
+
+  .privacy-article ul li::before {
+    content: '';
+    position: absolute;
+    left: 0.65rem;
+    top: 1.05rem;
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, var(--color-accent-400) 0%, var(--color-accent-700) 100%);
+    border-radius: var(--radius-full);
+    box-shadow: 0 0 0 3px var(--color-accent-50);
+  }
+
+  .privacy-article a {
+    color: var(--color-primary-700);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-300);
+    text-underline-offset: 3px;
+    transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .privacy-article a:hover {
+    color: var(--color-accent-700);
+    text-decoration-color: var(--color-accent-600);
+  }
+
+  /* Special "contact-block" inside Section 12 */
+  .privacy-article .contact-block {
+    padding: var(--space-5);
+    background-color: var(--color-surface-muted);
+    border: 1px solid var(--color-neutral-200);
+    border-left: 4px solid var(--color-accent-500);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-3);
+  }
+
+  .privacy-article .contact-block li {
+    padding-left: 0;
+  }
+
+  .privacy-article .contact-block li::before {
+    display: none;
+  }
+
+  .privacy-article .anpd-note {
+    font-size: var(--text-sm);
+    color: var(--color-neutral-600);
+    font-style: italic;
+  }
+</style>
