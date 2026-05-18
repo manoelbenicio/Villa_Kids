@@ -1,0 +1,13 @@
+# @file .cpanel.yml.example
+# @description Alternative cPanel Git deployment task example.
+# @author CODEX-OPS
+# @phase 7
+# @created 2026-05-18T00:26:30Z
+# @modified 2026-05-18T00:26:30Z
+
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home2/cri07713/public_html
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/rsync -av --delete --exclude='.env*' --exclude='backup_*' dist/ $DEPLOYPATH/

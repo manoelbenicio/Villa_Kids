@@ -1,4 +1,457 @@
 ---
-layout: '../layouts/BaseLayout.astro'
-title: 'Estrutura'
+/**
+ * @file estrutura.astro
+ * @description Página /estrutura/ — apresenta a infraestrutura da escola:
+ *              grid detalhado dos 6 ambientes principais e galeria do
+ *              cotidiano com lightbox.
+ *
+ * @author GEMINI-UX
+ * @phase 4
+ * @created 2026-05-17T21:34:00Z
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Gallery from '../components/Gallery.astro';
+import CTAButton from '../components/CTAButton.astro';
+import ContactMiniSection from '../components/ContactMiniSection.astro';
+import { whatsappLink } from '../data/school-info.ts';
+
+interface Ambiente {
+  name: string;
+  description: string;
+  features: string[];
+  image: string;
+}
+
+const ambientes: Ambiente[] = [
+  {
+    name: 'Berçário',
+    description:
+      'Ambiente acolhedor projetado para o sono, alimentação e desenvolvimento sensorial dos bebês, com mobiliário em escala adequada e cuidado redobrado com higiene.',
+    features: ['Berços individuais', 'Trocador exclusivo', 'Brinquedos sensoriais', 'Climatização controlada'],
+    image: '/images/ambientes/bercario.svg',
+  },
+  {
+    name: 'Sala de Atividades',
+    description:
+      'Espaço pedagógico flexível, com cantos temáticos para artes, leitura, jogos simbólicos e pesquisa — tudo em escala infantil.',
+    features: ['Cantos pedagógicos', 'Mesas em escala infantil', 'Acervo de livros', 'Materiais de arte'],
+    image: '/images/ambientes/sala-atividades.svg',
+  },
+  {
+    name: 'Playground',
+    description:
+      'Área externa com brinquedos certificados, piso emborrachado e supervisão constante — espaço para o brincar livre e atividades dirigidas.',
+    features: ['Brinquedos certificados', 'Piso emborrachado', 'Sombreamento natural', 'Supervisão constante'],
+    image: '/images/ambientes/playground.svg',
+  },
+  {
+    name: 'Refeitório',
+    description:
+      'Cozinha própria com nutricionista responsável. Cardápio mensal divulgado às famílias, com adaptações para restrições alimentares.',
+    features: ['Nutricionista responsável', 'Cardápio adaptável', 'Higienização rigorosa', 'Refeições in loco'],
+    image: '/images/ambientes/refeitorio.svg',
+  },
+  {
+    name: 'Sala Multimídia',
+    description:
+      'Tecnologia integrada à pedagogia: projeções, lousa interativa e recursos audiovisuais usados como ferramentas de pesquisa e expressão.',
+    features: ['Lousa interativa', 'Projeção em alta definição', 'Áudio acolhedor', 'Conteúdos curados'],
+    image: '/images/ambientes/multimidia.svg',
+  },
+  {
+    name: 'Área Verde',
+    description:
+      'Jardim interativo com horta pedagógica e espaços de contato com a natureza — fundamentais para o desenvolvimento integral.',
+    features: ['Horta pedagógica', 'Espécies nativas', 'Espaço para piqueniques', 'Educação ambiental'],
+    image: '/images/ambientes/area-verde.svg',
+  },
+];
+
+const galleryImages = [
+  { src: '/images/gallery/gal-1.svg', alt: 'Cotidiano da Villa Prime', caption: 'Convivência' },
+  { src: '/images/gallery/gal-2.svg', alt: 'Atividade artística', caption: 'Atelier' },
+  { src: '/images/gallery/gal-3.svg', alt: 'Hora da história', caption: 'Roda de leitura' },
+  { src: '/images/gallery/gal-4.svg', alt: 'Recreação ao ar livre', caption: 'Pátio' },
+  { src: '/images/gallery/gal-5.svg', alt: 'Refeitório acolhedor', caption: 'Refeições' },
+  { src: '/images/gallery/gal-6.svg', alt: 'Momento de descanso', caption: 'Descanso' },
+  { src: '/images/gallery/gal-7.svg', alt: 'Movimento e psicomotricidade', caption: 'Psicomotricidade' },
+  { src: '/images/gallery/gal-8.svg', alt: 'Encontro com famílias', caption: 'Famílias' },
+];
+
+const facilityStats = [
+  { value: '6', label: 'Ambientes principais' },
+  { value: '100%', label: 'Acesso por biometria' },
+  { value: '24h', label: 'Monitoramento por câmeras' },
+  { value: '1.200m²', label: 'Área construída' },
+];
 ---
+
+<BaseLayout
+  title="Nossa Estrutura"
+  description="Conheça a infraestrutura premium do Colégio Villa Prime — 6 ambientes pensados para a primeira infância, com segurança, higiene e estética acolhedora."
+  schemaType="WebPage"
+>
+  <PageHero
+    eyebrow="Infraestrutura Premium"
+    title="Espaços projetados para a primeira infância"
+    subtitle="Cada ambiente é pensado em escala infantil, com atenção a segurança, higiene, conforto, acessibilidade e estímulos para o desenvolvimento integral."
+    breadcrumbs={[
+      { label: 'Início', href: '/' },
+      { label: 'Estrutura' },
+    ]}
+    backgroundImage="/images/ambientes/playground.svg"
+  />
+
+  <!-- ============================================================
+       Stats strip
+       ============================================================ -->
+  <section class="stats-strip">
+    <div class="container">
+      <ul class="stats-grid">
+        {facilityStats.map((stat, i) => (
+          <li class="stat-item reveal" data-reveal-delay={i * 80}>
+            <span class="stat-value">{stat.value}</span>
+            <span class="stat-label">{stat.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Ambientes detalhados
+       ============================================================ -->
+  <section class="section container">
+    <SectionTitle
+      tag="Ambientes"
+      title="Conheça em detalhes cada espaço"
+      subtitle="Da chegada à saída, cada ambiente foi planejado para apoiar o desenvolvimento integral das crianças."
+    />
+
+    <div class="ambientes-detail-grid">
+      {ambientes.map((amb, i) => (
+        <article class="ambiente-detail reveal" data-reveal-delay={i * 70}>
+          <div class="ambiente-detail-image" aria-hidden="true">
+            <img src={amb.image} alt={`Ambiente ${amb.name}`} loading="lazy" decoding="async" />
+          </div>
+
+          <div class="ambiente-detail-content">
+            <h2 class="ambiente-detail-name">{amb.name}</h2>
+            <p class="ambiente-detail-description">{amb.description}</p>
+
+            <ul class="ambiente-detail-features">
+              {amb.features.map((feature) => (
+                <li>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Galeria de fotos
+       ============================================================ -->
+  <section class="section section-muted">
+    <div class="container">
+      <SectionTitle
+        tag="Galeria"
+        title="O cotidiano em imagens"
+        subtitle="Um recorte do dia a dia das nossas turmas — clique nas imagens para ampliar."
+      />
+
+      <Gallery images={galleryImages} id="estrutura-gallery" />
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA — Venha conhecer pessoalmente
+       ============================================================ -->
+  <section class="cta-banner">
+    <div class="cta-banner-glow" aria-hidden="true"></div>
+    <div class="container cta-banner-inner reveal">
+      <span class="cta-banner-eyebrow">
+        <span class="cta-banner-eyebrow-dot" aria-hidden="true"></span>
+        Visita Guiada
+      </span>
+      <h2 class="cta-banner-title">Venha conhecer pessoalmente</h2>
+      <p class="cta-banner-subtitle">
+        Fotos e textos contam parte da história. A experiência completa só
+        acontece quando você caminha pelos ambientes e conhece a equipe.
+      </p>
+      <div class="cta-banner-actions">
+        <CTAButton
+          text="Agendar visita pelo WhatsApp"
+          href={whatsappLink('Olá! Gostaria de agendar uma visita guiada para conhecer a estrutura do Villa Prime.')}
+          variant="whatsapp"
+          size="lg"
+        />
+        <CTAButton text="Ver Tecnologia & Segurança" href="/seguranca/" variant="outline" size="lg" />
+      </div>
+    </div>
+  </section>
+
+  <ContactMiniSection
+    title="Quer conhecer mais detalhes da estrutura?"
+    subtitle="Explicamos cada ambiente em uma visita guiada exclusiva para a sua família."
+  />
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     Stats strip
+     ============================================================ */
+  .stats-strip {
+    background-color: var(--color-surface);
+    padding-block: var(--space-10);
+    border-bottom: 1px solid var(--color-neutral-100);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-6);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (max-width: 768px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 2vw + 1rem, 2.5rem);
+    font-weight: 700;
+    color: var(--color-accent-600);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-neutral-500);
+  }
+
+  /* ============================================================
+     Ambientes detail grid (alternating rows on desktop)
+     ============================================================ */
+  .ambientes-detail-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .ambiente-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  /* Alternating layout: images flip sides on even rows */
+  .ambiente-detail:nth-child(even) .ambiente-detail-image {
+    order: 2;
+  }
+
+  @media (max-width: 1024px) {
+    .ambiente-detail {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+    .ambiente-detail:nth-child(even) .ambiente-detail-image {
+      order: 0;
+    }
+  }
+
+  .ambiente-detail-image {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    background-color: var(--color-primary-100);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--color-neutral-200);
+  }
+
+  .ambiente-detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ambiente-detail-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ambiente-detail-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1.5vw + 0.8rem, 2.25rem);
+    color: var(--color-primary-800);
+    margin: 0;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+
+  .ambiente-detail-description {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    color: var(--color-neutral-600);
+    margin: 0;
+  }
+
+  .ambiente-detail-features {
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem var(--space-3);
+  }
+
+  @media (max-width: 480px) {
+    .ambiente-detail-features {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ambiente-detail-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    color: var(--color-neutral-700);
+  }
+
+  .ambiente-detail-features svg {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    margin-top: 0.2rem;
+    color: var(--color-accent-600);
+  }
+
+  /* ============================================================
+     CTA banner (shared style)
+     ============================================================ */
+  .cta-banner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #fff;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-900) 0%,
+      var(--color-primary-700) 60%,
+      var(--color-accent-700) 100%
+    );
+    padding-block: clamp(4rem, 9vh, 6rem);
+  }
+
+  .cta-banner-glow {
+    position: absolute;
+    top: -25%;
+    right: -15%;
+    width: 70%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgb(246 201 31 / 0.18) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .cta-banner-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: center;
+    max-width: 52rem;
+  }
+
+  .cta-banner-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.4rem 0.95rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent-200);
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: var(--radius-full);
+  }
+
+  .cta-banner-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent-400);
+  }
+
+  .cta-banner-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
+    line-height: 1.15;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .cta-banner-subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.6vw + 0.85rem, 1.15rem);
+    line-height: 1.6;
+    color: rgb(255 255 255 / 0.88);
+    margin: 0;
+    max-width: 40rem;
+    text-wrap: pretty;
+  }
+
+  .cta-banner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+</style>

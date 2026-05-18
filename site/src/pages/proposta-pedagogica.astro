@@ -1,4 +1,412 @@
 ---
-layout: '../layouts/BaseLayout.astro'
-title: 'Proposta Pedagógica'
+/**
+ * @file proposta-pedagogica.astro
+ * @description Página /proposta-pedagogica/ — apresenta a metodologia, os
+ *              eixos de desenvolvimento e a rotina escolar do Colégio
+ *              Villa Prime.
+ *
+ * @author GEMINI-UX
+ * @phase 4
+ * @created 2026-05-17T21:34:00Z
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import CTAButton from '../components/CTAButton.astro';
+import ContactMiniSection from '../components/ContactMiniSection.astro';
+import { whatsappLink } from '../data/school-info.ts';
+
+// --- Metodologia: 4 destaques curtos ---
+const methodologyHighlights = [
+  {
+    title: 'Aprendizagem pelo brincar',
+    description:
+      'O brincar é uma linguagem da infância. Por meio dele, as crianças exploram o mundo, constroem hipóteses e desenvolvem autonomia.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`,
+  },
+  {
+    title: 'Escuta ativa',
+    description:
+      'Cada criança é um sujeito de direitos, com voz e ritmo próprios. Nossa equipe escuta e acolhe a singularidade de cada uma.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H4a1 1 0 0 1-1-1v-6Z"/><path d="M21 14h-3a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2a1 1 0 0 0 1-1v-6Z"/><path d="M3 14a9 9 0 0 1 18 0"/></svg>`,
+  },
+  {
+    title: 'Currículo intencional',
+    description:
+      'Atividades planejadas com base na BNCC e na Pedagogia da Infância, articulando experiências, descobertas e narrativas.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2Z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7Z"/></svg>`,
+  },
+  {
+    title: 'Família como parceira',
+    description:
+      'Reuniões periódicas, comunicação digital diária e portas abertas para que a confiança seja construída no cotidiano.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  },
+];
+
+// --- Eixos de desenvolvimento ---
+const developmentAxes = [
+  {
+    title: 'Cognitivo',
+    description:
+      'Estímulo à curiosidade, ao raciocínio lógico, à resolução de problemas e à construção do pensamento simbólico desde os primeiros meses.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>`,
+  },
+  {
+    title: 'Socioemocional',
+    description:
+      'Convivência respeitosa, autoconhecimento, regulação das emoções e construção de vínculos afetivos seguros.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/></svg>`,
+  },
+  {
+    title: 'Motor',
+    description:
+      'Movimento, coordenação, lateralidade e consciência corporal — fundamentais para autonomia e aprendizagem futura.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v5l-3 6"/><path d="m12 12 4 6"/><path d="M9 11h6"/></svg>`,
+  },
+  {
+    title: 'Linguagem',
+    description:
+      'Linguagem oral, escrita, artística e corporal trabalhadas com intencionalidade desde o berçário, ampliando o repertório das crianças.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>`,
+  },
+];
+
+// --- Rotina diária ---
+const dailySchedule = [
+  { time: '7h00 – 8h30', activity: 'Acolhida e roda de chegada', detail: 'Recebimento individual de cada criança e família, brincadeiras livres e roda de conversa.' },
+  { time: '8h30 – 9h30', activity: 'Café da manhã coletivo', detail: 'Refeição preparada por nutricionista, em ambiente acolhedor com mediação dos educadores.' },
+  { time: '9h30 – 11h30', activity: 'Atividades pedagógicas', detail: 'Projetos planejados articulando os 4 eixos: cognição, socioemocional, motor e linguagem.' },
+  { time: '11h30 – 12h30', activity: 'Almoço e higiene', detail: 'Alimentação balanceada e momentos de cuidado e autonomia (escovação, lavar as mãos).' },
+  { time: '12h30 – 14h30', activity: 'Soneca / repouso', detail: 'Período tranquilo, respeitando o ritmo de sono individual de cada criança.' },
+  { time: '14h30 – 16h00', activity: 'Atividades externas e lúdicas', detail: 'Pátio, área verde, brincadeiras simbólicas, música e movimento.' },
+  { time: '16h00 – 17h00', activity: 'Lanche e roda final', detail: 'Recapitulação do dia, leitura de história e preparação para a saída.' },
+  { time: '17h00 – 19h00', activity: 'Saída flexível', detail: 'Atendimento individual às famílias, com horários respeitando a rotina de cada uma.' },
+];
 ---
+
+<BaseLayout
+  title="Proposta Pedagógica"
+  description="Conheça a metodologia, os eixos de desenvolvimento e a rotina diária do Colégio Villa Prime — uma proposta pedagógica intencional para a primeira infância."
+  schemaType="WebPage"
+>
+  <PageHero
+    eyebrow="Educação Infantil 0–6 anos"
+    title="Nossa Proposta Pedagógica"
+    subtitle="Uma proposta intencional, baseada na Pedagogia da Infância, que respeita o ritmo e a singularidade de cada criança."
+    breadcrumbs={[
+      { label: 'Início', href: '/' },
+      { label: 'Proposta Pedagógica' },
+    ]}
+    backgroundImage="/images/sobre/sobre-main.svg"
+  />
+
+  <!-- ============================================================
+       1. METODOLOGIA
+       ============================================================ -->
+  <section class="section container">
+    <SectionTitle
+      tag="Metodologia"
+      title="O brincar é a forma mais séria de aprender"
+      subtitle="Acreditamos que a infância é o tempo da experiência. Nossa metodologia articula a escuta, o brincar, o currículo intencional e a parceria com as famílias."
+      alignment="center"
+    />
+
+    <div class="metodologia-grid">
+      {methodologyHighlights.map((item, i) => (
+        <FeatureCard
+          title={item.title}
+          description={item.description}
+          icon={item.icon}
+          delay={i * 80}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- ============================================================
+       2. EIXOS DE DESENVOLVIMENTO
+       ============================================================ -->
+  <section class="section section-muted">
+    <div class="container">
+      <SectionTitle
+        tag="Eixos de Desenvolvimento"
+        title="Quatro dimensões trabalhadas com intencionalidade"
+        subtitle="Nosso currículo é organizado em torno de quatro eixos integrados, garantindo um desenvolvimento amplo e equilibrado."
+      />
+
+      <div class="eixos-grid">
+        {developmentAxes.map((axis, i) => (
+          <FeatureCard
+            title={axis.title}
+            description={axis.description}
+            icon={axis.icon}
+            delay={i * 80}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       3. ROTINA ESCOLAR — TIMELINE VISUAL
+       ============================================================ -->
+  <section class="section container">
+    <SectionTitle
+      tag="Rotina Diária"
+      title="Um dia no Colégio Villa Prime"
+      subtitle="Uma rotina previsível, acolhedora e rica em experiências — fundamentos para o desenvolvimento saudável das crianças."
+    />
+
+    <ol class="timeline">
+      {dailySchedule.map((entry, i) => (
+        <li class="timeline-item reveal" data-reveal-delay={i * 60}>
+          <span class="timeline-marker" aria-hidden="true">
+            <span class="timeline-dot"></span>
+          </span>
+          <div class="timeline-content">
+            <span class="timeline-time">{entry.time}</span>
+            <h3 class="timeline-activity">{entry.activity}</h3>
+            <p class="timeline-detail">{entry.detail}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- ============================================================
+       4. CTA — Agende uma visita
+       ============================================================ -->
+  <section class="cta-banner">
+    <div class="cta-banner-glow" aria-hidden="true"></div>
+    <div class="container cta-banner-inner reveal">
+      <span class="cta-banner-eyebrow">
+        <span class="cta-banner-eyebrow-dot" aria-hidden="true"></span>
+        Próximo Passo
+      </span>
+      <h2 class="cta-banner-title">Agende uma visita para conhecer na prática</h2>
+      <p class="cta-banner-subtitle">
+        Nada substitui a experiência de ver os ambientes, conhecer a equipe e
+        sentir o cuidado que está em cada detalhe da nossa rotina.
+      </p>
+      <div class="cta-banner-actions">
+        <CTAButton
+          text="Agendar pelo WhatsApp"
+          href={whatsappLink('Olá! Gostaria de agendar uma visita para conhecer a proposta pedagógica do Villa Prime.')}
+          variant="whatsapp"
+          size="lg"
+        />
+        <CTAButton text="Ver as turmas" href="/turmas/" variant="outline" size="lg" />
+      </div>
+    </div>
+  </section>
+
+  <ContactMiniSection
+    title="Quer saber mais sobre nossa proposta?"
+    subtitle="Conversamos com calma sobre o que faz mais sentido para sua família."
+  />
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     Metodologia / Eixos grids (2x2)
+     ============================================================ */
+  .metodologia-grid,
+  .eixos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .metodologia-grid,
+    .eixos-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ============================================================
+     Timeline (rotina escolar)
+     ============================================================ */
+  .timeline {
+    position: relative;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 56rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 1.5rem;
+    top: 0.75rem;
+    bottom: 0.75rem;
+    width: 2px;
+    background: linear-gradient(
+      180deg,
+      var(--color-accent-300) 0%,
+      var(--color-primary-200) 100%
+    );
+    border-radius: var(--radius-full);
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+  }
+
+  .timeline-item:not(:last-child) {
+    border-bottom: 1px solid var(--color-neutral-100);
+  }
+
+  .timeline-marker {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 0.4rem;
+  }
+
+  .timeline-dot {
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(
+      135deg,
+      var(--color-accent-400) 0%,
+      var(--color-accent-600) 100%
+    );
+    border: 3px solid var(--color-surface);
+    border-radius: var(--radius-full);
+    box-shadow: 0 0 0 2px var(--color-accent-200), var(--shadow-sm);
+    z-index: 1;
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .timeline-time {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.2rem 0.65rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--color-primary-700);
+    background-color: var(--color-primary-50);
+    border-radius: var(--radius-full);
+  }
+
+  .timeline-activity {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-primary-800);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .timeline-detail {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-neutral-600);
+    margin: 0;
+  }
+
+  /* ============================================================
+     CTA banner — gradient warm
+     ============================================================ */
+  .cta-banner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #fff;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-900) 0%,
+      var(--color-primary-700) 60%,
+      var(--color-accent-700) 100%
+    );
+    padding-block: clamp(4rem, 9vh, 6rem);
+  }
+
+  .cta-banner-glow {
+    position: absolute;
+    top: -25%;
+    right: -15%;
+    width: 70%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgb(246 201 31 / 0.18) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .cta-banner-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: center;
+    max-width: 52rem;
+  }
+
+  .cta-banner-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.4rem 0.95rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent-200);
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: var(--radius-full);
+  }
+
+  .cta-banner-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent-400);
+  }
+
+  .cta-banner-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
+    line-height: 1.15;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .cta-banner-subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.6vw + 0.85rem, 1.15rem);
+    line-height: 1.6;
+    color: rgb(255 255 255 / 0.88);
+    margin: 0;
+    max-width: 40rem;
+    text-wrap: pretty;
+  }
+
+  .cta-banner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+</style>

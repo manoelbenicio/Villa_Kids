@@ -1,4 +1,403 @@
 ---
-layout: '../layouts/BaseLayout.astro'
-title: 'Segurança'
+/**
+ * @file seguranca.astro
+ * @description Página /seguranca/ — apresenta os protocolos de segurança,
+ *              saúde, controle de acesso, monitoramento e LGPD do
+ *              Colégio Villa Prime.
+ *
+ * @author GEMINI-UX
+ * @phase 4
+ * @created 2026-05-17T21:34:00Z
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import TrustBadge from '../components/TrustBadge.astro';
+import CTAButton from '../components/CTAButton.astro';
+import ContactMiniSection from '../components/ContactMiniSection.astro';
+import { whatsappLink } from '../data/school-info.ts';
+
+// --- Protocolos de segurança ---
+const securityProtocols = [
+  {
+    title: 'Controle de Acesso por Biometria',
+    description:
+      'Entrada e saída registradas por biometria. Apenas pais, responsáveis cadastrados e equipe autorizada têm acesso.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`,
+  },
+  {
+    title: 'Monitoramento 24h por CCTV',
+    description:
+      'Câmeras nos ambientes coletivos com gravação contínua e armazenamento criptografado, em conformidade com a LGPD.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="m22 7-7 5 7 5V7Z"/></svg>`,
+  },
+  {
+    title: 'Equipe Treinada em Primeiros Socorros',
+    description:
+      'Profissionais com formação em primeiros socorros pediátricos, com reciclagens periódicas e protocolos claros para emergências.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/><path d="M12 9v6"/><path d="M9 12h6"/></svg>`,
+  },
+  {
+    title: 'Plano de Evacuação',
+    description:
+      'Plano de evacuação aprovado pelo Corpo de Bombeiros, com simulados periódicos e equipe preparada para conduzir as crianças com segurança.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`,
+  },
+  {
+    title: 'Protocolos de Saúde',
+    description:
+      'Higienização rigorosa dos ambientes, controle de temperatura na entrada e protocolos atualizados conforme as orientações sanitárias vigentes.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+  },
+  {
+    title: 'Conformidade com a LGPD',
+    description:
+      'Dados pessoais e imagens das crianças são tratados com critérios rigorosos e em conformidade com a Lei Geral de Proteção de Dados.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>`,
+  },
+];
+
+// --- Trust badges (números de segurança) ---
+const trustNumbers = [
+  { value: 100, suffix: '%', label: 'Acesso por biometria' },
+  { value: 24, suffix: 'h', label: 'Monitoramento por câmeras' },
+  { value: 4, suffix: 'x/ano', label: 'Simulados de evacuação' },
+  { value: 0, suffix: '', label: 'Tolerância a riscos' },
+];
+
+// --- Compromissos extras (em texto curto) ---
+const safetyCommitments = [
+  'Comunicação imediata aos responsáveis em qualquer ocorrência médica.',
+  'Protocolo de saída assistida — crianças só são entregues a pessoas autorizadas previamente.',
+  'Alimentação preparada na cozinha própria, com nutricionista responsável e adaptações para restrições.',
+  'Reciclagem contínua da equipe em segurança, primeiros socorros e proteção da infância.',
+];
 ---
+
+<BaseLayout
+  title="Segurança e Bem-estar"
+  description="Conheça os protocolos de segurança do Colégio Villa Prime — controle de acesso por biometria, monitoramento por CCTV, plano aprovado pelo Corpo de Bombeiros e conformidade com a LGPD."
+  schemaType="WebPage"
+>
+  <PageHero
+    eyebrow="Segurança & Bem-estar"
+    title="A segurança do seu filho é nossa prioridade absoluta"
+    subtitle="Protocolos integrais de segurança, saúde e proteção de dados — porque tranquilidade é a base de uma boa rotina escolar."
+    breadcrumbs={[
+      { label: 'Início', href: '/' },
+      { label: 'Segurança' },
+    ]}
+    backgroundImage="/images/ambientes/area-verde.svg"
+  />
+
+  <!-- ============================================================
+       1. Trust badges — números de segurança
+       ============================================================ -->
+  <section class="trust-section">
+    <div class="container">
+      <div class="trust-grid">
+        {trustNumbers.map((tn, i) => (
+          <TrustBadge
+            value={tn.value}
+            suffix={tn.suffix}
+            label={tn.label}
+            delay={i * 100}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       2. Protocolos de segurança
+       ============================================================ -->
+  <section class="section container">
+    <SectionTitle
+      tag="Protocolos"
+      title="Camadas integradas de proteção"
+      subtitle="Cada criança é cuidada por múltiplas linhas de proteção — humanas, físicas, digitais e processuais."
+    />
+
+    <div class="protocols-grid">
+      {securityProtocols.map((protocol, i) => (
+        <FeatureCard
+          title={protocol.title}
+          description={protocol.description}
+          icon={protocol.icon}
+          delay={i * 70}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- ============================================================
+       3. Compromissos extras
+       ============================================================ -->
+  <section class="section section-muted">
+    <div class="container commitments-container">
+      <SectionTitle
+        tag="Compromissos"
+        title="Pequenos detalhes que fazem grande diferença"
+        subtitle="Cuidados práticos, presentes na nossa rotina, que sustentam a segurança real — para além do que aparece nos protocolos."
+        alignment="left"
+      />
+
+      <ul class="commitments-list">
+        {safetyCommitments.map((c, i) => (
+          <li class="commitment reveal" data-reveal-delay={i * 70}>
+            <span class="commitment-marker" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span>{c}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4. CTA — Segurança é prioridade
+       ============================================================ -->
+  <section class="cta-banner">
+    <div class="cta-banner-glow" aria-hidden="true"></div>
+    <div class="container cta-banner-inner reveal">
+      <span class="cta-banner-eyebrow">
+        <span class="cta-banner-eyebrow-dot" aria-hidden="true"></span>
+        Tranquilidade
+      </span>
+      <h2 class="cta-banner-title">A segurança do seu filho é prioridade</h2>
+      <p class="cta-banner-subtitle">
+        Em uma visita guiada, mostramos pessoalmente cada protocolo. Você
+        verá, sentirá e sairá com a certeza de que sua criança estará bem.
+      </p>
+      <div class="cta-banner-actions">
+        <CTAButton
+          text="Agendar visita guiada"
+          href={whatsappLink('Olá! Gostaria de conhecer pessoalmente os protocolos de segurança do Villa Prime.')}
+          variant="whatsapp"
+          size="lg"
+        />
+        <CTAButton
+          text="Política de Privacidade"
+          href="/politica-de-privacidade/"
+          variant="outline"
+          size="lg"
+        />
+      </div>
+    </div>
+  </section>
+
+  <ContactMiniSection
+    title="Tem alguma dúvida específica sobre segurança?"
+    subtitle="Respondemos cada pergunta com a seriedade que o tema merece — sem rodeios."
+  />
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     Trust section — TrustBadges row
+     ============================================================ */
+  .trust-section {
+    background-color: var(--color-surface);
+    padding-block: clamp(3rem, 6vw, 4.5rem);
+    border-bottom: 1px solid var(--color-neutral-100);
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .trust-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* ============================================================
+     Protocols grid — 3 col / 2 col / 1 col
+     ============================================================ */
+  .protocols-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 1024px) {
+    .protocols-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .protocols-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ============================================================
+     Commitments list
+     ============================================================ */
+  .commitments-container {
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+
+  .commitments-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .commitment {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-neutral-200);
+    border-left: 4px solid var(--color-accent-500);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-neutral-700);
+    transition:
+      transform 250ms cubic-bezier(0.32, 0.72, 0, 1),
+      border-color 250ms cubic-bezier(0.32, 0.72, 0, 1),
+      box-shadow 250ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .commitment:hover {
+    transform: translateX(4px);
+    border-left-color: var(--color-accent-700);
+    box-shadow: var(--shadow-md);
+  }
+
+  .commitment-marker {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    color: var(--color-accent-700);
+    background-color: var(--color-accent-50);
+    border-radius: var(--radius-full);
+    margin-top: 2px;
+  }
+
+  .commitment-marker svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ============================================================
+     CTA banner (shared style)
+     ============================================================ */
+  .cta-banner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #fff;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-900) 0%,
+      var(--color-primary-700) 60%,
+      var(--color-accent-700) 100%
+    );
+    padding-block: clamp(4rem, 9vh, 6rem);
+  }
+
+  .cta-banner-glow {
+    position: absolute;
+    top: -25%;
+    right: -15%;
+    width: 70%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgb(246 201 31 / 0.18) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .cta-banner-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: center;
+    max-width: 52rem;
+  }
+
+  .cta-banner-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.4rem 0.95rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent-200);
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: var(--radius-full);
+  }
+
+  .cta-banner-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent-400);
+  }
+
+  .cta-banner-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
+    line-height: 1.15;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .cta-banner-subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.6vw + 0.85rem, 1.15rem);
+    line-height: 1.6;
+    color: rgb(255 255 255 / 0.88);
+    margin: 0;
+    max-width: 40rem;
+    text-wrap: pretty;
+  }
+
+  .cta-banner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .commitment { transition: none; }
+    .commitment:hover { transform: none; }
+  }
+</style>
